@@ -11,9 +11,11 @@
     "parse": "tsx scripts/parse.ts",
     "validate": "tsx scripts/validate.ts",
     "data": "npm run parse && npm run validate",
-    "spotcheck": "tsx scripts/spotcheck.ts"
+    "spotcheck": "tsx scripts/spotcheck.ts",
+    "fonts": "node scripts/fetch-fonts.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.121.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^2.13.3"

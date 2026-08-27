@@ -1,0 +1,39 @@
+/**
+ * Grundprincip: pastellerna är data, inte gränssnitt.
+ * --data-* får bara röra dataserier i grafer. Knappar, paneler och bakgrunder
+ * håller sig till canvas/surface/ink. Släpper man in pastellerna i
+ * gränssnittet blir det godis inom tio minuter, och de tappar sin funktion
+ * som färgkodning av data.
+ *
+ * Palettens hexvärden är samplade ur rapporten 2025 och ska verifieras mot
+ * Internetstiftelsens grafiska manual innan de kallas korrekta.
+ */
+:root {
+  --canvas:        #F6F7F6;
+  --surface:       #FFFFFF;
+  --ink:           #16181A;
+  --ink-muted:     #71767B;
+  --hairline:      rgba(22, 24, 26, 0.07);
+
+  --data-mint:     #C8E7DD;
+  --data-blue:     #A7D8FD;
+  --data-yellow:   #FFE696;
+  --data-pink:     #FF9FB4;
+  --data-fallback: #E4E6E5;
+
+  --r-card:  24px;
+  --r-input: 18px;
+  --r-pill:  999px;
+  --r-chip:  12px;
+
+  --shadow-sm: 0 1px 2px rgba(22, 24, 26, 0.04);
+  --shadow-md: 0 1px 2px rgba(22, 24, 26, 0.04),
+               0 8px 20px -6px rgba(22, 24, 26, 0.08);
+  --shadow-lg: 0 2px 4px rgba(22, 24, 26, 0.04),
+               0 16px 40px -12px rgba(22, 24, 26, 0.12);
+
+  --sans: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --col: 720px;
+}
