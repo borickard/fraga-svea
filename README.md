@@ -121,6 +121,25 @@ efter värdet och en förklarande rad i fotnoten.
 `1.0000000000000002`. De klipps till `1` inom flyttalsfelets storlek och
 räknas i loggen. Allt utanför den marginalen stoppar bygget i valideringen.
 
+**En fråga, flera tabeller.** Bilagan splittrar samma fråga på tre sätt, och
+alla tre är filter inuti frågan snarare än olika frågor:
+
+- **Bas.** "Hur ofta använder du internet?" finns på `Samtliga 16+ år`, `-64 år`
+  och `65+ år`. Det är åldersfilter.
+- **Frekvens.** "Vilka sociala medier har du använt minst någon gång / minst
+  varje vecka / dagligen" är tre tabeller men en fråga om hur ofta.
+- **Netto mot detalj.** AI-verktygsfrågan finns som en Netto-tabell och en
+  detaljerad tabell på samma bas med samma n. De slås ihop till en alternativlista.
+
+`src/lib/groups.ts` grupperar 101 tabeller till 64 frågor. Grupperingen sker i
+presentationslagret, inte i parsern: datasetet speglar arket troget, en post per
+tabell, så att stickprovet mot cellerna fortsätter gälla. Sammanslagning av
+alternativ sker bara när bas OCH n är identiska.
+
+Basen blir därmed ett synligt val i gränssnittet i stället för något som
+avgörs av var i träfflistan man råkar klicka. Det gör bas-fällan svårare att
+gå i, inte lättare.
+
 **Frågetexter som inte står på egna ben.** 23 frågor heter bara ett
 plattformsnamn (`Youtube`, `Tiktok`), sex heter `Har du tidigare använt …?` där
 bara basen skiljer, och tre heter `Vilka har du använt dagligen?` utan att säga

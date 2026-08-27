@@ -42,10 +42,15 @@ export interface QueryInput {
   questionId: string;
   optionLabel?: string | null;
   segmentGroup?: string | null;
+  /**
+   * Färdig fråga, för varianter vars alternativ slagits ihop ur två tabeller
+   * i bilagan. Utan den skulle uppslagningen tappa de sammanslagna raderna.
+   */
+  question?: Question;
 }
 
-export function executeQuery({ questionId, optionLabel, segmentGroup }: QueryInput): Answer | null {
-  const question = getQuestion(questionId);
+export function executeQuery({ questionId, optionLabel, segmentGroup, question: given }: QueryInput): Answer | null {
+  const question = given ?? getQuestion(questionId);
   if (!question) return null;
 
   const option =

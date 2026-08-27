@@ -1,48 +1,48 @@
-import type { Question } from '../types';
-import { isAmbiguous, optionPreview } from '../lib/dataset';
-import { hasTitle, titleFor } from '../lib/labels';
+import type { QuestionGroup } from '../lib/groups';
 
 interface Props {
-  hits: Question[];
+  groups: QuestionGroup[];
   activeId: string | null;
-  onSelect: (q: Question) => void;
+  onSelect: (g: QuestionGroup) => void;
   label: string;
 }
 
 /**
- * Träfflistan.
+ * Träfflistan. En rad per fråga, inte per tabell.
  *
- * Titeln står överst för att gå att skumma — flera frågor i bilagan heter
- * bara "Youtube" eller "Har du tidigare använt …?". Men frågans exakta
- * formulering står alltid kvar under den: det är den som är källan, och den
- * får aldrig ersättas av en rubrik någon skrivit i efterhand.
+ * Bilagan har samma fråga i upp till sex tabeller — olika baser, olika
+ * frekvenser — men det är en fråga med filter, inte sex träffar. Raden
+ * visar hur många baser och frekvenser som finns bakom.
  *
- * Basen står alltid med: samma frågetext förekommer med olika baser, och det
- * är den vanligaste källan till felaktiga rubriker.
+ * Titeln står överst för att gå att skumma, men frågans exakta formulering
+ * står alltid kvar under den: det är den som är källan.
  */
-export function Hits({ hits, activeId, onSelect, label }: Props) {
-  if (hits.length === 0) return null;
+export function Hits({ groups, activeId, onSelect, label }: Props) {
+  if (groups.length === 0) return null;
+
   return (
     <ul className="hits" aria-label={label}>
-      {hits.map((q) => (
-        <li className="hits__item" key={q.id}>
-          <button
-            type="button"
-            className="hits__button"
-            aria-current={q.id === activeId}
-            onClick={() => onSelect(q)}
-          >
-            <span className="hits__text">{titleFor(q)}</span>
-            {hasTitle(q) && <span className="hits__wording">{q.text}</span>}
-            <span className="hits__base label">Bas: {q.base_label}</span>
-            {/* Två tabeller kan ha samma frågetext och samma bas. Då är
-                svarsalternativen det enda som skiljer dem åt. */}
-            {isAmbiguous(q.id) && (
-              <span className="hits__options label">{optionPreview(q)}</span>
-            )}
-          </button>
-        </li>
-      ))}
+      {groups.map((g) => {
+        const parts: string[] = [];
+        if (g.bases.length > 1) parts.push(`${g.bases.length} baser`);
+        else parts.push(`Bas: ${g.bases[0]}`);
+        if (g.frequencies.length > 1) parts.push(`${g.frequencies.length} frekvenser`);
+
+        return (
+          <li className="hits__item" key={g.id}>
+            <button
+              type="button"
+              className="hits__button"
+              aria-current={g.id === activeId}
+              onClick={() => onSelect(g)}
+            >
+              <span className="hits__text">{g.title}</span>
+              {g.title !== g.sampleText && <span className="hits__wording">{g.sampleText}</span>}
+              <span className="hits__base label">{parts.join(' · ')}</span>
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 }

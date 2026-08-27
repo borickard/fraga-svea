@@ -1,29 +1,48 @@
 import { useMemo, useRef, useState } from 'react';
-import type { Question } from './types';
 import { dataset, TOTAL_GROUP } from './lib/dataset';
 import { bestOption, bestSegmentGroup, nearestQuestions, searchQuestions } from './lib/search';
 import { executeQuery } from './lib/query';
 import { askModel, AskUnavailable } from './lib/ask';
 import { exportFilename, exportPng, exportSvg } from './lib/export';
+import { allGroups, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
+import { examplesFor, questionsInTopic } from './lib/labels';
 import { SearchField } from './components/SearchField';
 import { Hits } from './components/Hits';
 import { Pills } from './components/Pills';
 import { NoMatch } from './components/NoMatch';
 import { AnswerCard } from './components/AnswerCard';
 import { Topics } from './components/Topics';
-import { examplesFor, questionsInTopic } from './lib/labels';
 
 type View =
   | { kind: 'idle' }
-  | { kind: 'selected'; questionId: string }
-  | { kind: 'no_match'; query: string; suggestions: Question[] };
+  | { kind: 'selected'; groupId: string }
+  | { kind: 'no_match'; query: string; suggestions: QuestionGroup[] };
+
+/** Träffar är frågor, inte tabeller. Flera tabeller i samma grupp blir en rad. */
+function toGroups(questions: { id: string }[]): QuestionGroup[] {
+  const out: QuestionGroup[] = [];
+  const seen = new Set<string>();
+  for (const q of questions) {
+    const g = groupOf(q.id);
+    if (!g || seen.has(g.id)) continue;
+    seen.add(g.id);
+    out.push(g);
+  }
+  return out;
+}
 
 export function App() {
   const [query, setQuery] = useState('');
   const [view, setView] = useState<View>({ kind: 'idle' });
-  const [option, setOption] = useState<string | null>(null);
-  const [group, setGroup] = useState<string>(TOTAL_GROUP);
   const [topic, setTopic] = useState<string | null>(null);
+
+  // Val inom den valda frågan. Bas och frekvens pekar ut vilken tabell i
+  // bilagan som slås upp; alternativ och segmentgrupp styr vad kortet visar.
+  const [base, setBase] = useState<string | null>(null);
+  const [frequency, setFrequency] = useState<string | null>(null);
+  const [option, setOption] = useState<string | null>(null);
+  const [segmentGroup, setSegmentGroup] = useState<string>(TOTAL_GROUP);
+
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const cardRef = useRef<SVGSVGElement>(null);
@@ -31,24 +50,31 @@ export function App() {
   // Fas 2: sökningen är helt deterministisk och gör inga API-anrop.
   const hits = useMemo(() => {
     if (view.kind === 'selected') return [];
-    if (query.trim().length >= 2) return searchQuestions(query, 6).map((h) => h.question);
-    // Utan sökord är ett valt ämne ingången: alla frågor som hör dit.
-    return topic ? questionsInTopic(topic) : [];
+    if (query.trim().length >= 2) return toGroups(searchQuestions(query, 12).map((h) => h.question));
+    return topic ? toGroups(questionsInTopic(topic)) : [];
   }, [query, view.kind, topic]);
 
-  const answer = useMemo(
-    () => (view.kind === 'selected'
-      ? executeQuery({ questionId: view.questionId, optionLabel: option, segmentGroup: group })
-      : null),
-    [view, option, group],
-  );
+  const group = view.kind === 'selected' ? allGroups().find((g) => g.id === view.groupId) : undefined;
 
-  /** Väljer en fråga och sätter alternativ och segmentgrupp ur användarens egen text. */
-  function select(q: Question, sourceText = query, spec?: { option?: string | null; group?: string | null }) {
-    setOption(spec?.option ?? bestOption(q, sourceText) ?? q.options[0].label);
-    const g = spec?.group ?? bestSegmentGroup(q, sourceText);
-    setGroup(g && q.segment_groups.includes(g) ? g : TOTAL_GROUP);
-    setView({ kind: 'selected', questionId: q.id });
+  const answer = useMemo(() => {
+    if (!group) return null;
+    const question = resolve(group, { base, frequency });
+    return executeQuery({ questionId: question.id, optionLabel: option, segmentGroup, question });
+  }, [group, base, frequency, option, segmentGroup]);
+
+  /** Öppnar en fråga och sätter val ur användarens egen text. */
+  function select(g: QuestionGroup, sourceText = query, from?: { questionId?: string; option?: string | null; group?: string | null }) {
+    const sel = from?.questionId ? selectionFor(from.questionId) : {};
+    const nextBase = sel.base ?? g.bases[0];
+    const nextFreq = sel.frequency ?? (g.frequencies[0] ?? null);
+    setBase(nextBase);
+    setFrequency(nextFreq);
+
+    const question = resolve(g, { base: nextBase, frequency: nextFreq });
+    setOption(from?.option ?? bestOption(question, sourceText) ?? question.options[0].label);
+    const sg = from?.group ?? bestSegmentGroup(question, sourceText);
+    setSegmentGroup(sg && question.segment_groups.includes(sg) ? sg : TOTAL_GROUP);
+    setView({ kind: 'selected', groupId: g.id });
   }
 
   // Fas 3: modellen översätter frågan till en query. Den ser aldrig ett värde.
@@ -59,23 +85,27 @@ export function App() {
     setNotice(null);
     try {
       const spec = await askModel(q);
-      // Ingen match eller låg tillförsikt: visa de tre närmaste frågorna, gissa aldrig.
+      // Ingen match eller låg tillförsikt: visa de tre närmaste, gissa aldrig.
       if (spec.no_match || spec.confidence === 'low' || !spec.question_id) {
-        setView({ kind: 'no_match', query: q, suggestions: nearestQuestions(q) });
+        setView({ kind: 'no_match', query: q, suggestions: toGroups(nearestQuestions(q)) });
         return;
       }
-      const question = dataset.questions.find((x) => x.id === spec.question_id)!;
-      select(question, q, { option: spec.options[0] ?? null, group: spec.segment_group });
+      const g = groupOf(spec.question_id);
+      if (!g) {
+        setView({ kind: 'no_match', query: q, suggestions: toGroups(nearestQuestions(q)) });
+        return;
+      }
+      // Modellens val av bas och frekvens följer med via fråge-id:t.
+      select(g, q, { questionId: spec.question_id, option: spec.options[0] ?? null, group: spec.segment_group });
     } catch (e) {
       if ((e as Error).name === 'AbortError') return;
       // Utan frågelager faller appen tillbaka på fas 2. Verktyget är användbart ändå.
-      const local = searchQuestions(q, 6).map((h) => h.question);
       setNotice(
         e instanceof AskUnavailable
           ? `${e.message} Visar sökträffar i stället.`
           : 'Något gick fel i frågelagret. Visar sökträffar i stället.',
       );
-      setView(local.length ? { kind: 'idle' } : { kind: 'no_match', query: q, suggestions: [] });
+      setView({ kind: 'idle' });
     } finally {
       setBusy(false);
     }
@@ -106,7 +136,7 @@ export function App() {
     }
   }
 
-  const groupsForCard = answer
+  const segmentGroups = answer
     ? [TOTAL_GROUP, ...answer.question.segment_groups.filter((g) => g !== TOTAL_GROUP)]
     : [];
 
@@ -124,14 +154,10 @@ export function App() {
 
       {notice && <p className="error" role="status">{notice}</p>}
 
-      {view.kind === 'no_match' && (
-        <NoMatch query={view.query} suggestions={view.suggestions} onSelect={(q) => select(q, view.query)} />
-      )}
-
       {view.kind !== 'selected' && !query.trim() && (
         <section className="empty">
           <p>
-            {dataset.questions.length} frågor ur {dataset.meta.source}, nedbrutna på{' '}
+            {allGroups().length} frågor ur {dataset.meta.source}, nedbrutna på{' '}
             {dataset.segments.length} segment. Skriv en fråga, eller välj ett ämne.
           </p>
           <Topics active={topic} onSelect={chooseTopic} />
@@ -152,11 +178,30 @@ export function App() {
       )}
 
       {view.kind !== 'selected' && (
-        <Hits hits={hits} activeId={null} onSelect={(q) => select(q)} label="Frågor i undersökningen" />
+        <Hits groups={hits} activeId={null} onSelect={(g) => select(g)} label="Frågor i undersökningen" />
       )}
 
-      {answer && (
+      {view.kind === 'no_match' && (
+        <NoMatch query={view.query} suggestions={view.suggestions} onSelect={(g) => select(g, view.query)} />
+      )}
+
+      {answer && group && (
         <>
+          {/* Bas och frekvens pekar ut vilken tabell som slås upp. Basen är
+              inte en detalj: samma fråga på olika baser ger olika andelar. */}
+          <Pills
+            ariaLabel="Bas"
+            items={group.bases.map((b) => ({ id: b, label: b }))}
+            active={base ?? group.bases[0]}
+            onSelect={setBase}
+            maxVisible={6}
+          />
+          <Pills
+            ariaLabel="Hur ofta"
+            items={group.frequencies.map((f) => ({ id: f, label: f }))}
+            active={frequency ?? group.frequencies[0] ?? ''}
+            onSelect={setFrequency}
+          />
           <Pills
             ariaLabel="Svarsalternativ"
             items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
@@ -166,9 +211,9 @@ export function App() {
           />
           <Pills
             ariaLabel="Segmentgrupp"
-            items={groupsForCard.map((g) => ({ id: g, label: g === TOTAL_GROUP ? 'Totalt' : g }))}
+            items={segmentGroups.map((g) => ({ id: g, label: g === TOTAL_GROUP ? 'Totalt' : g }))}
             active={answer.segmentGroup}
-            onSelect={setGroup}
+            onSelect={setSegmentGroup}
             maxVisible={7}
           />
 
