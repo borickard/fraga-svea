@@ -264,7 +264,7 @@ body {
   color: var(--ink-muted);
   font-size: 15px;
 }
-.empty__examples { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.empty__examples { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 8px; }
 .empty__example {
   border: 1px solid var(--hairline);
   background: var(--surface);

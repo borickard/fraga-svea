@@ -1,29 +1,49 @@
 {
   "_kommentar": [
     "Ämnen att bläddra och söka på. Handskriven fil — redigera fritt.",
+    "",
+    "Indelningen följer rapportens egna fem kapitel, så att den som läst",
+    "rapporten känner igen sig. Ämnen med chapter: null finns i tabellbilagan",
+    "men har inget eget kapitel i rapporten — det är där verktyget ger mest,",
+    "eftersom siffrorna finns men ingen har skrivit om dem.",
+    "",
     "En fråga hamnar under ett ämne om något av dess ord finns i frågans",
-    "titel, frågetext, bas eller svarsalternativ. En fråga kan höra till",
-    "flera ämnen. Ämnena styr bara vägen fram till frågan — de påverkar",
-    "aldrig vilket värde som slås upp.",
-    "Ordningen här är den ordning de visas i."
+    "titel, frågetext, bas eller svarsalternativ. En fråga kan höra till flera.",
+    "Ämnena styr bara vägen fram till frågan — de påverkar aldrig vilket",
+    "värde som slås upp."
   ],
   "topics": [
-    { "id": "ai", "label": "AI", "keywords": ["ai-verktyg", "ai-teknik", "chatgpt", "copilot", "gemini", "dall-e", "midjourney"] },
-    { "id": "sociala-medier", "label": "Sociala medier", "keywords": ["sociala medier", "sociala nätverksplatser", "youtube", "facebook", "instagram", "snapchat", "tiktok", "linkedin", "pinterest", "twitter", "reddit", "threads", "bereal", "bluesky", "mastodon", "flashback", "yubo", "egna inlägg"] },
-    { "id": "meddelandeappar", "label": "Meddelandeappar", "keywords": ["messenger", "whatsapp", "signal", "telegram", "tellonym"] },
-    { "id": "play", "label": "Play och strömmat", "keywords": ["strömmande", "streamingtjänst", "play", "netflix", "svt play", "viaplay", "spotify", "twitch"] },
-    { "id": "bedrageri", "label": "Bluffannonser och bedrägeri", "keywords": ["bluffannons", "trygghetsmärkning", "bedrägeri", "falsk"] },
-    { "id": "e-handel", "label": "E-handel", "keywords": ["e-handlat", "e-handel", "e-handelsplats", "köpa"] },
-    { "id": "e-legitimation", "label": "E-legitimation och BankID", "keywords": ["e-legitimation", "bank-id", "bankid", "freja"] },
-    { "id": "brevlada", "label": "Digital brevlåda", "keywords": ["digital brevlåda", "digitala brevlådor", "kivra", "billo", "digimail", "e-boks", "myndighetspost"] },
-    { "id": "betalning", "label": "Betalappar", "keywords": ["betalning", "swish", "betalappar"] },
-    { "id": "vard", "label": "Vård och hälsa", "keywords": ["sjukvård", "hälso", "läkare", "vårdcentral", "1177", "e-vårdtjänster"] },
-    { "id": "relationer", "label": "Nätdejting och relationer", "keywords": ["nätdejt", "partner", "mikrootrohet", "otrohet", "ex på", "sina ex", "tinder", "irl"] },
-    { "id": "krypto", "label": "Kryptovaluta", "keywords": ["kryptovaluta", "bitcoin"] },
-    { "id": "arbetsliv", "label": "Arbetsliv", "keywords": ["arbetslös", "sektor", "tjänsteman", "arbetare", "hemifrån", "yrkesroll", "arbetsvecka"] },
-    { "id": "spel", "label": "Spel och communities", "keywords": ["roblox", "robux", "discord", "twitch"] },
-    { "id": "e-tjanster", "label": "E-tjänster", "keywords": ["e-tjänster", "e-tjänst"] },
-    { "id": "internetanvandning", "label": "Internetanvändning", "keywords": ["hur ofta använder du internet"] },
-    { "id": "bakgrund", "label": "Bakgrund", "keywords": ["stadier:", "utbildningsnivå", "sysselsättning"] }
+    { "id": "internet-etjanster", "chapter": 1, "label": "Internet och e-tjänster",
+      "keywords": ["hur ofta använder du internet", "digital brevlåda", "digitala brevlådor", "kivra", "billo", "digimail", "e-boks", "myndighetspost", "e-legitimation", "bank-id", "bankid", "freja", "e-tjänster", "e-tjänst", "sjukvård", "hälso", "läkare", "vårdcentral", "1177", "e-vårdtjänster"] },
+
+    { "id": "ai", "chapter": 2, "label": "AI",
+      "keywords": ["ai-verktyg", "ai-teknik", "chatgpt", "copilot", "gemini", "bard", "dall-e", "midjourney", "perplexity", "prompt", "arbetslös"] },
+
+    { "id": "sociala-medier", "chapter": 3, "label": "Sociala medier",
+      "keywords": ["sociala medier", "sociala nätverksplatser", "youtube", "facebook", "instagram", "snapchat", "tiktok", "linkedin", "pinterest", "twitter", "reddit", "threads", "bereal", "bluesky", "mastodon", "flashback", "yubo", "egna inlägg", "messenger", "whatsapp", "signal", "telegram", "tellonym", "roblox", "robux", "discord", "twitch"] },
+
+    { "id": "annonsbedrageri", "chapter": 4, "label": "Annonsbedrägerier",
+      "keywords": ["bluffannons", "annonsbedrägeri", "trygghetsmärkning", "bedrägeri"] },
+
+    { "id": "dejting", "chapter": 5, "label": "Dejting och relationer",
+      "keywords": ["nätdejt", "partner", "mikrootrohet", "otrohet", "sina ex", "ex på"] },
+
+    { "id": "e-handel", "chapter": null, "label": "E-handel",
+      "keywords": ["e-handlat", "e-handel", "e-handelsplats"] },
+
+    { "id": "play", "chapter": null, "label": "Play och strömmat",
+      "keywords": ["strömmande", "streamingtjänst", "play", "netflix", "viaplay", "spotify", "rörlig bild"] },
+
+    { "id": "betalning", "chapter": null, "label": "Betalappar",
+      "keywords": ["betalning", "swish"] },
+
+    { "id": "krypto", "chapter": null, "label": "Kryptovaluta",
+      "keywords": ["kryptovaluta", "bitcoin"] },
+
+    { "id": "arbetsliv", "chapter": null, "label": "Arbetsliv",
+      "keywords": ["arbetslös", "sektor", "tjänsteman", "hemifrån", "yrkesroll", "arbetsvecka"] },
+
+    { "id": "bakgrund", "chapter": null, "label": "Bakgrund",
+      "keywords": ["stadier:", "utbildningsnivå"] }
   ]
 }

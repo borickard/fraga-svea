@@ -11,6 +11,7 @@
 import type { Question } from '../types';
 import rawTitles from '../data/titles.json';
 import rawTopics from '../data/topics.json';
+import rawExamples from '../data/examples.json';
 import { dataset } from './dataset';
 
 const titles = rawTitles as Record<string, string | string[]>;
@@ -23,7 +24,17 @@ export function titleFor(q: Question): string {
 /** Sant när titeln säger något frågetexten inte redan säger. */
 export const hasTitle = (q: Question): boolean => titleFor(q) !== q.text;
 
-export interface Topic { id: string; label: string; keywords: string[]; }
+export interface Topic {
+  id: string;
+  label: string;
+  keywords: string[];
+  /**
+   * Kapitel i rapporten, eller null när ämnet bara finns i tabellbilagan.
+   * Det är den senare kategorin verktyget existerar för: siffrorna finns,
+   * men rapporten redovisar dem inte.
+   */
+  chapter: number | null;
+}
 
 export const topics: Topic[] = (rawTopics as { topics: Topic[] }).topics;
 
@@ -52,3 +63,19 @@ export const activeTopics = (): (Topic & { count: number })[] =>
   topics
     .map((t) => ({ ...t, count: questionsInTopic(t.id).length }))
     .filter((t) => t.count > 0);
+
+export interface Example { topic: string; text: string; }
+
+const examples = (rawExamples as { examples: Example[] }).examples;
+
+/**
+ * Exempelfrågor, ordagrant ur rapportens avsnittsrubriker. Utan dem är
+ * sökfältet en tom ruta och det är oklart vad man kan fråga om.
+ * Utan valt ämne visas en fråga från vart och ett av rapportens kapitel.
+ */
+export function examplesFor(topicId: string | null, limit = 4): Example[] {
+  if (topicId) return examples.filter((e) => e.topic === topicId).slice(0, limit);
+  const perTopic = new Map<string, Example>();
+  for (const e of examples) if (!perTopic.has(e.topic)) perTopic.set(e.topic, e);
+  return [...perTopic.values()].slice(0, limit);
+}

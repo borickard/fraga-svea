@@ -110,6 +110,13 @@ efter värdet och en förklarande rad i fotnoten.
 `1.0000000000000002`. De klipps till `1` inom flyttalsfelets storlek och
 räknas i loggen. Allt utanför den marginalen stoppar bygget i valideringen.
 
+**Frågetexter som inte står på egna ben.** 23 frågor heter bara ett
+plattformsnamn (`Youtube`, `Tiktok`), sex heter `Har du tidigare använt …?` där
+bara basen skiljer, och tre heter `Vilka har du använt dagligen?` utan att säga
+vad. `src/data/titles.json` ger varje fråga en kort titel att söka och skumma
+på. Titeln ersätter aldrig formuleringen — träfflistan visar båda, och
+svarskortet visar formuleringen ordagrant.
+
 **Identisk frågetext och identisk bas.** Fem frågor är olika tabeller trots
 samma text och samma bas — typiskt en Netto-sammanställning och en detaljerad
 uppdelning. De skiljs bara åt av svarsalternativen, så träfflistan visar en
@@ -119,6 +126,22 @@ Signifikansmarkörerna (`Kolumn% Chi2`) parsas ut till `sig[]` i stället för a
 kastas. De visas inte i gränssnittet ännu.
 
 ---
+
+## Ämnen och exempel
+
+`src/data/topics.json` följer rapportens egna fem kapitel — Användning av
+internet och e-tjänster, AI, Sociala medier, Annonsbedrägerier, Dejting och
+relationer — så att den som läst rapporten känner igen sig. Ämnen med
+`chapter: null` finns i tabellbilagan men saknar eget kapitel i rapporten:
+e-handel, play och strömmat, betalappar, kryptovaluta, arbetsliv. Det är där
+verktyget ger mest, eftersom siffrorna finns men ingen har skrivit om dem.
+
+`src/data/examples.json` innehåller exempelfrågor hämtade ordagrant ur
+rapportens avsnittsrubriker. De är skrivna av Internetstiftelsen själva och
+visar hur de formulerar sig om sitt material.
+
+Båda filerna är handskrivna och redigerbara. De styr bara vägen fram till en
+fråga och påverkar aldrig vilket värde som slås upp.
 
 ## Arkitektur
 

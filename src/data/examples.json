@@ -1,0 +1,34 @@
+{
+  "_kommentar": [
+    "Exempelfrågor, hämtade ordagrant från avsnittsrubrikerna i rapporten",
+    "Svenskarna och internet 2025. De är skrivna av Internetstiftelsen själva",
+    "och visar hur de formulerar sig om sitt material — vilket är precis hur",
+    "en journalist skulle söka.",
+    "Handskriven fil — redigera fritt. topic måste finnas i topics.json."
+  ],
+  "examples": [
+    { "topic": "internet-etjanster", "text": "Hur många använder (inte) internet?" },
+    { "topic": "internet-etjanster", "text": "Är det fler eller färre svenskar som har en digital brevlåda?" },
+    { "topic": "internet-etjanster", "text": "Vilka tycker att vårdens e-tjänster försvårar tidsbokning av läkarbesök?" },
+    { "topic": "internet-etjanster", "text": "Ökar eller minskar användningen av mobilt Bank-id bland svenskar?" },
+
+    { "topic": "ai", "text": "Vilka AI-verktyg använder svenskarna?" },
+    { "topic": "ai", "text": "Vad använder svenskarna AI-verktyg till?" },
+    { "topic": "ai", "text": "Vilka tror att AI kommer att orsaka stor arbetslöshet?" },
+    { "topic": "ai", "text": "Vilka använder inte AI-verktyg?" },
+
+    { "topic": "sociala-medier", "text": "Hur många gör egna inlägg på sociala medier?" },
+    { "topic": "sociala-medier", "text": "Vilka är det som har slutat att använda Tiktok?" },
+    { "topic": "sociala-medier", "text": "Hur många och vilka använder Snapchat?" },
+    { "topic": "sociala-medier", "text": "Hur många använder Whatsapp?" },
+
+    { "topic": "annonsbedrageri", "text": "Hur många har sett en bluffannons på sociala medier under det senaste året?" },
+    { "topic": "annonsbedrageri", "text": "Bland de som sett en bluffannons, vilka är det som också anmäler dem?" },
+    { "topic": "annonsbedrageri", "text": "Minskar bluffannonser vår köpbenägenhet?" },
+
+    { "topic": "dejting", "text": "Har nätdejtingen ökat eller minskat?" },
+    { "topic": "dejting", "text": "Hur många kollar sin partners mobil av oro för otrohet?" },
+    { "topic": "dejting", "text": "Hur många svenskar googlar sina ex?" },
+    { "topic": "dejting", "text": "Hur många följer sin partner i mobilen via platsdata?" }
+  ]
+}

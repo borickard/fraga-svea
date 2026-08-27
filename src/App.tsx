@@ -11,7 +11,7 @@ import { Pills } from './components/Pills';
 import { NoMatch } from './components/NoMatch';
 import { AnswerCard } from './components/AnswerCard';
 import { Topics } from './components/Topics';
-import { questionsInTopic } from './lib/labels';
+import { examplesFor, questionsInTopic } from './lib/labels';
 
 type View =
   | { kind: 'idle' }
@@ -135,6 +135,19 @@ export function App() {
             {dataset.segments.length} segment. Skriv en fråga, eller välj ett ämne.
           </p>
           <Topics active={topic} onSelect={chooseTopic} />
+
+          {/* Rapportens egna avsnittsrubriker. Det är så Internetstiftelsen
+              formulerar sig om materialet, och ungefär så en journalist
+              skulle söka i det. */}
+          <ul className="empty__examples">
+            {examplesFor(topic).map((e) => (
+              <li key={e.text}>
+                <button type="button" className="empty__example" onClick={() => reset(e.text)}>
+                  {e.text}
+                </button>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 
