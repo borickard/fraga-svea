@@ -26,6 +26,17 @@ npm run fonts     # krävs, se Typsnitt nedan
 npm run dev
 ```
 
+Vill du testa fas 3, frågelagret, lägg nyckeln i `.env` först:
+
+```bash
+cp .env.example .env       # fyll i ANTHROPIC_API_KEY
+```
+
+`.env` är gitignore:ad. Nyckeln läses bara av `api/ask.ts`, aldrig av klienten
+— i dev flyttar `vite.config.ts` över den till `process.env` för just den
+modulen. Utan nyckel svarar `/api/ask` med 501 och appen faller tillbaka på
+den deterministiska sökningen med en notis i gränssnittet.
+
 För att bygga om datan ur bilagan:
 
 ```bash

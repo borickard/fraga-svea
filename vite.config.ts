@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 
 /**
@@ -6,11 +6,20 @@ import react from '@vitejs/plugin-react';
  * sådan runtime, så den monteras här i stället — samma modul, samma kod, så att
  * fas 3 går att testa lokalt utan att nyckeln någonsin når klienten.
  */
-function apiDevServer(): Plugin {
+function apiDevServer(mode: string): Plugin {
   return {
     name: 'svea-api-dev',
     apply: 'serve',
     configureServer(server) {
+      // Vite lägger .env i import.meta.env, inte i process.env. Funktionen i
+      // api/ läser process.env eftersom den körs av Vercel i produktion, så
+      // nyckeln måste flyttas över här — annars ser fas 3 okonfigurerad ut
+      // lokalt trots en korrekt .env. Bara serverns process rörs; ingenting
+      // av det här når klientbundlen.
+      const env = loadEnv(mode, process.cwd(), '');
+      for (const key of ['ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN', 'ANTHROPIC_BASE_URL']) {
+        if (!process.env[key] && env[key]) process.env[key] = env[key];
+      }
       server.middlewares.use('/api/ask', async (req, res) => {
         try {
           const mod = await server.ssrLoadModule('/api/ask.ts');
@@ -37,7 +46,7 @@ function apiDevServer(): Plugin {
   };
 }
 
-export default defineConfig({
-  plugins: [react(), apiDevServer()],
+export default defineConfig(({ mode }) => ({
+  plugins: [react(), apiDevServer(mode)],
   build: { outDir: 'dist', sourcemap: false },
-});
+}));

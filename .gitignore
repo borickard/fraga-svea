@@ -3,6 +3,11 @@ dist/
 .vercel/
 *.local
 
+# API-nyckeln. Får aldrig checkas in.
+.env
+.env.*
+!.env.example
+
 # Den riktiga tabellbilagan checkas inte in — den är Internetstiftelsens fil.
 data/*.xlsx
 data/*.pdf
