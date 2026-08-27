@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.vercel/
+*.local
+
+# Den riktiga tabellbilagan checkas inte in — den är Internetstiftelsens fil.
+data/*.xlsx
+data/*.pdf
+!data/fixture-tabellbilaga.xlsx
+
+# Genereras av parsern
+data/parse-log.txt
+data/validation-report.txt

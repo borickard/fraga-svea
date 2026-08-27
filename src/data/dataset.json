@@ -1,0 +1,6821 @@
+{
+  "meta": {
+    "appendix": "fixture-tabellbilaga.xlsx",
+    "generated_from": "fixture-tabellbilaga.xlsx",
+    "publisher": "Internetstiftelsen",
+    "question_count": 7,
+    "segment_count": 28,
+    "source": "Svenskarna och internet 2025"
+  },
+  "questions": [
+    {
+      "base_label": "Samtliga 18+ år",
+      "id": "anvander_du_internet__samtliga_18plus_ar",
+      "options": [
+        {
+          "label": "Ja, dagligen",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 274,
+              "pct": 0.6522,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.5525,
+              "reliable": true,
+              "sig": [
+                "f"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 370,
+              "pct": 0.7486,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.4672,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 377,
+              "pct": 0.5795,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 449,
+              "pct": 0.7852,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 412,
+              "pct": 0.5792,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 229,
+              "pct": 0.47,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1213,
+              "pct": 0.5514,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1101,
+              "pct": 0.5925,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1469,
+              "pct": 0.5596,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1399,
+              "pct": 0.7191,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 817,
+              "pct": 0.7144,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 612,
+              "pct": 0.6112,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 729,
+              "pct": 0.5426,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 364,
+              "pct": 0.4684,
+              "reliable": true
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.6263,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 194,
+              "pct": 0.703,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 937,
+              "pct": 0.6135,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1350,
+              "pct": 0.6504,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Ja, men inte dagligen",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 274,
+              "pct": 0.4202,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.4624,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 370,
+              "pct": 0.6249,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.4413,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 377,
+              "pct": 0.6876,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 449,
+              "pct": 0.3771,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 412,
+              "pct": 0.4848,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 229,
+              "pct": 0.5317,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1213,
+              "pct": 0.4656,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1101,
+              "pct": 0.3909,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1469,
+              "pct": 0.4227,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1399,
+              "pct": 0.6029,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 817,
+              "pct": 0.6639,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 612,
+              "pct": 0.68,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 729,
+              "pct": 0.6585,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 364,
+              "pct": 0.5603,
+              "reliable": true
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.5239,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 194,
+              "pct": 0.6409,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 937,
+              "pct": 0.5737,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1350,
+              "pct": 0.4094,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Nej, aldrig",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 274,
+              "pct": 0.5175,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.5689,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 370,
+              "pct": 0.4513,
+              "reliable": true,
+              "sig": [
+                "c",
+                "c"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.2744,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 377,
+              "pct": 0.2774,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 449,
+              "pct": 0.4013,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 412,
+              "pct": 0.5038,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 229,
+              "pct": 0.4828,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1213,
+              "pct": 0.4219,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1101,
+              "pct": 0.3429,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1469,
+              "pct": 0.4418,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1399,
+              "pct": 0.561,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 817,
+              "pct": 0.4244,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 612,
+              "pct": 0.3645,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 729,
+              "pct": 0.3811,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 364,
+              "pct": 0.4688,
+              "reliable": true
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.4239,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 194,
+              "pct": 0.5615,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 937,
+              "pct": 0.39,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1350,
+              "pct": 0.4754,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI"
+      ],
+      "sheet": "Studie 1 bas samtliga",
+      "source_row": 1,
+      "text": "Använder du internet?"
+    },
+    {
+      "base_label": "Samtliga 18+ år",
+      "id": "hur_oroad_ar_du_for_att_bli_utsatt__samtliga_18plus_ar",
+      "options": [
+        {
+          "label": "Mycket oroad",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 276,
+              "pct": 0.5506,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 200,
+              "pct": 0.4961,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 393,
+              "pct": 0.7486,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 419,
+              "pct": 0.793,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 398,
+              "pct": 0.7492,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 436,
+              "pct": 0.625,
+              "reliable": true,
+              "sig": [
+                "f",
+                "d"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 396,
+              "pct": 0.5491,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 226,
+              "pct": 0.5393,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1256,
+              "pct": 0.806,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1103,
+              "pct": 0.731,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1413,
+              "pct": 0.6341,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1415,
+              "pct": 0.6416,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 765,
+              "pct": 0.6629,
+              "reliable": true,
+              "sig": [
+                "d",
+                "d"
+              ]
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 629,
+              "pct": 0.6426,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 725,
+              "pct": 0.7862,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 371,
+              "pct": 0.4911,
+              "reliable": true
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.6609,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 182,
+              "pct": 0.5964,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 1017,
+              "pct": 0.6029,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1346,
+              "pct": 0.783,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Ganska oroad",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 276,
+              "pct": 0.6565,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 200,
+              "pct": 0.4642,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 393,
+              "pct": 0.672,
+              "reliable": true,
+              "sig": [
+                "f"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 419,
+              "pct": 0.6946,
+              "reliable": true,
+              "sig": [
+                "a",
+                "c"
+              ]
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 398,
+              "pct": 0.5396,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 436,
+              "pct": 0.5793,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 396,
+              "pct": 0.5444,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 226,
+              "pct": 0.5089,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1256,
+              "pct": 0.5969,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1103,
+              "pct": 0.4246,
+              "reliable": true,
+              "sig": [
+                "f",
+                "f"
+              ]
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1413,
+              "pct": 0.5302,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1415,
+              "pct": 0.3599,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 765,
+              "pct": 0.6163,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 629,
+              "pct": 0.3884,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 725,
+              "pct": 0.5113,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 371,
+              "pct": 0.6927,
+              "reliable": true,
+              "sig": [
+                "d",
+                "f"
+              ]
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.5282,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 182,
+              "pct": 0.5115,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 1017,
+              "pct": 0.433,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1346,
+              "pct": 0.4386,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Inte särskilt oroad",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 276,
+              "pct": 0.5343,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 200,
+              "pct": 0.5027,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 393,
+              "pct": 0.3084,
+              "reliable": true,
+              "sig": [
+                "f",
+                "b"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 419,
+              "pct": 0.3657,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 398,
+              "pct": 0.3383,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 436,
+              "pct": 0.5541,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 396,
+              "pct": 0.2628,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 226,
+              "pct": 0.3706,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1256,
+              "pct": 0.4137,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1103,
+              "pct": 0.5823,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1413,
+              "pct": 0.3628,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1415,
+              "pct": 0.4972,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 765,
+              "pct": 0.5828,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 629,
+              "pct": 0.3394,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 725,
+              "pct": 0.3993,
+              "reliable": true,
+              "sig": [
+                "d",
+                "b"
+              ]
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 371,
+              "pct": 0.4412,
+              "reliable": true
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.4275,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 182,
+              "pct": 0.5842,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 1017,
+              "pct": 0.2993,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1346,
+              "pct": 0.5482,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Inte alls oroad",
+          "values": {
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 276,
+              "pct": 0.271,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 0,
+              "pct": null,
+              "reason": "no_base",
+              "reliable": false
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 200,
+              "pct": 0.3365,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 393,
+              "pct": 0.4913,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 419,
+              "pct": 0.2463,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 398,
+              "pct": 0.2702,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 436,
+              "pct": 0.4449,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 396,
+              "pct": 0.4609,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 226,
+              "pct": 0.4687,
+              "reliable": true,
+              "sig": [
+                "a",
+                "b"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1256,
+              "pct": 0.3448,
+              "reliable": true,
+              "sig": [
+                "f",
+                "b"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1103,
+              "pct": 0.1716,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1496,
+              "n_weighted": 1413,
+              "pct": 0.3037,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1438,
+              "n_weighted": 1415,
+              "pct": 0.2074,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 765,
+              "pct": 0.2177,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 629,
+              "pct": 0.2163,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 725,
+              "pct": 0.294,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 371,
+              "pct": 0.2138,
+              "reliable": true
+            },
+            "totalt": {
+              "n": 2934,
+              "n_weighted": 2843,
+              "pct": 0.3219,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 182,
+              "pct": 0.1924,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 1017,
+              "pct": 0.1738,
+              "reliable": true,
+              "sig": [
+                "c",
+                "f"
+              ]
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1346,
+              "pct": 0.3372,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI"
+      ],
+      "sheet": "Studie 1 bas samtliga",
+      "source_row": 10,
+      "text": "Hur oroad är du för att bli utsatt för bedrägeri på internet?"
+    },
+    {
+      "base_label": "Internetanvändare 8+ år",
+      "id": "har_du_under_de_senaste_12_manaderna_anvant__internetanvandare_8plus_ar",
+      "options": [
+        {
+          "label": "ChatGPT",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2061,
+              "pct": 0.4847,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2625,
+              "pct": 0.4298,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1219,
+              "pct": 0.4641,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.6142,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 173,
+              "pct": 0.5253,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 202,
+              "pct": 0.5978,
+              "reliable": true,
+              "sig": [
+                "b",
+                "b"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 401,
+              "pct": 0.5579,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 397,
+              "pct": 0.671,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 415,
+              "pct": 0.5289,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 426,
+              "pct": 0.6176,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.698,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 219,
+              "pct": 0.6552,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1156,
+              "pct": 0.7339,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1124,
+              "pct": 0.5698,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1340,
+              "pct": 0.6151,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1284,
+              "pct": 0.6431,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 844,
+              "pct": 0.5084,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 597,
+              "pct": 0.4581,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 769,
+              "pct": 0.6659,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.5963,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 118,
+              "pct": 0.7095,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 73,
+              "pct": 0.4316,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.4233,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.656,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2641,
+              "pct": 0.581,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 179,
+              "pct": 0.7374,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 921,
+              "pct": 0.6447,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1435,
+              "pct": 0.5659,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Microsoft Copilot",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2061,
+              "pct": 0.5027,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2625,
+              "pct": 0.508,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1219,
+              "pct": 0.4294,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.408,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 173,
+              "pct": 0.4644,
+              "reliable": true,
+              "sig": [
+                "c",
+                "d"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 202,
+              "pct": 0.3589,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 401,
+              "pct": 0.5139,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 397,
+              "pct": 0.4381,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 415,
+              "pct": 0.5768,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 426,
+              "pct": 0.5899,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.6732,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 219,
+              "pct": 0.4168,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1156,
+              "pct": 0.4534,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1124,
+              "pct": 0.6,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1340,
+              "pct": 0.4835,
+              "reliable": true,
+              "sig": [
+                "b",
+                "c"
+              ]
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1284,
+              "pct": 0.4643,
+              "reliable": true,
+              "sig": [
+                "f",
+                "c"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 844,
+              "pct": 0.4333,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 597,
+              "pct": 0.4366,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 769,
+              "pct": 0.386,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.4554,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 118,
+              "pct": 0.6554,
+              "reliable": true,
+              "sig": [
+                "f"
+              ]
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 73,
+              "pct": 0.499,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.4368,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.3469,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2641,
+              "pct": 0.5046,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 179,
+              "pct": 0.4986,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 921,
+              "pct": 0.416,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1435,
+              "pct": 0.5169,
+              "reliable": true,
+              "sig": [
+                "b",
+                "c"
+              ]
+            }
+          }
+        },
+        {
+          "label": "Google Gemini",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2061,
+              "pct": 0.4176,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2625,
+              "pct": 0.4692,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1219,
+              "pct": 0.532,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.2859,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 173,
+              "pct": 0.5235,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 202,
+              "pct": 0.3491,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 401,
+              "pct": 0.4189,
+              "reliable": true,
+              "sig": [
+                "c",
+                "d"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 397,
+              "pct": 0.4,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 415,
+              "pct": 0.5305,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 426,
+              "pct": 0.4068,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.2963,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 219,
+              "pct": 0.348,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1156,
+              "pct": 0.3725,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1124,
+              "pct": 0.2285,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1340,
+              "pct": 0.2079,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1284,
+              "pct": 0.2573,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 844,
+              "pct": 0.2417,
+              "reliable": true,
+              "sig": [
+                "f"
+              ]
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 597,
+              "pct": 0.5193,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 769,
+              "pct": 0.208,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.3836,
+              "reliable": true,
+              "sig": [
+                "c",
+                "b"
+              ]
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 118,
+              "pct": 0.293,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 73,
+              "pct": 0.2332,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.4634,
+              "reliable": false,
+              "sig": [
+                "c",
+                "d"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.208,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2641,
+              "pct": 0.3777,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 179,
+              "pct": 0.2519,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 921,
+              "pct": 0.4399,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1435,
+              "pct": 0.2696,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Perplexity",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2061,
+              "pct": 0.3051,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2625,
+              "pct": 0.1399,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1219,
+              "pct": 0.2047,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.4086,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 173,
+              "pct": 0.299,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 202,
+              "pct": 0.3144,
+              "reliable": true,
+              "sig": [
+                "f",
+                "d"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 401,
+              "pct": 0.3617,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 397,
+              "pct": 0.261,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 415,
+              "pct": 0.3452,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 426,
+              "pct": 0.425,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.3789,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 219,
+              "pct": 0.4436,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1156,
+              "pct": 0.4046,
+              "reliable": true,
+              "sig": [
+                "c",
+                "f"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1124,
+              "pct": 0.275,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1340,
+              "pct": 0.1416,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1284,
+              "pct": 0.4691,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 844,
+              "pct": 0.3718,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 597,
+              "pct": 0.2506,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 769,
+              "pct": 0.3566,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.1897,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 118,
+              "pct": 0.2495,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 73,
+              "pct": 0.1935,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.4025,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.3227,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2641,
+              "pct": 0.3024,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 179,
+              "pct": 0.4454,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 921,
+              "pct": 0.2293,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1435,
+              "pct": 0.3521,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Snapchat My AI",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2061,
+              "pct": 0.0101,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2625,
+              "pct": 0.1421,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1219,
+              "pct": 0.0272,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.3341,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 173,
+              "pct": 0.2823,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 202,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 401,
+              "pct": 0.0359,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 397,
+              "pct": 0.2806,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 415,
+              "pct": 0.152,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 426,
+              "pct": 0.223,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 219,
+              "pct": 0.2411,
+              "reliable": true,
+              "sig": [
+                "f",
+                "d"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1156,
+              "pct": 0.2059,
+              "reliable": true,
+              "sig": [
+                "c",
+                "f"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1124,
+              "pct": 0.0937,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1340,
+              "pct": 0.2653,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1284,
+              "pct": 0.19,
+              "reliable": true,
+              "sig": [
+                "c",
+                "c"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 844,
+              "pct": 0.2375,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 597,
+              "pct": 0.3403,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 769,
+              "pct": 0.0357,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.182,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 118,
+              "pct": 0.2051,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 73,
+              "pct": 0.1672,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.3308,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.2241,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2641,
+              "pct": 0.1708,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 179,
+              "pct": 0.3002,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 921,
+              "pct": 0.2581,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1435,
+              "pct": 0.0341,
+              "reliable": true,
+              "sig": [
+                "b",
+                "a"
+              ]
+            }
+          }
+        },
+        {
+          "label": "Ingen av dessa",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2061,
+              "pct": 0.1006,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2625,
+              "pct": 0.2598,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1219,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.2204,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 173,
+              "pct": 0.1943,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 202,
+              "pct": 0.2075,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 401,
+              "pct": 0.198,
+              "reliable": true,
+              "sig": [
+                "d",
+                "c"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 397,
+              "pct": 0.158,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 415,
+              "pct": 0.1612,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 426,
+              "pct": 0.1611,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.0941,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 219,
+              "pct": 0.0211,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1156,
+              "pct": 0.1683,
+              "reliable": true,
+              "sig": [
+                "c",
+                "f"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1124,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1340,
+              "pct": 0.1399,
+              "reliable": true,
+              "sig": [
+                "b",
+                "f"
+              ]
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1284,
+              "pct": 0.2649,
+              "reliable": true,
+              "sig": [
+                "f",
+                "a"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 844,
+              "pct": 0.1157,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 597,
+              "pct": 0.1016,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 769,
+              "pct": 0.0966,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.1171,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 118,
+              "pct": 0.2735,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 73,
+              "pct": 0.1196,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.1924,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.1334,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2641,
+              "pct": 0.1103,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 179,
+              "pct": 0.1696,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 921,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1435,
+              "pct": 0.1913,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI",
+        "STADIER",
+        "ANVÄNDER ENHET REGELBUNDET"
+      ],
+      "sheet": "Studie 1 bas internetanvändare",
+      "source_row": 1,
+      "text": "Har du under de senaste 12 månaderna använt dig av några av följande AI-verktyg?"
+    },
+    {
+      "base_label": "Har använt AI-verktyg 8+ år",
+      "id": "har_du_under_de_senaste_12_manaderna_anvant__har_anvant_ai_verktyg_8plus_ar",
+      "options": [
+        {
+          "label": "ChatGPT",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 1963,
+              "pct": 0.98,
+              "reliable": true,
+              "sig": [
+                "f",
+                "a"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2763,
+              "pct": 0.9185,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1186,
+              "pct": 0.98,
+              "reliable": true,
+              "sig": [
+                "c",
+                "a"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.98,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.98,
+              "reliable": true,
+              "sig": [
+                "c",
+                "b"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 213,
+              "pct": 0.8681,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 404,
+              "pct": 0.98,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 422,
+              "pct": 0.98,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 411,
+              "pct": 0.8679,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 448,
+              "pct": 0.98,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 381,
+              "pct": 0.8582,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 238,
+              "pct": 0.7658,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1140,
+              "pct": 0.8057,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1164,
+              "pct": 0.7665,
+              "reliable": true,
+              "sig": [
+                "b",
+                "c"
+              ]
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 906,
+              "pct": 0.9342,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 809,
+              "pct": 0.8344,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 762,
+              "pct": 0.8349,
+              "reliable": true,
+              "sig": [
+                "b",
+                "f"
+              ]
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 631,
+              "pct": 0.7895,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 700,
+              "pct": 0.8774,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.9548,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 119,
+              "pct": 0.98,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.9487,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 29,
+              "pct": 0.9601,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.804,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.9125,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 195,
+              "pct": 0.746,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 918,
+              "pct": 0.9054,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1427,
+              "pct": 0.9643,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Microsoft Copilot",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 1963,
+              "pct": 0.8813,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2763,
+              "pct": 0.9147,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1186,
+              "pct": 0.6267,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.606,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.8742,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 213,
+              "pct": 0.7452,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 404,
+              "pct": 0.7917,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 422,
+              "pct": 0.5813,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 411,
+              "pct": 0.7594,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 448,
+              "pct": 0.8682,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 381,
+              "pct": 0.8992,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 238,
+              "pct": 0.7135,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1140,
+              "pct": 0.6144,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1164,
+              "pct": 0.8626,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 906,
+              "pct": 0.794,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 809,
+              "pct": 0.836,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 762,
+              "pct": 0.6553,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 631,
+              "pct": 0.7851,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 700,
+              "pct": 0.7601,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.7235,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 119,
+              "pct": 0.8508,
+              "reliable": true,
+              "sig": [
+                "b",
+                "f"
+              ]
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.8219,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 29,
+              "pct": 0.6724,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.653,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.7509,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 195,
+              "pct": 0.9187,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 918,
+              "pct": 0.8558,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1427,
+              "pct": 0.6445,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Google Gemini",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 1963,
+              "pct": 0.4415,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2763,
+              "pct": 0.6468,
+              "reliable": true,
+              "sig": [
+                "a",
+                "c"
+              ]
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1186,
+              "pct": 0.4351,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.4898,
+              "reliable": true,
+              "sig": [
+                "a",
+                "d"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.4786,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 213,
+              "pct": 0.6138,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 404,
+              "pct": 0.4322,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 422,
+              "pct": 0.4612,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 411,
+              "pct": 0.5671,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 448,
+              "pct": 0.5737,
+              "reliable": true,
+              "sig": [
+                "a",
+                "b"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 381,
+              "pct": 0.6555,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 238,
+              "pct": 0.5657,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1140,
+              "pct": 0.4938,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1164,
+              "pct": 0.5624,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 906,
+              "pct": 0.6771,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 809,
+              "pct": 0.5219,
+              "reliable": true,
+              "sig": [
+                "d",
+                "d"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 762,
+              "pct": 0.5598,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 631,
+              "pct": 0.7212,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 700,
+              "pct": 0.6434,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.6304,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 119,
+              "pct": 0.5164,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.6292,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 29,
+              "pct": 0.6134,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.4267,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.5846,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 195,
+              "pct": 0.5502,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 918,
+              "pct": 0.6025,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1427,
+              "pct": 0.445,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Perplexity",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 1963,
+              "pct": 0.592,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2763,
+              "pct": 0.5789,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1186,
+              "pct": 0.3766,
+              "reliable": true,
+              "sig": [
+                "c"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.6113,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.3107,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 213,
+              "pct": 0.5965,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 404,
+              "pct": 0.5502,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 422,
+              "pct": 0.544,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 411,
+              "pct": 0.4631,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 448,
+              "pct": 0.593,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 381,
+              "pct": 0.2808,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 238,
+              "pct": 0.2861,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1140,
+              "pct": 0.6003,
+              "reliable": true,
+              "sig": [
+                "d",
+                "c"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1164,
+              "pct": 0.4709,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 906,
+              "pct": 0.3312,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 809,
+              "pct": 0.3342,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 762,
+              "pct": 0.6129,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 631,
+              "pct": 0.6154,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 700,
+              "pct": 0.3575,
+              "reliable": true,
+              "sig": [
+                "a",
+                "f"
+              ]
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.4352,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 119,
+              "pct": 0.4097,
+              "reliable": true,
+              "sig": [
+                "f",
+                "a"
+              ]
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.3792,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 29,
+              "pct": 0.3909,
+              "reliable": false,
+              "sig": [
+                "b",
+                "a"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.4852,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.4496,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 195,
+              "pct": 0.4101,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 918,
+              "pct": 0.4106,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1427,
+              "pct": 0.3172,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Snapchat My AI",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 1963,
+              "pct": 0.1611,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2763,
+              "pct": 0.1492,
+              "reliable": true,
+              "sig": [
+                "d",
+                "a"
+              ]
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1186,
+              "pct": 0.2357,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.1552,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.4069,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 213,
+              "pct": 0.2011,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 404,
+              "pct": 0.4527,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 422,
+              "pct": 0.2674,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 411,
+              "pct": 0.1746,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 448,
+              "pct": 0.3203,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 381,
+              "pct": 0.2175,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 238,
+              "pct": 0.23,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1140,
+              "pct": 0.1464,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1164,
+              "pct": 0.2306,
+              "reliable": true,
+              "sig": [
+                "b",
+                "c"
+              ]
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 906,
+              "pct": 0.3196,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 809,
+              "pct": 0.1886,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 762,
+              "pct": 0.4118,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 631,
+              "pct": 0.3536,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 700,
+              "pct": 0.4628,
+              "reliable": true,
+              "sig": [
+                "b",
+                "f"
+              ]
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.3337,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 119,
+              "pct": 0.1785,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.3273,
+              "reliable": false,
+              "sig": [
+                "f",
+                "c"
+              ]
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 29,
+              "pct": 0.3538,
+              "reliable": false,
+              "sig": [
+                "d",
+                "a"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.2377,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.3098,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 195,
+              "pct": 0.303,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 918,
+              "pct": 0.2948,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1427,
+              "pct": 0.4745,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Ingen av dessa",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 1963,
+              "pct": 0.275,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2763,
+              "pct": 0.0528,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1186,
+              "pct": 0.1008,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.01,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.1522,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 213,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 404,
+              "pct": 0.0808,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 422,
+              "pct": 0.0317,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 411,
+              "pct": 0.0914,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 448,
+              "pct": 0.01,
+              "reliable": true,
+              "sig": [
+                "a",
+                "d"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 381,
+              "pct": 0.1632,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 238,
+              "pct": 0.1316,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1140,
+              "pct": 0.0965,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1164,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 906,
+              "pct": 0.0871,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 809,
+              "pct": 0.1661,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 762,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 631,
+              "pct": 0.1822,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 700,
+              "pct": 0.2045,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 375,
+              "pct": 0.1151,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 119,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.0354,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 29,
+              "pct": 0.2532,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.1048,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.1093,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 195,
+              "pct": 0.1383,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 918,
+              "pct": 0.1813,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1427,
+              "pct": 0.1595,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI",
+        "STADIER",
+        "ANVÄNDER ENHET REGELBUNDET"
+      ],
+      "sheet": "Studie 1 bas internetanvändare",
+      "source_row": 13,
+      "text": "Har du under de senaste 12 månaderna använt dig av några av följande AI-verktyg?"
+    },
+    {
+      "base_label": "Har använt AI-verktyg 8+ år",
+      "id": "vad_anvander_du_ai_verktyg_till__har_anvant_ai_verktyg_8plus_ar",
+      "options": [
+        {
+          "label": "Söka information",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2110,
+              "pct": 0.7639,
+              "reliable": true,
+              "sig": [
+                "d",
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2588,
+              "pct": 0.7578,
+              "reliable": true,
+              "sig": [
+                "a",
+                "f"
+              ]
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1153,
+              "pct": 0.6037,
+              "reliable": true,
+              "sig": [
+                "a",
+                "d"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 296,
+              "pct": 0.7959,
+              "reliable": true,
+              "sig": [
+                "a",
+                "d"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.6225,
+              "reliable": true,
+              "sig": [
+                "b",
+                "a"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.6704,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 407,
+              "pct": 0.769,
+              "reliable": true,
+              "sig": [
+                "a",
+                "c"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.6273,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 407,
+              "pct": 0.6548,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 418,
+              "pct": 0.9087,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 417,
+              "pct": 0.7364,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 230,
+              "pct": 0.7706,
+              "reliable": true,
+              "sig": [
+                "d",
+                "f"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1123,
+              "pct": 0.7218,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1071,
+              "pct": 0.6797,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 873,
+              "pct": 0.7572,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 818,
+              "pct": 0.8697,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 777,
+              "pct": 0.9175,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 592,
+              "pct": 0.8961,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 720,
+              "pct": 0.6248,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 376,
+              "pct": 0.5827,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 121,
+              "pct": 0.6203,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.8082,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.604,
+              "reliable": false,
+              "sig": [
+                "c",
+                "b"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 65,
+              "pct": 0.6823,
+              "reliable": false,
+              "sig": [
+                "f",
+                "b"
+              ]
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.748,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 188,
+              "pct": 0.788,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 916,
+              "pct": 0.6007,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1419,
+              "pct": 0.5928,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Skriva eller bearbeta text",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2110,
+              "pct": 0.5508,
+              "reliable": true,
+              "sig": [
+                "a",
+                "c"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2588,
+              "pct": 0.5695,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1153,
+              "pct": 0.7354,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 296,
+              "pct": 0.5748,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.498,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.469,
+              "reliable": true,
+              "sig": [
+                "f"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 407,
+              "pct": 0.6021,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.7177,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 407,
+              "pct": 0.4441,
+              "reliable": true,
+              "sig": [
+                "c",
+                "c"
+              ]
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 418,
+              "pct": 0.6588,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 417,
+              "pct": 0.6215,
+              "reliable": true,
+              "sig": [
+                "f",
+                "d"
+              ]
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 230,
+              "pct": 0.4575,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1123,
+              "pct": 0.4702,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1071,
+              "pct": 0.5988,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 873,
+              "pct": 0.5787,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 818,
+              "pct": 0.6919,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 777,
+              "pct": 0.4622,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 592,
+              "pct": 0.6966,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 720,
+              "pct": 0.7485,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 376,
+              "pct": 0.6071,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 121,
+              "pct": 0.6584,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.7549,
+              "reliable": false,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.6765,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 65,
+              "pct": 0.6567,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.6139,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 188,
+              "pct": 0.7314,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 916,
+              "pct": 0.6672,
+              "reliable": true,
+              "sig": [
+                "c",
+                "c"
+              ]
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1419,
+              "pct": 0.5851,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Skapa bilder",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2110,
+              "pct": 0.4401,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2588,
+              "pct": 0.5907,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1153,
+              "pct": 0.6142,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 296,
+              "pct": 0.4779,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.553,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.4114,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 407,
+              "pct": 0.4917,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.3411,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 407,
+              "pct": 0.5852,
+              "reliable": true,
+              "sig": [
+                "b",
+                "d"
+              ]
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 418,
+              "pct": 0.4572,
+              "reliable": true,
+              "sig": [
+                "f",
+                "f"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 417,
+              "pct": 0.3632,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 230,
+              "pct": 0.4516,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1123,
+              "pct": 0.5171,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1071,
+              "pct": 0.4325,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 873,
+              "pct": 0.4212,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 818,
+              "pct": 0.6038,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 777,
+              "pct": 0.3381,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 592,
+              "pct": 0.5613,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 720,
+              "pct": 0.3607,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 376,
+              "pct": 0.3778,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 121,
+              "pct": 0.414,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.3739,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.3838,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 65,
+              "pct": 0.4135,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.4841,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 188,
+              "pct": 0.4887,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 916,
+              "pct": 0.3849,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1419,
+              "pct": 0.4451,
+              "reliable": true,
+              "sig": [
+                "a",
+                "b"
+              ]
+            }
+          }
+        },
+        {
+          "label": "Programmering",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2110,
+              "pct": 0.2186,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2588,
+              "pct": 0.2063,
+              "reliable": true,
+              "sig": [
+                "d",
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1153,
+              "pct": 0.4655,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 296,
+              "pct": 0.5006,
+              "reliable": true,
+              "sig": [
+                "f",
+                "a"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.5039,
+              "reliable": true,
+              "sig": [
+                "b",
+                "c"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.446,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 407,
+              "pct": 0.2792,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.4053,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 407,
+              "pct": 0.3385,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 418,
+              "pct": 0.4682,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 417,
+              "pct": 0.5104,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 230,
+              "pct": 0.3783,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1123,
+              "pct": 0.2907,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1071,
+              "pct": 0.4447,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 873,
+              "pct": 0.3462,
+              "reliable": true,
+              "sig": [
+                "b",
+                "a"
+              ]
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 818,
+              "pct": 0.5262,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 777,
+              "pct": 0.2022,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 592,
+              "pct": 0.4916,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 720,
+              "pct": 0.4844,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 376,
+              "pct": 0.274,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 121,
+              "pct": 0.3484,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.2507,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.1969,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 65,
+              "pct": 0.2136,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.3621,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 188,
+              "pct": 0.432,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 916,
+              "pct": 0.2212,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1419,
+              "pct": 0.4583,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            }
+          }
+        },
+        {
+          "label": "Översätta text",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2110,
+              "pct": 0.2781,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2588,
+              "pct": 0.1609,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1153,
+              "pct": 0.2895,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 296,
+              "pct": 0.3677,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.2401,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.0773,
+              "reliable": true,
+              "sig": [
+                "b",
+                "a"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 407,
+              "pct": 0.2827,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.165,
+              "reliable": true,
+              "sig": [
+                "f",
+                "d"
+              ]
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 407,
+              "pct": 0.227,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 418,
+              "pct": 0.2998,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 417,
+              "pct": 0.373,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 230,
+              "pct": 0.1351,
+              "reliable": true,
+              "sig": [
+                "a",
+                "f"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1123,
+              "pct": 0.2945,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1071,
+              "pct": 0.2901,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 873,
+              "pct": 0.3612,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 818,
+              "pct": 0.2068,
+              "reliable": true,
+              "sig": [
+                "d",
+                "b"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 777,
+              "pct": 0.2287,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 592,
+              "pct": 0.2829,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 720,
+              "pct": 0.2347,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 376,
+              "pct": 0.1829,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 121,
+              "pct": 0.2485,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.3307,
+              "reliable": false,
+              "sig": [
+                "d",
+                "d"
+              ]
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.14,
+              "reliable": false,
+              "sig": [
+                "d",
+                "c"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 65,
+              "pct": 0.1877,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.2469,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 188,
+              "pct": 0.2251,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 916,
+              "pct": 0.1417,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1419,
+              "pct": 0.2648,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Underhållning",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2110,
+              "pct": 0.0447,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2588,
+              "pct": 0.0592,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1153,
+              "pct": 0.1135,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 296,
+              "pct": 0.0279,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 174,
+              "pct": 0.212,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 199,
+              "pct": 0.2553,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 407,
+              "pct": 0.229,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.1778,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 407,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 418,
+              "pct": 0.1135,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 417,
+              "pct": 0.1422,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 230,
+              "pct": 0.1923,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1123,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1071,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 866,
+              "n_weighted": 873,
+              "pct": 0.0314,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 832,
+              "n_weighted": 818,
+              "pct": 0.1737,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 777,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 592,
+              "pct": 0.1222,
+              "reliable": true,
+              "sig": [
+                "f",
+                "a"
+              ]
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 720,
+              "pct": 0.1933,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 376,
+              "pct": 0.0827,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 121,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 74,
+              "pct": 0.1046,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.1159,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 65,
+              "pct": 0.2222,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 1698,
+              "n_weighted": 1646,
+              "pct": 0.1149,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 188,
+              "pct": 0.1409,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 916,
+              "pct": 0.1685,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1419,
+              "pct": 0.01,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI",
+        "STADIER",
+        "ANVÄNDER ENHET REGELBUNDET"
+      ],
+      "sheet": "Studie 1 bas internetanvändare",
+      "source_row": 25,
+      "text": "Vad använder du AI-verktyg till?"
+    },
+    {
+      "base_label": "Internetanvändare 16+ år",
+      "id": "hur_ofta_anvander_du_sociala_medier__internetanvandare_16plus_ar",
+      "options": [
+        {
+          "label": "Flera gånger om dagen",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2011,
+              "pct": 0.6432,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2727,
+              "pct": 0.6257,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1120,
+              "pct": 0.7431,
+              "reliable": true,
+              "sig": [
+                "a",
+                "f"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.7683,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 175,
+              "pct": 0.5514,
+              "reliable": true,
+              "sig": [
+                "d",
+                "a"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 211,
+              "pct": 0.5323,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 409,
+              "pct": 0.7508,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.6451,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 403,
+              "pct": 0.7063,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 441,
+              "pct": 0.6905,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 405,
+              "pct": 0.5031,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 221,
+              "pct": 0.7773,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1250,
+              "pct": 0.7581,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1111,
+              "pct": 0.8256,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1331,
+              "n_weighted": 1291,
+              "pct": 0.6612,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "kon_man": {
+              "n": 1279,
+              "n_weighted": 1272,
+              "pct": 0.646,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 792,
+              "pct": 0.741,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 626,
+              "pct": 0.5829,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 741,
+              "pct": 0.5411,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.7622,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 123,
+              "pct": 0.6416,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 75,
+              "pct": 0.5503,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 26,
+              "pct": 0.534,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.5232,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2610,
+              "n_weighted": 2530,
+              "pct": 0.6645,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 181,
+              "pct": 0.5164,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 913,
+              "pct": 0.6926,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1411,
+              "pct": 0.621,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            }
+          }
+        },
+        {
+          "label": "Dagligen",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2011,
+              "pct": 0.4772,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2727,
+              "pct": 0.622,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1120,
+              "pct": 0.4709,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.498,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 175,
+              "pct": 0.6594,
+              "reliable": true,
+              "sig": [
+                "d",
+                "b"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 211,
+              "pct": 0.416,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 409,
+              "pct": 0.6382,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.5225,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 403,
+              "pct": 0.6602,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 441,
+              "pct": 0.5903,
+              "reliable": true,
+              "sig": [
+                "c",
+                "a"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 405,
+              "pct": 0.5484,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 221,
+              "pct": 0.5815,
+              "reliable": true,
+              "sig": [
+                "a",
+                "d"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1250,
+              "pct": 0.5358,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1111,
+              "pct": 0.378,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1331,
+              "n_weighted": 1291,
+              "pct": 0.5649,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1279,
+              "n_weighted": 1272,
+              "pct": 0.38,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 792,
+              "pct": 0.6856,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 626,
+              "pct": 0.6724,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 741,
+              "pct": 0.3874,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.3766,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 123,
+              "pct": 0.4685,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 75,
+              "pct": 0.4145,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 26,
+              "pct": 0.631,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.6001,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2610,
+              "n_weighted": 2530,
+              "pct": 0.5157,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 181,
+              "pct": 0.4753,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 913,
+              "pct": 0.4738,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1411,
+              "pct": 0.5557,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje vecka",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2011,
+              "pct": 0.3914,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2727,
+              "pct": 0.5504,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1120,
+              "pct": 0.4573,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.4468,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 175,
+              "pct": 0.2941,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 211,
+              "pct": 0.4132,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 409,
+              "pct": 0.3306,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.4541,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 403,
+              "pct": 0.3993,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 441,
+              "pct": 0.6174,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 405,
+              "pct": 0.33,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 221,
+              "pct": 0.5745,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1250,
+              "pct": 0.5763,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1111,
+              "pct": 0.3932,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1331,
+              "n_weighted": 1291,
+              "pct": 0.3096,
+              "reliable": true,
+              "sig": [
+                "f",
+                "f"
+              ]
+            },
+            "kon_man": {
+              "n": 1279,
+              "n_weighted": 1272,
+              "pct": 0.6008,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 792,
+              "pct": 0.4828,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 626,
+              "pct": 0.5071,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 741,
+              "pct": 0.4053,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.5448,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 123,
+              "pct": 0.4527,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 75,
+              "pct": 0.414,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 26,
+              "pct": 0.3148,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.5318,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2610,
+              "n_weighted": 2530,
+              "pct": 0.4491,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 181,
+              "pct": 0.3455,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 913,
+              "pct": 0.5598,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1411,
+              "pct": 0.3025,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Mer sällan",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2011,
+              "pct": 0.2917,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2727,
+              "pct": 0.4111,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1120,
+              "pct": 0.2841,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.4269,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 175,
+              "pct": 0.3792,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 211,
+              "pct": 0.3049,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 409,
+              "pct": 0.1715,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.3544,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 403,
+              "pct": 0.2833,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 441,
+              "pct": 0.1733,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 405,
+              "pct": 0.3489,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 221,
+              "pct": 0.3426,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1250,
+              "pct": 0.2918,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1111,
+              "pct": 0.2353,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1331,
+              "n_weighted": 1291,
+              "pct": 0.32,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1279,
+              "n_weighted": 1272,
+              "pct": 0.3037,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 792,
+              "pct": 0.236,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 626,
+              "pct": 0.1706,
+              "reliable": true,
+              "sig": [
+                "f",
+                "f"
+              ]
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 741,
+              "pct": 0.2492,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.4863,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 123,
+              "pct": 0.2317,
+              "reliable": true,
+              "sig": [
+                "c",
+                "a"
+              ]
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 75,
+              "pct": 0.39,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 26,
+              "pct": 0.313,
+              "reliable": false,
+              "sig": [
+                "b",
+                "d"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.1936,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2610,
+              "n_weighted": 2530,
+              "pct": 0.3284,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 181,
+              "pct": 0.2654,
+              "reliable": true,
+              "sig": [
+                "c"
+              ]
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 913,
+              "pct": 0.2928,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1411,
+              "pct": 0.4359,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Aldrig",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2011,
+              "pct": 0.1418,
+              "reliable": true,
+              "sig": [
+                "f",
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2727,
+              "pct": 0.0489,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1120,
+              "pct": 0.2061,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 285,
+              "pct": 0.2628,
+              "reliable": true,
+              "sig": [
+                "f",
+                "b"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 175,
+              "pct": 0.277,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 211,
+              "pct": 0.2455,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 409,
+              "pct": 0.1606,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 423,
+              "pct": 0.2953,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 403,
+              "pct": 0.3283,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 441,
+              "pct": 0.1161,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 405,
+              "pct": 0.2935,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 221,
+              "pct": 0.1538,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1250,
+              "pct": 0.3518,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1111,
+              "pct": 0.1283,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1331,
+              "n_weighted": 1291,
+              "pct": 0.0752,
+              "reliable": true,
+              "sig": [
+                "c"
+              ]
+            },
+            "kon_man": {
+              "n": 1279,
+              "n_weighted": 1272,
+              "pct": 0.1725,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 792,
+              "pct": 0.0771,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 626,
+              "pct": 0.3275,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 741,
+              "pct": 0.2878,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.1994,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 123,
+              "pct": 0.2905,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 75,
+              "pct": 0.1235,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 26,
+              "pct": 0.2836,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 63,
+              "pct": 0.0854,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2610,
+              "n_weighted": 2530,
+              "pct": 0.2077,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 181,
+              "pct": 0.3401,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 913,
+              "pct": 0.0404,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1411,
+              "pct": 0.2555,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI",
+        "STADIER",
+        "ANVÄNDER ENHET REGELBUNDET"
+      ],
+      "sheet": "Studie 1 bas internetanvändare",
+      "source_row": 37,
+      "text": "Hur ofta använder du sociala medier?"
+    },
+    {
+      "base_label": "Internetanvändare 8+ år",
+      "id": "vilka_av_foljande_tjanster_anvander_du_for_att__internetanvandare_8plus_ar",
+      "options": [
+        {
+          "label": "YouTube",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2158,
+              "pct": 0.7148,
+              "reliable": true,
+              "sig": [
+                "b",
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2552,
+              "pct": 0.5998,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1229,
+              "pct": 0.7077,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.6338,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 176,
+              "pct": 0.4931,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 197,
+              "pct": 0.5399,
+              "reliable": true,
+              "sig": [
+                "f",
+                "f"
+              ]
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 366,
+              "pct": 0.8067,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.4918,
+              "reliable": true,
+              "sig": [
+                "c"
+              ]
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 399,
+              "pct": 0.5464,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 411,
+              "pct": 0.6839,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.6678,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 240,
+              "pct": 0.5164,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1234,
+              "pct": 0.6827,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1150,
+              "pct": 0.5284,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1463,
+              "pct": 0.7997,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1342,
+              "pct": 0.4963,
+              "reliable": true,
+              "sig": [
+                "c",
+                "d"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 807,
+              "pct": 0.6386,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 587,
+              "pct": 0.6838,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 761,
+              "pct": 0.5315,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.6757,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 124,
+              "pct": 0.5523,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 67,
+              "pct": 0.7487,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.7999,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.6748,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2642,
+              "pct": 0.655,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 196,
+              "pct": 0.6713,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 910,
+              "pct": 0.7154,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1403,
+              "pct": 0.5998,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netflix",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2158,
+              "pct": 0.4676,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2552,
+              "pct": 0.6939,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1229,
+              "pct": 0.6541,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.5848,
+              "reliable": true,
+              "sig": [
+                "c",
+                "c"
+              ]
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 176,
+              "pct": 0.3931,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 197,
+              "pct": 0.6438,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 366,
+              "pct": 0.5248,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.4887,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 399,
+              "pct": 0.6445,
+              "reliable": true,
+              "sig": [
+                "c"
+              ]
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 411,
+              "pct": 0.6473,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.5546,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 240,
+              "pct": 0.7015,
+              "reliable": true,
+              "sig": [
+                "d",
+                "f"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1234,
+              "pct": 0.3843,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1150,
+              "pct": 0.591,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1463,
+              "pct": 0.6707,
+              "reliable": true,
+              "sig": [
+                "c",
+                "f"
+              ]
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1342,
+              "pct": 0.6404,
+              "reliable": true,
+              "sig": [
+                "f"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 807,
+              "pct": 0.5457,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 587,
+              "pct": 0.5789,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 761,
+              "pct": 0.5926,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.5318,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 124,
+              "pct": 0.5403,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 67,
+              "pct": 0.4163,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.5777,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.4091,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2642,
+              "pct": 0.5487,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 196,
+              "pct": 0.6669,
+              "reliable": true,
+              "sig": [
+                "b",
+                "d"
+              ]
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 910,
+              "pct": 0.4929,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1403,
+              "pct": 0.5599,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "SVT Play",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2158,
+              "pct": 0.507,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2552,
+              "pct": 0.4049,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1229,
+              "pct": 0.3727,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.2969,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 176,
+              "pct": 0.3236,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 197,
+              "pct": 0.407,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 366,
+              "pct": 0.4517,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.5214,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 399,
+              "pct": 0.304,
+              "reliable": true,
+              "sig": [
+                "a"
+              ]
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 411,
+              "pct": 0.2514,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.253,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 240,
+              "pct": 0.2975,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1234,
+              "pct": 0.2537,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1150,
+              "pct": 0.4273,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1463,
+              "pct": 0.2939,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1342,
+              "pct": 0.5805,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 807,
+              "pct": 0.3471,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 587,
+              "pct": 0.3706,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 761,
+              "pct": 0.4829,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.4862,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 124,
+              "pct": 0.315,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 67,
+              "pct": 0.3943,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.3518,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.4014,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2642,
+              "pct": 0.4199,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 196,
+              "pct": 0.2698,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 910,
+              "pct": 0.3249,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1403,
+              "pct": 0.2686,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "TikTok",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2158,
+              "pct": 0.2873,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2552,
+              "pct": 0.1763,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1229,
+              "pct": 0.3718,
+              "reliable": true,
+              "sig": [
+                "d",
+                "c"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.2224,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 176,
+              "pct": 0.412,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 197,
+              "pct": 0.4595,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 366,
+              "pct": 0.3265,
+              "reliable": true
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.3918,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 399,
+              "pct": 0.4514,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 411,
+              "pct": 0.1812,
+              "reliable": true,
+              "sig": [
+                "a",
+                "f"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.4587,
+              "reliable": true
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 240,
+              "pct": 0.4259,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1234,
+              "pct": 0.1956,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1150,
+              "pct": 0.4414,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1463,
+              "pct": 0.3638,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1342,
+              "pct": 0.4425,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 807,
+              "pct": 0.1763,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 587,
+              "pct": 0.464,
+              "reliable": true,
+              "sig": [
+                "c",
+                "c"
+              ]
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 761,
+              "pct": 0.2373,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.239,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 124,
+              "pct": 0.4271,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 67,
+              "pct": 0.1514,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.1736,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.2846,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2642,
+              "pct": 0.2968,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 196,
+              "pct": 0.1955,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 910,
+              "pct": 0.4352,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1403,
+              "pct": 0.4016,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Viaplay",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2158,
+              "pct": 0.0206,
+              "reliable": true
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2552,
+              "pct": 0.3085,
+              "reliable": true,
+              "sig": [
+                "b",
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1229,
+              "pct": 0.1596,
+              "reliable": true,
+              "sig": [
+                "b"
+              ]
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.2832,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 176,
+              "pct": 0.3392,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 197,
+              "pct": 0.0373,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 366,
+              "pct": 0.2029,
+              "reliable": true,
+              "sig": [
+                "d",
+                "b"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.2204,
+              "reliable": true
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 399,
+              "pct": 0.0417,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 411,
+              "pct": 0.2418,
+              "reliable": true
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.3347,
+              "reliable": true,
+              "sig": [
+                "b",
+                "b"
+              ]
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 240,
+              "pct": 0.038,
+              "reliable": true
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1234,
+              "pct": 0.1501,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1150,
+              "pct": 0.0285,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1463,
+              "pct": 0.0631,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1342,
+              "pct": 0.0375,
+              "reliable": true,
+              "sig": [
+                "b",
+                "f"
+              ]
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 807,
+              "pct": 0.1317,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 587,
+              "pct": 0.1743,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 761,
+              "pct": 0.2443,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.1058,
+              "reliable": true
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 124,
+              "pct": 0.2367,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 67,
+              "pct": 0.0603,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.0967,
+              "reliable": false
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.0949,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2642,
+              "pct": 0.1846,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 196,
+              "pct": 0.2799,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 910,
+              "pct": 0.1913,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1403,
+              "pct": 0.0526,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Ingen av dessa",
+          "values": {
+            "anvander_enhet_regelbundet_dator": {
+              "n": 2044,
+              "n_weighted": 2158,
+              "pct": 0.01,
+              "reliable": true,
+              "sig": [
+                "c",
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_mobiltelefon": {
+              "n": 2611,
+              "n_weighted": 2552,
+              "pct": 0.2706,
+              "reliable": true,
+              "sig": [
+                "d"
+              ]
+            },
+            "anvander_enhet_regelbundet_surfplatta": {
+              "n": 1188,
+              "n_weighted": 1229,
+              "pct": 0.2625,
+              "reliable": true
+            },
+            "generation_00_talist": {
+              "n": 289,
+              "n_weighted": 273,
+              "pct": 0.1818,
+              "reliable": true
+            },
+            "generation_10_talist": {
+              "n": 174,
+              "n_weighted": 176,
+              "pct": 0.0226,
+              "reliable": true
+            },
+            "generation_40_talist": {
+              "n": 206,
+              "n_weighted": 197,
+              "pct": 0.1478,
+              "reliable": true
+            },
+            "generation_50_talist": {
+              "n": 388,
+              "n_weighted": 366,
+              "pct": 0.041,
+              "reliable": true,
+              "sig": [
+                "a",
+                "a"
+              ]
+            },
+            "generation_60_talist": {
+              "n": 412,
+              "n_weighted": 398,
+              "pct": 0.2393,
+              "reliable": true,
+              "sig": [
+                "c",
+                "d"
+              ]
+            },
+            "generation_70_talist": {
+              "n": 397,
+              "n_weighted": 399,
+              "pct": 0.2096,
+              "reliable": true
+            },
+            "generation_80_talist": {
+              "n": 431,
+              "n_weighted": 411,
+              "pct": 0.1698,
+              "reliable": true,
+              "sig": [
+                "f",
+                "b"
+              ]
+            },
+            "generation_90_talist": {
+              "n": 402,
+              "n_weighted": 393,
+              "pct": 0.1233,
+              "reliable": true,
+              "sig": [
+                "d",
+                "f"
+              ]
+            },
+            "geografi_landsbygd": {
+              "n": 232,
+              "n_weighted": 240,
+              "pct": 0.1194,
+              "reliable": true,
+              "sig": [
+                "b",
+                "a"
+              ]
+            },
+            "geografi_mindre_stad_tatort": {
+              "n": 1189,
+              "n_weighted": 1234,
+              "pct": 0.0155,
+              "reliable": true
+            },
+            "geografi_storstad": {
+              "n": 1104,
+              "n_weighted": 1150,
+              "pct": 0.0924,
+              "reliable": true
+            },
+            "kon_kvinna": {
+              "n": 1390,
+              "n_weighted": 1463,
+              "pct": 0.22,
+              "reliable": true
+            },
+            "kon_man": {
+              "n": 1335,
+              "n_weighted": 1342,
+              "pct": 0.2413,
+              "reliable": true
+            },
+            "politisk_askadning_hoger": {
+              "n": 803,
+              "n_weighted": 807,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "politisk_askadning_mitten": {
+              "n": 611,
+              "n_weighted": 587,
+              "pct": 0.1028,
+              "reliable": true
+            },
+            "politisk_askadning_vanster": {
+              "n": 742,
+              "n_weighted": 761,
+              "pct": 0.1483,
+              "reliable": true
+            },
+            "politisk_askadning_vet_ej": {
+              "n": 369,
+              "n_weighted": 377,
+              "pct": 0.1508,
+              "reliable": true,
+              "sig": [
+                "d",
+                "c"
+              ]
+            },
+            "stadier_gymnasiet": {
+              "n": 118,
+              "n_weighted": 124,
+              "pct": 0.0959,
+              "reliable": true
+            },
+            "stadier_hogstadiet": {
+              "n": 71,
+              "n_weighted": 67,
+              "pct": 0.2116,
+              "reliable": false
+            },
+            "stadier_lagstadiet": {
+              "n": 28,
+              "n_weighted": 28,
+              "pct": 0.1085,
+              "reliable": false,
+              "sig": [
+                "d",
+                "f"
+              ]
+            },
+            "stadier_mellanstadiet": {
+              "n": 63,
+              "n_weighted": 60,
+              "pct": 0.1021,
+              "reliable": false
+            },
+            "totalt": {
+              "n": 2725,
+              "n_weighted": 2642,
+              "pct": 0.1032,
+              "reliable": true
+            },
+            "utbildningsniva_grundskola": {
+              "n": 188,
+              "n_weighted": 196,
+              "pct": 0.01,
+              "reliable": true
+            },
+            "utbildningsniva_gymnasium": {
+              "n": 964,
+              "n_weighted": 910,
+              "pct": 0.1699,
+              "reliable": true
+            },
+            "utbildningsniva_hogskola_universitet": {
+              "n": 1373,
+              "n_weighted": 1403,
+              "pct": 0.0385,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "segment_groups": [
+        "TOTALT",
+        "KÖN",
+        "GENERATION",
+        "UTBILDNINGSNIVÅ",
+        "POLITISK ÅSKÅDNING",
+        "GEOGRAFI",
+        "STADIER",
+        "ANVÄNDER ENHET REGELBUNDET"
+      ],
+      "sheet": "Studie 1 bas internetanvändare",
+      "source_row": 48,
+      "text": "Vilka av följande tjänster använder du för att titta på rörlig bild?"
+    }
+  ],
+  "segments": [
+    {
+      "group": "TOTALT",
+      "id": "totalt",
+      "label": "Totalt"
+    },
+    {
+      "group": "KÖN",
+      "id": "kon_man",
+      "label": "Man"
+    },
+    {
+      "group": "KÖN",
+      "id": "kon_kvinna",
+      "label": "Kvinna"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_10_talist",
+      "label": "10-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_00_talist",
+      "label": "00-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_90_talist",
+      "label": "90-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_80_talist",
+      "label": "80-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_70_talist",
+      "label": "70-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_60_talist",
+      "label": "60-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_50_talist",
+      "label": "50-talist"
+    },
+    {
+      "group": "GENERATION",
+      "id": "generation_40_talist",
+      "label": "40-talist"
+    },
+    {
+      "group": "UTBILDNINGSNIVÅ",
+      "id": "utbildningsniva_grundskola",
+      "label": "Grundskola"
+    },
+    {
+      "group": "UTBILDNINGSNIVÅ",
+      "id": "utbildningsniva_gymnasium",
+      "label": "Gymnasium"
+    },
+    {
+      "group": "UTBILDNINGSNIVÅ",
+      "id": "utbildningsniva_hogskola_universitet",
+      "label": "Högskola/universitet"
+    },
+    {
+      "group": "POLITISK ÅSKÅDNING",
+      "id": "politisk_askadning_vanster",
+      "label": "Vänster"
+    },
+    {
+      "group": "POLITISK ÅSKÅDNING",
+      "id": "politisk_askadning_mitten",
+      "label": "Mitten"
+    },
+    {
+      "group": "POLITISK ÅSKÅDNING",
+      "id": "politisk_askadning_hoger",
+      "label": "Höger"
+    },
+    {
+      "group": "POLITISK ÅSKÅDNING",
+      "id": "politisk_askadning_vet_ej",
+      "label": "Vet ej"
+    },
+    {
+      "group": "GEOGRAFI",
+      "id": "geografi_storstad",
+      "label": "Storstad"
+    },
+    {
+      "group": "GEOGRAFI",
+      "id": "geografi_mindre_stad_tatort",
+      "label": "Mindre stad/tätort"
+    },
+    {
+      "group": "GEOGRAFI",
+      "id": "geografi_landsbygd",
+      "label": "Landsbygd"
+    },
+    {
+      "group": "STADIER",
+      "id": "stadier_lagstadiet",
+      "label": "Lågstadiet"
+    },
+    {
+      "group": "STADIER",
+      "id": "stadier_mellanstadiet",
+      "label": "Mellanstadiet"
+    },
+    {
+      "group": "STADIER",
+      "id": "stadier_hogstadiet",
+      "label": "Högstadiet"
+    },
+    {
+      "group": "STADIER",
+      "id": "stadier_gymnasiet",
+      "label": "Gymnasiet"
+    },
+    {
+      "group": "ANVÄNDER ENHET REGELBUNDET",
+      "id": "anvander_enhet_regelbundet_mobiltelefon",
+      "label": "Mobiltelefon"
+    },
+    {
+      "group": "ANVÄNDER ENHET REGELBUNDET",
+      "id": "anvander_enhet_regelbundet_dator",
+      "label": "Dator"
+    },
+    {
+      "group": "ANVÄNDER ENHET REGELBUNDET",
+      "id": "anvander_enhet_regelbundet_surfplatta",
+      "label": "Surfplatta"
+    }
+  ]
+}
