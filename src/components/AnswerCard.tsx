@@ -18,8 +18,8 @@ import { truncate, wrapText } from '../lib/wrap';
 
 const W = 720;
 const PAD = 36;
-const LABEL_W = 158;
-const VALUE_W = 84;
+const LABEL_W = 186;
+const VALUE_W = 78;
 const GAP = 16;
 const BAR_H = 14;
 const ROW_H = 40;
@@ -127,7 +127,9 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         x={PAD} y={kickerY}
         fontFamily={MONO} fontSize="11" fontWeight="500" fill={MUTED} letterSpacing="0.08em"
       >
-        {label(headlineLabel)}
+        {/* Svarsalternativen kan vara 117 tecken. Spärrad monoversal i den
+            längden går utanför kortet, så etiketten kortas här. */}
+        {label(truncate(headlineLabel, W - PAD * 2, 12.4, 'mono'))}
       </text>
 
       <line x1={PAD} y1={rule1Y} x2={W - PAD} y2={rule1Y} stroke={HAIRLINE} strokeWidth="1" />

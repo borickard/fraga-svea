@@ -143,7 +143,14 @@ body {
 }
 .hits__button:hover { background: var(--canvas); }
 .hits__text { display: block; font-weight: 500; }
-.hits__base { display: block; margin-top: 5px; }
+.hits__wording {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.hits__base { display: block; margin-top: 6px; }
 .hits__options {
   display: block;
   margin-top: 4px;
@@ -174,9 +181,19 @@ body {
   padding: 8px 15px;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
+  /* Svarsalternativen i bilagan kan vara 117 tecken långa. Utan tak spränger
+     ett enda piller kolumnen. Hela etiketten finns kvar i title-attributet. */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   transition: color 140ms ease, border-color 140ms ease;
 }
+.pill__count {
+  opacity: 0.55;
+  margin-left: 2px;
+}
+.pills--topics { margin-top: 16px; }
 .pill:hover { color: var(--ink); }
 .pill--more {
   border-style: dashed;

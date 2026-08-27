@@ -39,6 +39,8 @@ export interface Question {
   sheet: string;
   /** 1-indexerad rad för "Bas:"-raden i arket. */
   source_row: number;
+  /** Frågekod ur arket, t.ex. ANV_FREK. Finns bara i penetrationsstudien. */
+  question_code?: string;
   /** Segmentgrupper som faktiskt förekommer i just den här tabellen. */
   segment_groups: string[];
   /**

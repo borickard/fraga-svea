@@ -3,7 +3,7 @@
     "appendix": "tabellbilaga-svenskarna-och-internet-2025.xlsx",
     "generated_from": "tabellbilaga-svenskarna-och-internet-2025.xlsx",
     "publisher": "Internetstiftelsen",
-    "question_count": 98,
+    "question_count": 101,
     "segment_count": 168,
     "source": "Svenskarna och internet 2025"
   },
@@ -438843,6 +438843,348 @@
       "sheet": "Studie 1 bas internetanvändare",
       "source_row": 964,
       "text": "STADIER:"
+    },
+    {
+      "base_label": "Samtliga 16+ år",
+      "id": "hur_ofta_anvander_du_internet__samtliga_16plus_ar",
+      "n_basis": "intervjuer",
+      "options": [
+        {
+          "label": "Flera gånger dagligen",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.7851952463218558,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Dagligen",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.14231195985151598,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje vecka",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.02430025989826174,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje månad",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.0078790898994829,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Mer sällan än varje månad",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.008049453033803144,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Internetanvändare",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.9677360090049203,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Dagliga användare",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.9275072061733727,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Sällananvändare",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.040228802831547776,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Sällan-/icke-användare",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.07249279382662728,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Använder inte internet",
+          "values": {
+            "totalt": {
+              "n": 1700,
+              "pct": 0.032263990995079546,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "question_code": "ANV_FREK",
+      "segment_groups": [
+        "TOTALT"
+      ],
+      "sheet": "Internetpenetrationstudie",
+      "source_row": 1,
+      "text": "Hur ofta använder du internet?"
+    },
+    {
+      "base_label": "-64 år",
+      "id": "hur_ofta_anvander_du_internet__64_ar",
+      "n_basis": "viktade_intervjuer",
+      "options": [
+        {
+          "label": "Flera gånger dagligen",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.8804615721381742,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Dagligen",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.10522615434257766,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje vecka",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.006163386057355315,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje månad",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.0014962839618258988,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Mer sällan än varje månad",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.002676391272528315,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Internetanvändare",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.9960237877724619,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Dagliga användare",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.9856877264807525,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Sällananvändare",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.010336061291709529,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Sällan-/icke-användare",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.014312273519247666,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Använder inte internet",
+          "values": {
+            "totalt": {
+              "n": 1253,
+              "pct": 0.003976212227538138,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "question_code": "ANV_FREK",
+      "segment_groups": [
+        "TOTALT"
+      ],
+      "sheet": "Internetpenetrationstudie",
+      "source_row": 17,
+      "text": "Hur ofta använder du internet?"
+    },
+    {
+      "base_label": "65+ år",
+      "id": "hur_ofta_anvander_du_internet__65plus_ar",
+      "n_basis": "viktade_intervjuer",
+      "options": [
+        {
+          "label": "Flera gånger dagligen",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.5178484370364967,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Dagligen",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.24638621366191976,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje vecka",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.07519794394589069,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Varje månad",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.025791219784814884,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Mer sällan än varje månad",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.023127928094756393,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Internetanvändare",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.8883517425238783,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Dagliga användare",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.7642346506984162,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Sällananvändare",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.12411709182546199,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Netto - Sällan-/icke-användare",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.235765349301583,
+              "reliable": true
+            }
+          }
+        },
+        {
+          "label": "Använder inte internet",
+          "values": {
+            "totalt": {
+              "n": 447,
+              "pct": 0.11164825747612113,
+              "reliable": true
+            }
+          }
+        }
+      ],
+      "question_code": "ANV_FREK",
+      "segment_groups": [
+        "TOTALT"
+      ],
+      "sheet": "Internetpenetrationstudie",
+      "source_row": 32,
+      "text": "Hur ofta använder du internet?"
     }
   ],
   "segments": [

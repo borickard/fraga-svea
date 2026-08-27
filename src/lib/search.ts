@@ -8,6 +8,7 @@
  */
 import type { Question } from '../types';
 import { dataset } from './dataset';
+import { titleFor } from './labels';
 
 const STOPWORDS = new Set([
   'och', 'eller', 'att', 'som', 'har', 'hur', 'vad', 'vem', 'vilka', 'vilken',
@@ -31,7 +32,16 @@ function normalize(s: string): string {
 const tokenize = (s: string): string[] => normalize(s).split(' ').filter(Boolean);
 
 interface OptionTokens { tokens: Set<string>; brevity: number; }
-interface Indexed { q: Question; tokens: Set<string>; options: OptionTokens[]; optionTokens: Set<string>; baseTokens: Set<string>; }
+interface Indexed {
+  q: Question;
+  tokens: Set<string>;
+  /** Frågetexten som ordlista, för fras- och täckningsbedömning. */
+  sequence: string[];
+  contentCount: number;
+  options: OptionTokens[];
+  optionTokens: Set<string>;
+  baseTokens: Set<string>;
+}
 
 /**
  * Ett ord som dyker upp i "Ja, ChatGPT" säger något. Samma ord inne i
@@ -46,9 +56,15 @@ const index: Indexed[] = dataset.questions.map((q) => {
     const t = tokenize(o.label);
     return { tokens: new Set(t), brevity: brevityOf(t.length) };
   });
+  // Titeln indexeras tillsammans med frågetexten. Flera frågor i bilagan
+  // heter bara "Youtube" eller "Har du tidigare använt …?" och går annars
+  // inte att hitta på det de faktiskt handlar om.
+  const sequence = tokenize(`${titleFor(q)} ${q.text}`);
   return {
     q,
-    tokens: new Set(tokenize(q.text)),
+    tokens: new Set(sequence),
+    sequence,
+    contentCount: Math.max(1, sequence.filter((t) => !STOPWORDS.has(t)).length),
     options,
     optionTokens: new Set(q.options.flatMap((o) => tokenize(o.label))),
     baseTokens: new Set(tokenize(q.base_label)),
@@ -119,6 +135,7 @@ export function searchQuestions(query: string, limit = 8): SearchHit[] {
     // Frågetexten väger tyngst, men ett namngivet verktyg som "ChatGPT" finns
     // bara bland svarsalternativen — därför får de inte vara försumbara.
     let score = 0;
+    const matched = new Set<string>();
     for (const t of use) {
       const w = weights.get(t) ?? 1;
       let optionHit = 0;
@@ -128,9 +145,31 @@ export function searchQuestions(query: string, limit = 8): SearchHit[] {
         optionHit * 0.85,
         hits(t, entry.baseTokens) * 0.5,
       );
+      if (hits(t, entry.tokens) > 0) matched.add(t);
       score += best * w;
     }
-    if (score > 0) scored.push({ question: entry.q, score: score / totalWeight });
+    if (score <= 0) continue;
+    let final = score / totalWeight;
+
+    // Täckning. "Sociala medier" matchar både "Vilka sociala nätverksplatser/
+    // sociala medier har du använt…" och "Brukar du kolla upp dina ex på nätet,
+    // alltså googla dem eller kolla på deras sociala medier?" — båda innehåller
+    // orden, båda får full poäng, och utan det här avgörs ordningen av
+    // bokstavsordning på id. Frågan som HANDLAR om ämnet har en större del av
+    // sin egen text täckt av sökningen än frågan som råkar nämna det på slutet.
+    let covered = 0;
+    for (const t of new Set(entry.sequence)) if (!STOPWORDS.has(t) && matched.has(t)) covered++;
+    final *= 1 + 0.6 * (covered / entry.contentCount);
+
+    // Fras. Står sökorden intill varandra i frågetexten är det starkare
+    // belägg än att de finns utspridda i den.
+    if (use.length > 1) {
+      for (let i = 0; i + use.length <= entry.sequence.length; i++) {
+        if (use.every((t, k) => entry.sequence[i + k] === t)) { final *= 1.35; break; }
+      }
+    }
+
+    scored.push({ question: entry.q, score: final });
   }
 
   // Stabil sortering: poäng först, därefter id, så att lika träffar aldrig hoppar.

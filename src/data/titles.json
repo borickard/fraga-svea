@@ -1,0 +1,92 @@
+{
+  "_kommentar": [
+    "Korta titlar för att bläddra och söka. Handskriven fil — redigera fritt.",
+    "Nyckeln är frågans exakta formulering som den står i tabellbilagan.",
+    "Titeln ERSÄTTER ALDRIG formuleringen. Svarskortet och den nedladdade",
+    "bilden visar alltid frågan ordagrant; titeln är bara en ingång till den.",
+    "Saknas en titel används frågetexten som den är."
+  ],
+
+  "Har du under de senaste 12 månaderna använt någon av följande e-tjänster?": "Användning av e-tjänster",
+  "Vilken eller vilka digitala brevlådor har du använt de senaste 12 månaderna?": "Digitala brevlådor",
+  "Har du minst någon gång under de senaste 12 månaderna använt någon av följande e-legitimationer?": "E-legitimation – någon gång",
+  "Vilka e-legitimationer har du använt minst varje vecka?": "E-legitimation – varje vecka",
+  "Vilka e-legitimationer har du använt dagligen?": "E-legitimation – dagligen",
+  "Vilka av följande appar har du använt vid betalning de senaste 12 månaderna?": "Betalappar",
+  "Har du e-handlat under de senaste 12 månaderna?": "E-handel",
+
+  "Tycker du att hälso- och sjukvårdens appar och e-tjänster underlättar eller försvårar tidsbokning av läkarbesök jämfört med bokning via telefonsamtal eller på plats på vårdcentral?": "Vårdens e-tjänster – underlättar eller försvårar tidsbokning",
+  "Har du avstått från att boka en tid hos läkare för att någon av hälso- och sjukvårdens appar och e-tjänster är för svåra att använda?": "Avstått läkartid för att e-tjänsten var för svår",
+
+  "Har du under de senaste 12 månaderna använt dig av några av följande AI-verktyg?": "Användning av AI-verktyg",
+  "Vilka typer av frågor ställer du i AI-verktyg?": "Vilka frågor som ställs till AI",
+  "Vad av följande har du använt AI-verktyg till?": "AI för textbearbetning",
+  "Har du använt AI-verktyg till att generera, alltså skapa, något av följande?": "AI för att skapa bilder, ljud och kod",
+  "Har du frågat ett AI-verktyg om något hälso- eller sjukvårdsrelaterat?": "AI-frågor om hälsa och sjukvård",
+  "I vilket eller vilka sammanhang har du använt AI-verktyg?": "Sammanhang där AI används",
+  "I vilket sammanhang har du främst använt AI-verktyg?": "Främsta sammanhanget för AI",
+  "Är du orolig för att AI kommer att göra dig arbetslös?": "Oro för att AI ska göra en arbetslös",
+  "Vilket av följande två påståenden instämmer du mest i?": "Tror AI orsakar arbetslöshet eller skapar nya jobb",
+
+  "Vilka sociala nätverksplatser/sociala medier har du använt minst någon gång de senaste 12 månaderna?": "Sociala medier – någon gång",
+  "Vilka sociala nätverksplatser/sociala medier har du använt minst varje vecka?": "Sociala medier – varje vecka",
+  "Vilka sociala nätverksplatser/sociala medier har du använt dagligen?": "Sociala medier – dagligen",
+  "Vilka sociala nätverksplatser/sociala medier/appar och tjänster har du använt minst någon gång de senaste 12 månaderna?": "Sociala medier och meddelandeappar – någon gång",
+  "Har du tidigare använt …?": "Tidigare användning av en plattform man slutat med",
+  "Brukar du regelbundet göra egna inlägg, exempelvis dela bilder, videos, Reels, Händelser, länkar, åsikter, tankar eller något annat, på...": "Gör egna inlägg på sociala medier",
+
+  "Youtube": "Youtube – hur ofta",
+  "Facebook": "Facebook – hur ofta",
+  "Instagram": "Instagram – hur ofta",
+  "Snapchat": "Snapchat – hur ofta",
+  "Linkedin": "Linkedin – hur ofta",
+  "Flashback": "Flashback – hur ofta",
+  "Tiktok": "Tiktok – hur ofta",
+  "Pinterest": "Pinterest – hur ofta",
+  "X (Twitter)": "X (Twitter) – hur ofta",
+  "Discord": "Discord – hur ofta",
+  "Reddit": "Reddit – hur ofta",
+  "Roblox": "Roblox – hur ofta",
+  "Twitch": "Twitch – hur ofta",
+  "Threads": "Threads – hur ofta",
+  "BeReal": "BeReal – hur ofta",
+  "Bluesky": "Bluesky – hur ofta",
+  "Yubo": "Yubo – hur ofta",
+  "Mastodon": "Mastodon – hur ofta",
+  "Facebook Messenger": "Facebook Messenger – hur ofta",
+  "WhatsApp": "WhatsApp – hur ofta",
+  "Signal (Signal Private Messenger)": "Signal – hur ofta",
+  "Telegram Messenger": "Telegram – hur ofta",
+
+  "Vilka av följande appar och tjänster har du använt minst någon gång de senaste 12 månaderna?": "Meddelandeappar – någon gång",
+  "Vilka har du använt minst varje vecka?": "Meddelandeappar – varje vecka",
+  "Vilka har du använt dagligen?": "Meddelandeappar – dagligen",
+
+  "Gör du något av följande på Roblox?": "Vad man gör på Roblox",
+
+  "Har du under de senaste 12 månaderna sett en bluffannons på sociala medier?": "Sett bluffannons på sociala medier",
+  "Har du under de senaste 12 månaderna anmält en bluffannons till den sociala medieplattform du såg bluffannonsen på?": "Anmält bluffannons till plattformen",
+  "Har du under de senaste 12 månaderna varit intresserad av en produkt i en annons på sociala medier, men avstått från att köpa den för att du misstänkte att det var en bluffannons?": "Avstått köp för att annonsen misstänktes vara falsk",
+  "E-handelsplatser kan ansöka om och använda sig av olika trygghetsmärkningar för att visa att deras webbplats är säker och pålitlig. Trygghetsmärkningen visas oftast i form av symboler eller certifikat. Upplever du generellt sett att denna trygghetsmärkning fyller sin funktion och gör dig tryggare i ditt köp?": "Avstått köp för att trygghetsmärkning saknades",
+
+  "Har du köpt eller sålt någon form av kryptovaluta (t ex. Bitcoin) under de senaste 12 månaderna?": "Handel med kryptovaluta",
+
+  "Har du nätdejtat under de senaste 12 månaderna?": "Nätdejtat senaste året",
+  "Föredrar du att få en första kontakt med potentiella partners via nätdejting eller IRL, alltså i livet utanför nätet?": "Föredrar första kontakt på nätet eller IRL",
+  "Oroar du dig för mikrootrohet, alltså att din partner ska chatta med någon de är attraherad av bakom din rygg?": "Oro för mikrootrohet",
+  "Har det hänt att du har kollat din partners mobil på grund av oro för otrohet?": "Kollat partnerns mobil av svartsjuka",
+  "Kan du se var din partner är/befinner sig genom platsdata (GPS) från din partners mobil, t ex. via snapchatkarta, Hitta-funktioner i mobilen eller liknande?": "Ser partnerns position via GPS",
+  "Brukar du kolla du upp dina ex på nätet, alltså googla dem eller kolla på deras sociala medier?": "Kollar upp sina ex på nätet",
+  "Tycker du att det är ok att din partner har/följer något av sina ex på sociala medier?": "Ok att partnern följer sina ex",
+
+  "Vilka av följande play- och strömmande tjänster har du använt minst någon gång under de senaste 12 månaderna?": "Play och strömmat – någon gång",
+  "Vilka av följande play- och strömmande tjänster har du använt minst varje vecka?": "Play och strömmat – varje vecka",
+  "Vilka av följande play- och strömmande tjänster har du använt dagligen?": "Play och strömmat – dagligen",
+
+  "Arbetar du inom offentlig, privat eller ideell sektor?": "Sektor man arbetar i",
+  "Skulle du säga att du är arbetare eller tjänsteman i din huvudsakliga yrkesroll?": "Arbetare eller tjänsteman",
+  "Har du under de senaste 12 månaderna arbetat hemifrån digitalt minst någon dag under en genomsnittlig arbetsvecka?": "Arbetat hemifrån digitalt",
+
+  "STADIER:": "Skolstadier bland 8–19-åringar",
+  "Hur ofta använder du internet?": "Hur ofta internet används"
+}

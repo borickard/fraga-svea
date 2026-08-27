@@ -10,28 +10,31 @@ import { Hits } from './components/Hits';
 import { Pills } from './components/Pills';
 import { NoMatch } from './components/NoMatch';
 import { AnswerCard } from './components/AnswerCard';
+import { Topics } from './components/Topics';
+import { questionsInTopic } from './lib/labels';
 
 type View =
   | { kind: 'idle' }
   | { kind: 'selected'; questionId: string }
   | { kind: 'no_match'; query: string; suggestions: Question[] };
 
-const EXAMPLES = dataset.questions.slice(0, 3).map((q) => q.text);
-
 export function App() {
   const [query, setQuery] = useState('');
   const [view, setView] = useState<View>({ kind: 'idle' });
   const [option, setOption] = useState<string | null>(null);
   const [group, setGroup] = useState<string>(TOTAL_GROUP);
+  const [topic, setTopic] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const cardRef = useRef<SVGSVGElement>(null);
 
   // Fas 2: sökningen är helt deterministisk och gör inga API-anrop.
-  const hits = useMemo(
-    () => (view.kind === 'selected' || query.trim().length < 2 ? [] : searchQuestions(query, 6).map((h) => h.question)),
-    [query, view.kind],
-  );
+  const hits = useMemo(() => {
+    if (view.kind === 'selected') return [];
+    if (query.trim().length >= 2) return searchQuestions(query, 6).map((h) => h.question);
+    // Utan sökord är ett valt ämne ingången: alla frågor som hör dit.
+    return topic ? questionsInTopic(topic) : [];
+  }, [query, view.kind, topic]);
 
   const answer = useMemo(
     () => (view.kind === 'selected'
@@ -81,7 +84,15 @@ export function App() {
   function reset(next: string) {
     setQuery(next);
     setNotice(null);
+    if (next.trim()) setTopic(null);
     if (view.kind !== 'idle') setView({ kind: 'idle' });
+  }
+
+  function chooseTopic(id: string | null) {
+    setTopic(id);
+    setQuery('');
+    setNotice(null);
+    setView({ kind: 'idle' });
   }
 
   async function download(kind: 'png' | 'svg') {
@@ -113,30 +124,22 @@ export function App() {
 
       {notice && <p className="error" role="status">{notice}</p>}
 
-      {view.kind !== 'selected' && (
-        <Hits hits={hits} activeId={null} onSelect={(q) => select(q)} label="Frågor i undersökningen" />
-      )}
-
       {view.kind === 'no_match' && (
         <NoMatch query={view.query} suggestions={view.suggestions} onSelect={(q) => select(q, view.query)} />
       )}
 
-      {view.kind === 'idle' && hits.length === 0 && (
+      {view.kind !== 'selected' && !query.trim() && (
         <section className="empty">
           <p>
             {dataset.questions.length} frågor ur {dataset.meta.source}, nedbrutna på{' '}
-            {dataset.segments.length} segment. Skriv en fråga, eller börja här:
+            {dataset.segments.length} segment. Skriv en fråga, eller välj ett ämne.
           </p>
-          <ul className="empty__examples">
-            {EXAMPLES.map((text) => (
-              <li key={text}>
-                <button type="button" className="empty__example" onClick={() => { setQuery(text); }}>
-                  {text}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <Topics active={topic} onSelect={chooseTopic} />
         </section>
+      )}
+
+      {view.kind !== 'selected' && (
+        <Hits hits={hits} activeId={null} onSelect={(q) => select(q)} label="Frågor i undersökningen" />
       )}
 
       {answer && (

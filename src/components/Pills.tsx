@@ -39,6 +39,7 @@ export function Pills({ items, active, onSelect, ariaLabel, maxVisible = 8 }: Pr
           className="pill"
           aria-pressed={item.id === active}
           onClick={() => onSelect(item.id)}
+          title={item.label}
         >
           {item.label}
         </button>

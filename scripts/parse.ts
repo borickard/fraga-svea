@@ -17,10 +17,17 @@ import { segmentId, questionId, TOTAL_GROUP } from './slug.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Blad vi parsar. Internetpenetrationstudie och Tabellbeskrivning är utanför scope i fas 1. */
+/**
+ * Blad vi parsar. Tabellbeskrivningen är metodtext och parsas inte.
+ *
+ * Internetpenetrationstudien har samma tabellstruktur men bara kolumnen
+ * Totalt — ingen segmentnedbrytning — och ett frågekodsprefix före "Bas:".
+ * Den bär rapportens mest citerade siffra, andelen internetanvändare.
+ */
 const SHEETS_IN_SCOPE = [
   'Studie 1 bas samtliga',
   'Studie 1 bas internetanvändare',
+  'Internetpenetrationstudie',
 ];
 
 /** Under den här gränsen är segmentet inte tillräckligt stort för att publicera. */
@@ -122,7 +129,11 @@ type Grid = Raw[][]; // [rowIndex0][colIndex0]
 
 interface ColumnSegment { col: number; segment: Segment; }
 
-const BAS_RE = /^bas\s*:/i;
+// Penetrationsstudien skriver "Frg:ANV_FREK. Bas: Samtliga 16+ år"; de andra
+// bladen bara "Bas: ...". Frågekoden plockas ut separat i stället för att
+// hamna i basetiketten.
+const BAS_RE = /^(?:frg\s*:\s*[^.]*\.\s*)?bas\s*:/i;
+const QUESTION_CODE_RE = /^frg\s*:\s*([^.]+)\./i;
 const CELL_CONTENT_RE = /^cellinneh[åa]ll\s*:/i;
 const N_ROW = 'antal intervjuer';
 const NW_ROW = 'antal viktade intervjuer';
@@ -151,6 +162,7 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
   // 1) Bas och frågetext. Båda ligger normalt i samma cell, åtskilda av radbrytning.
   const basCellText = asText(grid[start]?.[0]);
   const lines = basCellText.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const questionCode = (lines[0] ?? '').match(QUESTION_CODE_RE)?.[1]?.trim();
   const baseLabel = (lines[0] ?? '').replace(BAS_RE, '').trim();
   let questionText = lines.slice(1).join(' ').trim();
 
@@ -303,6 +315,7 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
     n_basis: nBasis,
     options,
   };
+  if (questionCode) question.question_code = questionCode;
   if (cellContent && !/kolumn%/i.test(cellContent)) {
     note('warn', sheet, rowNo(headerRow), `Ovänt cellinnehåll: "${cellContent}". Förväntade "Kolumn% Chi2".`);
   }
