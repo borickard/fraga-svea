@@ -12,7 +12,8 @@
     "validate": "tsx scripts/validate.ts",
     "data": "npm run parse && npm run validate",
     "spotcheck": "tsx scripts/spotcheck.ts",
-    "fonts": "node scripts/fetch-fonts.mjs"
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "inspect": "tsx scripts/inspect.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.121.0",
