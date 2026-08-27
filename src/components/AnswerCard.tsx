@@ -53,6 +53,15 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
 ) {
   const { question, rows, headline, headlineLabel, baseN, hasSmallBase } = answer;
 
+  // Flera tabeller i bilagan redovisar bara viktade intervjuer. Ett viktat tal
+  // är inte ett antal genomförda intervjuer och märks därför ut, både i
+  // fotnoten och i varningen om små baser.
+  const weighted = question.n_basis === 'viktade_intervjuer';
+  const nLabel = weighted ? 'Viktade intervjuer' : 'n';
+  const cautionText = weighted
+    ? '° färre än 100 viktade intervjuer — tolka med försiktighet'
+    : '° färre än 100 intervjuer — tolka med försiktighet';
+
   // ---- vertikal layout, uträknad före render så att höjden alltid stämmer
   // Frågans exakta formulering står överst: kortet ska gå att läsa fristående,
   // och siffran får aldrig lämna appen utan sin fråga.
@@ -83,7 +92,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
       width={W}
       height={H}
       role="img"
-      aria-label={`${headlineLabel}: ${formatPct(headline?.pct ?? null)}. Bas: ${question.base_label}, n = ${baseN}.`}
+      aria-label={`${headlineLabel}: ${formatPct(headline?.pct ?? null)}. Bas: ${question.base_label}, ${nLabel} = ${baseN}.`}
     >
       {!still && <style>{BAR_ANIMATION_CSS}</style>}
       <rect x="0" y="0" width={W} height={H} fill={SURFACE} />
@@ -173,7 +182,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
 
       {/* Bas och källa. Alltid, utan undantag. */}
       <text x={PAD} y={metaY} fontFamily={MONO} fontSize="11" fontWeight="500" fill={INK} letterSpacing="0.08em">
-        {label(`Bas: ${question.base_label} · n = ${formatN(baseN)}`)}
+        {label(`Bas: ${question.base_label} · ${nLabel} = ${formatN(baseN)}`)}
       </text>
       <text x={PAD} y={sourceY} fontFamily={MONO} fontSize="11" fill={MUTED} letterSpacing="0.08em">
         {label(sourceLine)}
@@ -181,7 +190,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
 
       {hasSmallBase && (
         <text x={PAD} y={cautionY} fontFamily={MONO} fontSize="11" fill={MUTED} letterSpacing="0.06em">
-          {label('° färre än 100 intervjuer — tolka med försiktighet')}
+          {label(cautionText)}
         </text>
       )}
     </svg>

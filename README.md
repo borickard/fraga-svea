@@ -95,6 +95,14 @@ som 0 %.
 kortet och i den exporterade bilden. Valideringen listar alla frågetexter som
 förekommer på flera baser.
 
+**Viktade baser.** Bilagan är inte konsekvent: en del tabeller har både
+`Antal intervjuer` och `Antal viktade intervjuer`, andra bara den viktade raden.
+Saknas den ovägda raden används det viktade talet som bas, och `n_basis` sätts
+till `viktade_intervjuer`. Då står det `VIKTADE INTERVJUER = 2 920` i fotnoten i
+stället för `N = 2 806` — ett viktat tal är inte ett antal genomförda intervjuer
+och får inte presenteras som ett. Valideringen räknar hur många frågor det
+gäller, och parsern loggar varje sådan tabell.
+
 **Små baser.** `reliable: false` vid `n < 100`. Grafen sätter en diskret markör
 efter värdet och en förklarande rad i fotnoten.
 

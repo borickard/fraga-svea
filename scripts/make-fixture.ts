@@ -73,7 +73,11 @@ function bannerNet(total: number): Col[] {
   ];
 }
 
-interface Table { base: string; question: string; options: string[]; cols: Col[]; seed: number; skew?: number; }
+interface Table {
+  base: string; question: string; options: string[]; cols: Col[]; seed: number; skew?: number;
+  /** Flera tabeller i den riktiga bilagan saknar raden "Antal intervjuer" helt. */
+  weightedOnly?: boolean;
+}
 
 const SIG_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -84,20 +88,26 @@ function buildSheet(wb: ExcelJS.Workbook, name: string, tables: Table[]) {
   for (const t of tables) {
     const rand = rng(t.seed);
 
-    // Rad 1: "Bas: ..." + radbrytning + frågetexten, allt i kolumn A.
-    const basCell = ws.getCell(ws.rowCount + 1, 1);
-    basCell.value = `Bas: ${t.base}\n${t.question}`;
-    basCell.alignment = { wrapText: true, vertical: 'top' };
+    // Rad 1: "Bas: ..." + radbrytning + frågetexten. I den riktiga bilagan är
+    // cellen sammanfogad över hela raden, så texten upprepas i varje kolumn.
+    const basText = `Bas: ${t.base}\n${t.question}`;
+    const basRow = ws.addRow([basText, ...t.cols.map(() => basText)]);
+    basRow.alignment = { wrapText: true, vertical: 'top' };
 
-    // Rad 2: Cellinnehåll + segmentgruppernas rubriker.
-    const headerRow = ws.addRow(['Cellinnehåll: Kolumn% Chi2', ...t.cols.map((c) => c.group)]);
+    // Rad 2 och 3: Cellinnehåll är sammanfogat över två rader, så samma text
+    // står på båda. Grupprubriken upprepas i varje kolumn gruppen omfattar.
+    const cellContent = 'Cellinnehåll:\n Kolumn%\n Chi2 nivå(W):95%\n';
+    let currentGroup = '';
+    const groupPerCol = t.cols.map((c) => { if (c.group) currentGroup = c.group; return c.label === 'Totalt' ? '' : currentGroup; });
+
+    const headerRow = ws.addRow([cellContent, ...groupPerCol]);
     headerRow.font = { bold: true };
 
-    // Rad 3: segmentetiketterna.
-    ws.addRow(['', ...t.cols.map((c) => c.label)]);
+    // Rad 3: segmentetiketterna, med gruppen upprepad även här.
+    ws.addRow([cellContent, ...t.cols.map((c) => c.label)]);
 
-    // Rad 4–5: baserna.
-    ws.addRow(['Antal intervjuer', ...t.cols.map((c) => c.n)]);
+    // Basraderna. Flera tabeller i bilagan redovisar bara viktade intervjuer.
+    if (!t.weightedOnly) ws.addRow(['Antal intervjuer', ...t.cols.map((c) => c.n)]);
     ws.addRow(['Antal viktade intervjuer', ...t.cols.map((c) => (c.n === 0 ? 0 : Math.round(c.n * (0.94 + rand() * 0.12))))]);
 
     // En rad per svarsalternativ. Värdena lagras som andelar 0–1.
@@ -139,7 +149,8 @@ async function main() {
       cols: banner18(2934),
     },
     {
-      base: 'Samtliga 18+ år', seed: 12,
+      // Bara viktade intervjuer, som flera tabeller i den riktiga bilagan.
+      base: 'Samtliga 18+ år', seed: 12, weightedOnly: true,
       question: 'Hur oroad är du för att bli utsatt för bedrägeri på internet?',
       options: ['Mycket oroad', 'Ganska oroad', 'Inte särskilt oroad', 'Inte alls oroad'],
       cols: banner18(2934),
@@ -168,7 +179,7 @@ async function main() {
       cols: bannerNet(1698),
     },
     {
-      base: 'Internetanvändare 16+ år', seed: 24,
+      base: 'Internetanvändare 16+ år', seed: 24, weightedOnly: true,
       question: 'Hur ofta använder du sociala medier?',
       options: ['Flera gånger om dagen', 'Dagligen', 'Varje vecka', 'Mer sällan', 'Aldrig'],
       cols: bannerNet(2610),

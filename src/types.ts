@@ -41,6 +41,13 @@ export interface Question {
   source_row: number;
   /** Segmentgrupper som faktiskt förekommer i just den här tabellen. */
   segment_groups: string[];
+  /**
+   * Vilken rad n är hämtad ur. Flera tabeller i bilagan redovisar bara
+   * "Antal viktade intervjuer" och saknar "Antal intervjuer" helt. Då används
+   * det viktade talet — men det måste märkas som viktat överallt det visas,
+   * eftersom det inte är ett antal genomförda intervjuer.
+   */
+  n_basis: 'intervjuer' | 'viktade_intervjuer';
   options: QuestionOption[];
 }
 

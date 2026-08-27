@@ -11,3 +11,6 @@ data/*.pdf
 # Genereras av parsern
 data/parse-log.txt
 data/validation-report.txt
+
+# Genereras av tsc
+tsconfig.tsbuildinfo

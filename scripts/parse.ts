@@ -196,22 +196,31 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
   if (columns.length === 0) return fail('Tabellen har inga segmentkolumner.', labelRow + 1);
 
   // 5) Basraderna.
+  // Bilagan är inte konsekvent: en del tabeller har både "Antal intervjuer"
+  // och "Antal viktade intervjuer", andra bara den viktade raden. Läs det som
+  // finns, och håll reda på vilket det var — ett viktat tal är inte ett antal
+  // genomförda intervjuer och får aldrig presenteras som ett.
   let nRow = -1, nwRow = -1, cursor = labelRow + 1;
   for (let i = labelRow + 1; i < Math.min(grid.length, labelRow + 8); i++) {
     const key = norm(grid[i]?.[0]);
-    if (key === N_ROW) { nRow = i; cursor = Math.max(cursor, i + 1); }
-    else if (key === NW_ROW) { nwRow = i; cursor = Math.max(cursor, i + 1); }
-    else if (nRow !== -1) break;
+    if (key === N_ROW) { nRow = i; cursor = i + 1; }
+    else if (key === NW_ROW) { nwRow = i; cursor = i + 1; }
+    else if (nRow !== -1 || nwRow !== -1) break;
   }
+  if (nRow === -1 && nwRow === -1) {
+    return fail('Hittade varken "Antal intervjuer" eller "Antal viktade intervjuer". Utan bas går tabellen inte att publicera.', cursor);
+  }
+
+  const basisRow = nRow !== -1 ? nRow : nwRow;
+  const nBasis: 'intervjuer' | 'viktade_intervjuer' = nRow !== -1 ? 'intervjuer' : 'viktade_intervjuer';
   if (nRow === -1) {
-    return fail('Hittade ingen rad "Antal intervjuer". Utan n går tabellen inte att publicera.', cursor);
+    note('info', sheet, rowNo(nwRow), 'Tabellen saknar "Antal intervjuer". n hämtas från de viktade intervjuerna och märks som viktat.');
   }
-  if (nwRow === -1) note('warn', sheet, rowNo(nRow), 'Ingen rad "Antal viktade intervjuer" — n_weighted utelämnas.');
 
   const nPerCol = new Map<number, number>();
   const nwPerCol = new Map<number, number>();
   for (const { col } of columns) {
-    nPerCol.set(col, parseInt0(grid[nRow][col] ?? null));
+    nPerCol.set(col, parseInt0(grid[basisRow][col] ?? null));
     if (nwRow !== -1) nwPerCol.set(col, parseInt0(grid[nwRow][col] ?? null));
   }
 
@@ -272,6 +281,7 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
     sheet,
     source_row: rowNo(start),
     segment_groups: groups,
+    n_basis: nBasis,
     options,
   };
   if (cellContent && !/kolumn%/i.test(cellContent)) {

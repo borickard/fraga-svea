@@ -56,6 +56,9 @@ for (const q of dataset.questions) {
 
   // Bas-sluggen måste ligga i id:t, annars kan två baser förväxlas.
   if (!q.id.includes('__')) fail(`${where} har ett id utan bas-slug.`);
+  if (q.n_basis !== 'intervjuer' && q.n_basis !== 'viktade_intervjuer') {
+    fail(`${where} saknar giltig n_basis — utan den går viktade tal inte att märka ut.`);
+  }
 
   for (const opt of q.options) {
     if (!opt.label) fail(`${where} har ett svarsalternativ utan etikett.`);
@@ -124,6 +127,16 @@ for (const q of dataset.questions) {
   say(`  ${sum.toFixed(3)}  ${type}  ${q.id}`);
 }
 say();
+
+// ---------------------------------------------------------------- viktade baser
+
+const weightedOnly = dataset.questions.filter((q) => q.n_basis === 'viktade_intervjuer');
+if (weightedOnly.length) {
+  say(`${weightedOnly.length} av ${dataset.questions.length} frågor saknar raden "Antal intervjuer" i arket.`);
+  say('För dem används de viktade intervjuerna som bas. Det talet är inte ett antal');
+  say('genomförda intervjuer och märks som viktat i gränssnittet och i exporten.');
+  say();
+}
 
 // ---------------------------------------------------------------- baser
 

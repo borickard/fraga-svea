@@ -11,6 +11,7 @@
     {
       "base_label": "Samtliga 18+ år",
       "id": "anvander_du_internet__samtliga_18plus_ar",
+      "n_basis": "intervjuer",
       "options": [
         {
           "label": "Ja, dagligen",
@@ -435,12 +436,13 @@
     {
       "base_label": "Samtliga 18+ år",
       "id": "hur_oroad_ar_du_for_att_bli_utsatt__samtliga_18plus_ar",
+      "n_basis": "viktade_intervjuer",
       "options": [
         {
           "label": "Mycket oroad",
           "values": {
             "generation_00_talist": {
-              "n": 289,
+              "n": 276,
               "n_weighted": 276,
               "pct": 0.5506,
               "reliable": true
@@ -452,31 +454,31 @@
               "reliable": false
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 200,
               "n_weighted": 200,
               "pct": 0.4961,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 393,
               "n_weighted": 393,
               "pct": 0.7486,
               "reliable": true
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 419,
               "n_weighted": 419,
               "pct": 0.793,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 398,
               "n_weighted": 398,
               "pct": 0.7492,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 436,
               "n_weighted": 436,
               "pct": 0.625,
               "reliable": true,
@@ -486,43 +488,43 @@
               ]
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 396,
               "n_weighted": 396,
               "pct": 0.5491,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 226,
               "n_weighted": 226,
               "pct": 0.5393,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1256,
               "n_weighted": 1256,
               "pct": 0.806,
               "reliable": true
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1103,
               "n_weighted": 1103,
               "pct": 0.731,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1496,
+              "n": 1413,
               "n_weighted": 1413,
               "pct": 0.6341,
               "reliable": true
             },
             "kon_man": {
-              "n": 1438,
+              "n": 1415,
               "n_weighted": 1415,
               "pct": 0.6416,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 765,
               "n_weighted": 765,
               "pct": 0.6629,
               "reliable": true,
@@ -532,43 +534,43 @@
               ]
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 629,
               "n_weighted": 629,
               "pct": 0.6426,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 725,
               "n_weighted": 725,
               "pct": 0.7862,
               "reliable": true
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 371,
               "n_weighted": 371,
               "pct": 0.4911,
               "reliable": true
             },
             "totalt": {
-              "n": 2934,
+              "n": 2843,
               "n_weighted": 2843,
               "pct": 0.6609,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 182,
               "n_weighted": 182,
               "pct": 0.5964,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 1017,
               "n_weighted": 1017,
               "pct": 0.6029,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1346,
               "n_weighted": 1346,
               "pct": 0.783,
               "reliable": true
@@ -579,7 +581,7 @@
           "label": "Ganska oroad",
           "values": {
             "generation_00_talist": {
-              "n": 289,
+              "n": 276,
               "n_weighted": 276,
               "pct": 0.6565,
               "reliable": true
@@ -591,13 +593,13 @@
               "reliable": false
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 200,
               "n_weighted": 200,
               "pct": 0.4642,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 393,
               "n_weighted": 393,
               "pct": 0.672,
               "reliable": true,
@@ -606,7 +608,7 @@
               ]
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 419,
               "n_weighted": 419,
               "pct": 0.6946,
               "reliable": true,
@@ -616,37 +618,37 @@
               ]
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 398,
               "n_weighted": 398,
               "pct": 0.5396,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 436,
               "n_weighted": 436,
               "pct": 0.5793,
               "reliable": true
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 396,
               "n_weighted": 396,
               "pct": 0.5444,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 226,
               "n_weighted": 226,
               "pct": 0.5089,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1256,
               "n_weighted": 1256,
               "pct": 0.5969,
               "reliable": true
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1103,
               "n_weighted": 1103,
               "pct": 0.4246,
               "reliable": true,
@@ -656,37 +658,37 @@
               ]
             },
             "kon_kvinna": {
-              "n": 1496,
+              "n": 1413,
               "n_weighted": 1413,
               "pct": 0.5302,
               "reliable": true
             },
             "kon_man": {
-              "n": 1438,
+              "n": 1415,
               "n_weighted": 1415,
               "pct": 0.3599,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 765,
               "n_weighted": 765,
               "pct": 0.6163,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 629,
               "n_weighted": 629,
               "pct": 0.3884,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 725,
               "n_weighted": 725,
               "pct": 0.5113,
               "reliable": true
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 371,
               "n_weighted": 371,
               "pct": 0.6927,
               "reliable": true,
@@ -696,25 +698,25 @@
               ]
             },
             "totalt": {
-              "n": 2934,
+              "n": 2843,
               "n_weighted": 2843,
               "pct": 0.5282,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 182,
               "n_weighted": 182,
               "pct": 0.5115,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 1017,
               "n_weighted": 1017,
               "pct": 0.433,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1346,
               "n_weighted": 1346,
               "pct": 0.4386,
               "reliable": true
@@ -725,7 +727,7 @@
           "label": "Inte särskilt oroad",
           "values": {
             "generation_00_talist": {
-              "n": 289,
+              "n": 276,
               "n_weighted": 276,
               "pct": 0.5343,
               "reliable": true
@@ -737,13 +739,13 @@
               "reliable": false
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 200,
               "n_weighted": 200,
               "pct": 0.5027,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 393,
               "n_weighted": 393,
               "pct": 0.3084,
               "reliable": true,
@@ -753,7 +755,7 @@
               ]
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 419,
               "n_weighted": 419,
               "pct": 0.3657,
               "reliable": true,
@@ -762,67 +764,67 @@
               ]
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 398,
               "n_weighted": 398,
               "pct": 0.3383,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 436,
               "n_weighted": 436,
               "pct": 0.5541,
               "reliable": true
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 396,
               "n_weighted": 396,
               "pct": 0.2628,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 226,
               "n_weighted": 226,
               "pct": 0.3706,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1256,
               "n_weighted": 1256,
               "pct": 0.4137,
               "reliable": true
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1103,
               "n_weighted": 1103,
               "pct": 0.5823,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1496,
+              "n": 1413,
               "n_weighted": 1413,
               "pct": 0.3628,
               "reliable": true
             },
             "kon_man": {
-              "n": 1438,
+              "n": 1415,
               "n_weighted": 1415,
               "pct": 0.4972,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 765,
               "n_weighted": 765,
               "pct": 0.5828,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 629,
               "n_weighted": 629,
               "pct": 0.3394,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 725,
               "n_weighted": 725,
               "pct": 0.3993,
               "reliable": true,
@@ -832,31 +834,31 @@
               ]
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 371,
               "n_weighted": 371,
               "pct": 0.4412,
               "reliable": true
             },
             "totalt": {
-              "n": 2934,
+              "n": 2843,
               "n_weighted": 2843,
               "pct": 0.4275,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 182,
               "n_weighted": 182,
               "pct": 0.5842,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 1017,
               "n_weighted": 1017,
               "pct": 0.2993,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1346,
               "n_weighted": 1346,
               "pct": 0.5482,
               "reliable": true
@@ -867,7 +869,7 @@
           "label": "Inte alls oroad",
           "values": {
             "generation_00_talist": {
-              "n": 289,
+              "n": 276,
               "n_weighted": 276,
               "pct": 0.271,
               "reliable": true
@@ -879,43 +881,43 @@
               "reliable": false
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 200,
               "n_weighted": 200,
               "pct": 0.3365,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 393,
               "n_weighted": 393,
               "pct": 0.4913,
               "reliable": true
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 419,
               "n_weighted": 419,
               "pct": 0.2463,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 398,
               "n_weighted": 398,
               "pct": 0.2702,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 436,
               "n_weighted": 436,
               "pct": 0.4449,
               "reliable": true
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 396,
               "n_weighted": 396,
               "pct": 0.4609,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 226,
               "n_weighted": 226,
               "pct": 0.4687,
               "reliable": true,
@@ -925,7 +927,7 @@
               ]
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1256,
               "n_weighted": 1256,
               "pct": 0.3448,
               "reliable": true,
@@ -935,61 +937,61 @@
               ]
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1103,
               "n_weighted": 1103,
               "pct": 0.1716,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1496,
+              "n": 1413,
               "n_weighted": 1413,
               "pct": 0.3037,
               "reliable": true
             },
             "kon_man": {
-              "n": 1438,
+              "n": 1415,
               "n_weighted": 1415,
               "pct": 0.2074,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 765,
               "n_weighted": 765,
               "pct": 0.2177,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 629,
               "n_weighted": 629,
               "pct": 0.2163,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 725,
               "n_weighted": 725,
               "pct": 0.294,
               "reliable": true
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 371,
               "n_weighted": 371,
               "pct": 0.2138,
               "reliable": true
             },
             "totalt": {
-              "n": 2934,
+              "n": 2843,
               "n_weighted": 2843,
               "pct": 0.3219,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 182,
               "n_weighted": 182,
               "pct": 0.1924,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 1017,
               "n_weighted": 1017,
               "pct": 0.1738,
               "reliable": true,
@@ -999,7 +1001,7 @@
               ]
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1346,
               "n_weighted": 1346,
               "pct": 0.3372,
               "reliable": true
@@ -1022,6 +1024,7 @@
     {
       "base_label": "Internetanvändare 8+ år",
       "id": "har_du_under_de_senaste_12_manaderna_anvant__internetanvandare_8plus_ar",
+      "n_basis": "intervjuer",
       "options": [
         {
           "label": "ChatGPT",
@@ -2184,6 +2187,7 @@
     {
       "base_label": "Har använt AI-verktyg 8+ år",
       "id": "har_du_under_de_senaste_12_manaderna_anvant__har_anvant_ai_verktyg_8plus_ar",
+      "n_basis": "intervjuer",
       "options": [
         {
           "label": "ChatGPT",
@@ -3340,6 +3344,7 @@
     {
       "base_label": "Har använt AI-verktyg 8+ år",
       "id": "vad_anvander_du_ai_verktyg_till__har_anvant_ai_verktyg_8plus_ar",
+      "n_basis": "intervjuer",
       "options": [
         {
           "label": "Söka information",
@@ -4526,24 +4531,25 @@
     {
       "base_label": "Internetanvändare 16+ år",
       "id": "hur_ofta_anvander_du_sociala_medier__internetanvandare_16plus_ar",
+      "n_basis": "viktade_intervjuer",
       "options": [
         {
           "label": "Flera gånger om dagen",
           "values": {
             "anvander_enhet_regelbundet_dator": {
-              "n": 2044,
+              "n": 2011,
               "n_weighted": 2011,
               "pct": 0.6432,
               "reliable": true
             },
             "anvander_enhet_regelbundet_mobiltelefon": {
-              "n": 2611,
+              "n": 2727,
               "n_weighted": 2727,
               "pct": 0.6257,
               "reliable": true
             },
             "anvander_enhet_regelbundet_surfplatta": {
-              "n": 1188,
+              "n": 1120,
               "n_weighted": 1120,
               "pct": 0.7431,
               "reliable": true,
@@ -4553,13 +4559,13 @@
               ]
             },
             "generation_00_talist": {
-              "n": 289,
+              "n": 285,
               "n_weighted": 285,
               "pct": 0.7683,
               "reliable": true
             },
             "generation_10_talist": {
-              "n": 174,
+              "n": 175,
               "n_weighted": 175,
               "pct": 0.5514,
               "reliable": true,
@@ -4569,61 +4575,61 @@
               ]
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 211,
               "n_weighted": 211,
               "pct": 0.5323,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 409,
               "n_weighted": 409,
               "pct": 0.7508,
               "reliable": true
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 423,
               "n_weighted": 423,
               "pct": 0.6451,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 403,
               "n_weighted": 403,
               "pct": 0.7063,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 441,
               "n_weighted": 441,
               "pct": 0.6905,
               "reliable": true
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 405,
               "n_weighted": 405,
               "pct": 0.5031,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 221,
               "n_weighted": 221,
               "pct": 0.7773,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1250,
               "n_weighted": 1250,
               "pct": 0.7581,
               "reliable": true
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1111,
               "n_weighted": 1111,
               "pct": 0.8256,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1331,
+              "n": 1291,
               "n_weighted": 1291,
               "pct": 0.6612,
               "reliable": true,
@@ -4632,49 +4638,49 @@
               ]
             },
             "kon_man": {
-              "n": 1279,
+              "n": 1272,
               "n_weighted": 1272,
               "pct": 0.646,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 792,
               "n_weighted": 792,
               "pct": 0.741,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 626,
               "n_weighted": 626,
               "pct": 0.5829,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 741,
               "n_weighted": 741,
               "pct": 0.5411,
               "reliable": true
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 377,
               "n_weighted": 377,
               "pct": 0.7622,
               "reliable": true
             },
             "stadier_gymnasiet": {
-              "n": 118,
+              "n": 123,
               "n_weighted": 123,
               "pct": 0.6416,
               "reliable": true
             },
             "stadier_hogstadiet": {
-              "n": 71,
+              "n": 75,
               "n_weighted": 75,
               "pct": 0.5503,
               "reliable": false
             },
             "stadier_lagstadiet": {
-              "n": 28,
+              "n": 26,
               "n_weighted": 26,
               "pct": 0.534,
               "reliable": false
@@ -4686,25 +4692,25 @@
               "reliable": false
             },
             "totalt": {
-              "n": 2610,
+              "n": 2530,
               "n_weighted": 2530,
               "pct": 0.6645,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 181,
               "n_weighted": 181,
               "pct": 0.5164,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 913,
               "n_weighted": 913,
               "pct": 0.6926,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1411,
               "n_weighted": 1411,
               "pct": 0.621,
               "reliable": true,
@@ -4718,19 +4724,19 @@
           "label": "Dagligen",
           "values": {
             "anvander_enhet_regelbundet_dator": {
-              "n": 2044,
+              "n": 2011,
               "n_weighted": 2011,
               "pct": 0.4772,
               "reliable": true
             },
             "anvander_enhet_regelbundet_mobiltelefon": {
-              "n": 2611,
+              "n": 2727,
               "n_weighted": 2727,
               "pct": 0.622,
               "reliable": true
             },
             "anvander_enhet_regelbundet_surfplatta": {
-              "n": 1188,
+              "n": 1120,
               "n_weighted": 1120,
               "pct": 0.4709,
               "reliable": true,
@@ -4739,13 +4745,13 @@
               ]
             },
             "generation_00_talist": {
-              "n": 289,
+              "n": 285,
               "n_weighted": 285,
               "pct": 0.498,
               "reliable": true
             },
             "generation_10_talist": {
-              "n": 174,
+              "n": 175,
               "n_weighted": 175,
               "pct": 0.6594,
               "reliable": true,
@@ -4755,31 +4761,31 @@
               ]
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 211,
               "n_weighted": 211,
               "pct": 0.416,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 409,
               "n_weighted": 409,
               "pct": 0.6382,
               "reliable": true
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 423,
               "n_weighted": 423,
               "pct": 0.5225,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 403,
               "n_weighted": 403,
               "pct": 0.6602,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 441,
               "n_weighted": 441,
               "pct": 0.5903,
               "reliable": true,
@@ -4789,13 +4795,13 @@
               ]
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 405,
               "n_weighted": 405,
               "pct": 0.5484,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 221,
               "n_weighted": 221,
               "pct": 0.5815,
               "reliable": true,
@@ -4805,7 +4811,7 @@
               ]
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1250,
               "n_weighted": 1250,
               "pct": 0.5358,
               "reliable": true,
@@ -4815,61 +4821,61 @@
               ]
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1111,
               "n_weighted": 1111,
               "pct": 0.378,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1331,
+              "n": 1291,
               "n_weighted": 1291,
               "pct": 0.5649,
               "reliable": true
             },
             "kon_man": {
-              "n": 1279,
+              "n": 1272,
               "n_weighted": 1272,
               "pct": 0.38,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 792,
               "n_weighted": 792,
               "pct": 0.6856,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 626,
               "n_weighted": 626,
               "pct": 0.6724,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 741,
               "n_weighted": 741,
               "pct": 0.3874,
               "reliable": true
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 377,
               "n_weighted": 377,
               "pct": 0.3766,
               "reliable": true
             },
             "stadier_gymnasiet": {
-              "n": 118,
+              "n": 123,
               "n_weighted": 123,
               "pct": 0.4685,
               "reliable": true
             },
             "stadier_hogstadiet": {
-              "n": 71,
+              "n": 75,
               "n_weighted": 75,
               "pct": 0.4145,
               "reliable": false
             },
             "stadier_lagstadiet": {
-              "n": 28,
+              "n": 26,
               "n_weighted": 26,
               "pct": 0.631,
               "reliable": false
@@ -4881,25 +4887,25 @@
               "reliable": false
             },
             "totalt": {
-              "n": 2610,
+              "n": 2530,
               "n_weighted": 2530,
               "pct": 0.5157,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 181,
               "n_weighted": 181,
               "pct": 0.4753,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 913,
               "n_weighted": 913,
               "pct": 0.4738,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1411,
               "n_weighted": 1411,
               "pct": 0.5557,
               "reliable": true
@@ -4910,43 +4916,43 @@
           "label": "Varje vecka",
           "values": {
             "anvander_enhet_regelbundet_dator": {
-              "n": 2044,
+              "n": 2011,
               "n_weighted": 2011,
               "pct": 0.3914,
               "reliable": true
             },
             "anvander_enhet_regelbundet_mobiltelefon": {
-              "n": 2611,
+              "n": 2727,
               "n_weighted": 2727,
               "pct": 0.5504,
               "reliable": true
             },
             "anvander_enhet_regelbundet_surfplatta": {
-              "n": 1188,
+              "n": 1120,
               "n_weighted": 1120,
               "pct": 0.4573,
               "reliable": true
             },
             "generation_00_talist": {
-              "n": 289,
+              "n": 285,
               "n_weighted": 285,
               "pct": 0.4468,
               "reliable": true
             },
             "generation_10_talist": {
-              "n": 174,
+              "n": 175,
               "n_weighted": 175,
               "pct": 0.2941,
               "reliable": true
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 211,
               "n_weighted": 211,
               "pct": 0.4132,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 409,
               "n_weighted": 409,
               "pct": 0.3306,
               "reliable": true,
@@ -4955,19 +4961,19 @@
               ]
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 423,
               "n_weighted": 423,
               "pct": 0.4541,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 403,
               "n_weighted": 403,
               "pct": 0.3993,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 441,
               "n_weighted": 441,
               "pct": 0.6174,
               "reliable": true,
@@ -4977,19 +4983,19 @@
               ]
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 405,
               "n_weighted": 405,
               "pct": 0.33,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 221,
               "n_weighted": 221,
               "pct": 0.5745,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1250,
               "n_weighted": 1250,
               "pct": 0.5763,
               "reliable": true,
@@ -4998,13 +5004,13 @@
               ]
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1111,
               "n_weighted": 1111,
               "pct": 0.3932,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1331,
+              "n": 1291,
               "n_weighted": 1291,
               "pct": 0.3096,
               "reliable": true,
@@ -5014,49 +5020,49 @@
               ]
             },
             "kon_man": {
-              "n": 1279,
+              "n": 1272,
               "n_weighted": 1272,
               "pct": 0.6008,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 792,
               "n_weighted": 792,
               "pct": 0.4828,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 626,
               "n_weighted": 626,
               "pct": 0.5071,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 741,
               "n_weighted": 741,
               "pct": 0.4053,
               "reliable": true
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 377,
               "n_weighted": 377,
               "pct": 0.5448,
               "reliable": true
             },
             "stadier_gymnasiet": {
-              "n": 118,
+              "n": 123,
               "n_weighted": 123,
               "pct": 0.4527,
               "reliable": true
             },
             "stadier_hogstadiet": {
-              "n": 71,
+              "n": 75,
               "n_weighted": 75,
               "pct": 0.414,
               "reliable": false
             },
             "stadier_lagstadiet": {
-              "n": 28,
+              "n": 26,
               "n_weighted": 26,
               "pct": 0.3148,
               "reliable": false
@@ -5068,25 +5074,25 @@
               "reliable": false
             },
             "totalt": {
-              "n": 2610,
+              "n": 2530,
               "n_weighted": 2530,
               "pct": 0.4491,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 181,
               "n_weighted": 181,
               "pct": 0.3455,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 913,
               "n_weighted": 913,
               "pct": 0.5598,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1411,
               "n_weighted": 1411,
               "pct": 0.3025,
               "reliable": true
@@ -5097,19 +5103,19 @@
           "label": "Mer sällan",
           "values": {
             "anvander_enhet_regelbundet_dator": {
-              "n": 2044,
+              "n": 2011,
               "n_weighted": 2011,
               "pct": 0.2917,
               "reliable": true
             },
             "anvander_enhet_regelbundet_mobiltelefon": {
-              "n": 2611,
+              "n": 2727,
               "n_weighted": 2727,
               "pct": 0.4111,
               "reliable": true
             },
             "anvander_enhet_regelbundet_surfplatta": {
-              "n": 1188,
+              "n": 1120,
               "n_weighted": 1120,
               "pct": 0.2841,
               "reliable": true,
@@ -5118,25 +5124,25 @@
               ]
             },
             "generation_00_talist": {
-              "n": 289,
+              "n": 285,
               "n_weighted": 285,
               "pct": 0.4269,
               "reliable": true
             },
             "generation_10_talist": {
-              "n": 174,
+              "n": 175,
               "n_weighted": 175,
               "pct": 0.3792,
               "reliable": true
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 211,
               "n_weighted": 211,
               "pct": 0.3049,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 409,
               "n_weighted": 409,
               "pct": 0.1715,
               "reliable": true,
@@ -5145,67 +5151,67 @@
               ]
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 423,
               "n_weighted": 423,
               "pct": 0.3544,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 403,
               "n_weighted": 403,
               "pct": 0.2833,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 441,
               "n_weighted": 441,
               "pct": 0.1733,
               "reliable": true
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 405,
               "n_weighted": 405,
               "pct": 0.3489,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 221,
               "n_weighted": 221,
               "pct": 0.3426,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1250,
               "n_weighted": 1250,
               "pct": 0.2918,
               "reliable": true
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1111,
               "n_weighted": 1111,
               "pct": 0.2353,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1331,
+              "n": 1291,
               "n_weighted": 1291,
               "pct": 0.32,
               "reliable": true
             },
             "kon_man": {
-              "n": 1279,
+              "n": 1272,
               "n_weighted": 1272,
               "pct": 0.3037,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 792,
               "n_weighted": 792,
               "pct": 0.236,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 626,
               "n_weighted": 626,
               "pct": 0.1706,
               "reliable": true,
@@ -5215,7 +5221,7 @@
               ]
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 741,
               "n_weighted": 741,
               "pct": 0.2492,
               "reliable": true,
@@ -5224,13 +5230,13 @@
               ]
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 377,
               "n_weighted": 377,
               "pct": 0.4863,
               "reliable": true
             },
             "stadier_gymnasiet": {
-              "n": 118,
+              "n": 123,
               "n_weighted": 123,
               "pct": 0.2317,
               "reliable": true,
@@ -5240,13 +5246,13 @@
               ]
             },
             "stadier_hogstadiet": {
-              "n": 71,
+              "n": 75,
               "n_weighted": 75,
               "pct": 0.39,
               "reliable": false
             },
             "stadier_lagstadiet": {
-              "n": 28,
+              "n": 26,
               "n_weighted": 26,
               "pct": 0.313,
               "reliable": false,
@@ -5262,13 +5268,13 @@
               "reliable": false
             },
             "totalt": {
-              "n": 2610,
+              "n": 2530,
               "n_weighted": 2530,
               "pct": 0.3284,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 181,
               "n_weighted": 181,
               "pct": 0.2654,
               "reliable": true,
@@ -5277,13 +5283,13 @@
               ]
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 913,
               "n_weighted": 913,
               "pct": 0.2928,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1411,
               "n_weighted": 1411,
               "pct": 0.4359,
               "reliable": true
@@ -5294,7 +5300,7 @@
           "label": "Aldrig",
           "values": {
             "anvander_enhet_regelbundet_dator": {
-              "n": 2044,
+              "n": 2011,
               "n_weighted": 2011,
               "pct": 0.1418,
               "reliable": true,
@@ -5304,13 +5310,13 @@
               ]
             },
             "anvander_enhet_regelbundet_mobiltelefon": {
-              "n": 2611,
+              "n": 2727,
               "n_weighted": 2727,
               "pct": 0.0489,
               "reliable": true
             },
             "anvander_enhet_regelbundet_surfplatta": {
-              "n": 1188,
+              "n": 1120,
               "n_weighted": 1120,
               "pct": 0.2061,
               "reliable": true,
@@ -5319,7 +5325,7 @@
               ]
             },
             "generation_00_talist": {
-              "n": 289,
+              "n": 285,
               "n_weighted": 285,
               "pct": 0.2628,
               "reliable": true,
@@ -5329,67 +5335,67 @@
               ]
             },
             "generation_10_talist": {
-              "n": 174,
+              "n": 175,
               "n_weighted": 175,
               "pct": 0.277,
               "reliable": true
             },
             "generation_40_talist": {
-              "n": 206,
+              "n": 211,
               "n_weighted": 211,
               "pct": 0.2455,
               "reliable": true
             },
             "generation_50_talist": {
-              "n": 388,
+              "n": 409,
               "n_weighted": 409,
               "pct": 0.1606,
               "reliable": true
             },
             "generation_60_talist": {
-              "n": 412,
+              "n": 423,
               "n_weighted": 423,
               "pct": 0.2953,
               "reliable": true
             },
             "generation_70_talist": {
-              "n": 397,
+              "n": 403,
               "n_weighted": 403,
               "pct": 0.3283,
               "reliable": true
             },
             "generation_80_talist": {
-              "n": 431,
+              "n": 441,
               "n_weighted": 441,
               "pct": 0.1161,
               "reliable": true
             },
             "generation_90_talist": {
-              "n": 402,
+              "n": 405,
               "n_weighted": 405,
               "pct": 0.2935,
               "reliable": true
             },
             "geografi_landsbygd": {
-              "n": 232,
+              "n": 221,
               "n_weighted": 221,
               "pct": 0.1538,
               "reliable": true
             },
             "geografi_mindre_stad_tatort": {
-              "n": 1189,
+              "n": 1250,
               "n_weighted": 1250,
               "pct": 0.3518,
               "reliable": true
             },
             "geografi_storstad": {
-              "n": 1104,
+              "n": 1111,
               "n_weighted": 1111,
               "pct": 0.1283,
               "reliable": true
             },
             "kon_kvinna": {
-              "n": 1331,
+              "n": 1291,
               "n_weighted": 1291,
               "pct": 0.0752,
               "reliable": true,
@@ -5398,25 +5404,25 @@
               ]
             },
             "kon_man": {
-              "n": 1279,
+              "n": 1272,
               "n_weighted": 1272,
               "pct": 0.1725,
               "reliable": true
             },
             "politisk_askadning_hoger": {
-              "n": 803,
+              "n": 792,
               "n_weighted": 792,
               "pct": 0.0771,
               "reliable": true
             },
             "politisk_askadning_mitten": {
-              "n": 611,
+              "n": 626,
               "n_weighted": 626,
               "pct": 0.3275,
               "reliable": true
             },
             "politisk_askadning_vanster": {
-              "n": 742,
+              "n": 741,
               "n_weighted": 741,
               "pct": 0.2878,
               "reliable": true,
@@ -5425,25 +5431,25 @@
               ]
             },
             "politisk_askadning_vet_ej": {
-              "n": 369,
+              "n": 377,
               "n_weighted": 377,
               "pct": 0.1994,
               "reliable": true
             },
             "stadier_gymnasiet": {
-              "n": 118,
+              "n": 123,
               "n_weighted": 123,
               "pct": 0.2905,
               "reliable": true
             },
             "stadier_hogstadiet": {
-              "n": 71,
+              "n": 75,
               "n_weighted": 75,
               "pct": 0.1235,
               "reliable": false
             },
             "stadier_lagstadiet": {
-              "n": 28,
+              "n": 26,
               "n_weighted": 26,
               "pct": 0.2836,
               "reliable": false
@@ -5455,25 +5461,25 @@
               "reliable": false
             },
             "totalt": {
-              "n": 2610,
+              "n": 2530,
               "n_weighted": 2530,
               "pct": 0.2077,
               "reliable": true
             },
             "utbildningsniva_grundskola": {
-              "n": 188,
+              "n": 181,
               "n_weighted": 181,
               "pct": 0.3401,
               "reliable": true
             },
             "utbildningsniva_gymnasium": {
-              "n": 964,
+              "n": 913,
               "n_weighted": 913,
               "pct": 0.0404,
               "reliable": true
             },
             "utbildningsniva_hogskola_universitet": {
-              "n": 1373,
+              "n": 1411,
               "n_weighted": 1411,
               "pct": 0.2555,
               "reliable": true
@@ -5498,6 +5504,7 @@
     {
       "base_label": "Internetanvändare 8+ år",
       "id": "vilka_av_foljande_tjanster_anvander_du_for_att__internetanvandare_8plus_ar",
+      "n_basis": "intervjuer",
       "options": [
         {
           "label": "YouTube",
@@ -6672,7 +6679,7 @@
         "ANVÄNDER ENHET REGELBUNDET"
       ],
       "sheet": "Studie 1 bas internetanvändare",
-      "source_row": 48,
+      "source_row": 47,
       "text": "Vilka av följande tjänster använder du för att titta på rörlig bild?"
     }
   ],
