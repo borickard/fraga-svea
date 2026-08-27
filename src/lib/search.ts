@@ -251,17 +251,33 @@ export function bestOption(q: Question, query: string): string | null {
 }
 
 /** Gissar segmentgrupp ur fritext, för fas 2 och som stöd i fas 3. */
+const SEGMENT_MIN_SCORE = 0.9;
+
+/**
+ * Gissar segmentgrupp ur fritext, för fas 2 och som stöd i fas 3.
+ *
+ * Försiktig av samma skäl som bestOption. Ord som redan står i frågetexten
+ * räknas inte, och stoppord räknas inte alls: annars valde "hur många
+ * använder chatgpt" gruppen ANVÄNDER ENHET REGELBUNDET, bara för att ordet
+ * "använder" råkar ingå i gruppnamnet. En nedbrytning som användaren inte
+ * bett om är värre än ingen nedbrytning — totalen är rätt svar på en fråga
+ * utan segment.
+ */
 export function bestSegmentGroup(q: Question, query: string): string | null {
-  const terms = tokenize(query);
+  const questionTokens = new Set(tokenize(q.text));
+  const terms = tokenize(query)
+    .filter((t) => !STOPWORDS.has(t) && t.length > 1)
+    .filter((t) => hits(t, questionTokens) === 0);
   if (!terms.length) return null;
+
   let best: { group: string; score: number } | null = null;
   for (const group of q.segment_groups) {
     const gt = new Set(tokenize(group));
     // Segmentetiketterna räknas också: "00-talister" ska peka på GENERATION.
     for (const s of dataset.segments) if (s.group === group) for (const t of tokenize(s.label)) gt.add(t);
     let score = 0;
-    for (const t of terms) score += hits(t, gt);
-    if (score > 0 && (!best || score > best.score)) best = { group, score };
+    for (const t of terms) score += hits(t, gt) * weight(t);
+    if (!best || score > best.score) best = { group, score };
   }
-  return best ? best.group : null;
+  return best && best.score >= SEGMENT_MIN_SCORE ? best.group : null;
 }

@@ -51,7 +51,14 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   { answer, still = false },
   ref,
 ) {
-  const { question, rows, headline, headlineLabel, baseN, hasSmallBase } = answer;
+  const { question, rows, headline, headlineLabel, baseN, hasSmallBase, segmentGroup } = answer;
+
+  // Utan den här raden går grafen inte att läsa. "Smartmobil 35 %, Dator 41 %"
+  // säger ingenting om att det är andelen inom varje enhetsgrupp — och i en
+  // exporterad bild finns inget gränssnitt runtomkring som förklarar det.
+  const breakdown = segmentGroup === 'TOTALT'
+    ? 'Alla svarsalternativ · totalt'
+    : `Nedbrutet på ${segmentGroup}`;
 
   // Flera tabeller i bilagan redovisar bara viktade intervjuer. Ett viktat tal
   // är inte ett antal genomförda intervjuer och märks därför ut, både i
@@ -72,7 +79,8 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   const headlineY = questionEnd + 84;
   const kickerY = headlineY + 24;
   const rule1Y = kickerY + 26;
-  const rowsY = rule1Y + 26;
+  const breakdownY = rule1Y + 24;
+  const rowsY = rule1Y + 44;
   const rowsEnd = rowsY + rows.length * ROW_H;
   const rule2Y = rowsEnd + 10;
 
@@ -133,6 +141,13 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
       </text>
 
       <line x1={PAD} y1={rule1Y} x2={W - PAD} y2={rule1Y} stroke={HAIRLINE} strokeWidth="1" />
+
+      <text
+        x={PAD} y={breakdownY}
+        fontFamily={MONO} fontSize="11" fontWeight="500" fill={MUTED} letterSpacing="0.08em"
+      >
+        {label(truncate(breakdown, W - PAD * 2, 12.4, 'mono'))}
+      </text>
 
       {/* Grafen. Skalan är alltid 0–100 %: utan axel måste stapelns längd
           gå att läsa mot hela spåret, annars blir bilden missvisande i en artikel. */}
