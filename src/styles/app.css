@@ -144,6 +144,13 @@ body {
 .hits__button:hover { background: var(--canvas); }
 .hits__text { display: block; font-weight: 500; }
 .hits__base { display: block; margin-top: 5px; }
+.hits__options {
+  display: block;
+  margin-top: 4px;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+}
 .hits__button[aria-current='true'] { background: var(--canvas); }
 
 /* ---------------------------------------------------------------- piller */
@@ -171,6 +178,10 @@ body {
   transition: color 140ms ease, border-color 140ms ease;
 }
 .pill:hover { color: var(--ink); }
+.pill--more {
+  border-style: dashed;
+  box-shadow: none;
+}
 .pill[aria-pressed='true'] {
   background: var(--ink);
   border-color: var(--ink);

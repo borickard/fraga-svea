@@ -115,9 +115,21 @@ async function main() {
     const labelRow = headerRow + 1;
 
     const seg = dataset.segments.find((s) => s.id === t.segment);
+
+    // Etiketten räcker inte: "76+ år" förekommer i ÅLDERSGRUPPER, i
+    // ÅLDERSGRUPPER - MÄN och i ÅLDERSGRUPPER - KVINNOR. Kolumnen måste
+    // matchas på både grupp och etikett, med samma forward-fill av
+    // grupprubrikerna som parsern gör. Annars pekar stickprovet ut fel cell
+    // och verifieringen blir värdelös.
     let col = -1;
+    let group = '';
     for (let c = 2; c <= ws.columnCount; c++) {
-      if (text(ws.getRow(labelRow).getCell(c).value).trim() === seg?.label) { col = c; break; }
+      const raw = text(ws.getRow(headerRow).getCell(c).value).trim();
+      if (raw) group = raw.replace(/[:\s]+$/, '').trim();
+      const label = text(ws.getRow(labelRow).getCell(c).value).trim();
+      if (!label) continue;
+      const colGroup = label.toLowerCase() === 'totalt' ? 'TOTALT' : (group || 'TOTALT');
+      if (label === seg?.label && colGroup === seg?.group) { col = c; break; }
     }
 
     let optRow = -1;

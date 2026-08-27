@@ -152,6 +152,33 @@ for (const q of dataset.questions) {
   }
 }
 say(`Celler: ${total} totalt, ${noBase} utan bas (renderas aldrig som 0 %), ${small} med n < ${RELIABLE_MIN_N}.`);
+say();
+
+// Fördelningen av basstorlekar. Ett värde byggt på en handfull svarande är
+// tekniskt korrekt men praktiskt taget en slumpsiffra: med n = 1 kan andelen
+// bara bli 0 % eller 100 %. Rapporteras här för redaktionell bedömning.
+const buckets: Record<string, number> = { '1–9': 0, '10–29': 0, '30–99': 0, '100+': 0 };
+for (const q of dataset.questions) {
+  for (const o of q.options) {
+    for (const v of Object.values(o.values)) {
+      if (v.reason === 'no_base') continue;
+      if (v.n < 10) buckets['1–9']++;
+      else if (v.n < 30) buckets['10–29']++;
+      else if (v.n < RELIABLE_MIN_N) buckets['30–99']++;
+      else buckets['100+']++;
+    }
+  }
+}
+say('Basstorlek per cell:');
+for (const [range, count] of Object.entries(buckets)) {
+  say(`  n = ${range.padEnd(6)} ${String(count).padStart(6)}`);
+}
+if (buckets['1–9'] > 0) {
+  say();
+  say(`OBS: ${buckets['1–9']} celler bygger på färre än 10 svarande. Med n = 1 kan`);
+  say('andelen bara bli 0 % eller 100 %. De renderas i dag med värde och markör,');
+  say('enligt regeln att bara n = 0 undertrycks. Överväg en högre undre gräns.');
+}
 if (smallSegments.size) {
   say('Segment med liten bas — varnas för i gränssnittet:');
   for (const [id, n] of [...smallSegments.entries()].sort((a, b) => a[1] - b[1])) {

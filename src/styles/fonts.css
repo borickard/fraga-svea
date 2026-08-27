@@ -1,0 +1,40 @@
+/**
+ * Typsnitten serveras lokalt ur public/fonts/, inte från Google Fonts.
+ *
+ * Skälet är robusthet: ett <link> till fonts.googleapis.com i <head> blockerar
+ * renderingen. På ett nät där den domänen är långsam eller blockerad står
+ * sidan still tills anropet ger upp — uppmätt till 13 sekunder mot 0,3 med
+ * lokala filer. Det här är ett verktyg för folk på deadline.
+ *
+ * Filerna hämtas med `npm run fonts`. Saknas de faller webbläsaren tillbaka
+ * på systemtypsnitt direkt, utan att vänta på nätverket. Samma filer bäddas
+ * in i PNG- och SVG-exporten.
+ */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/InstrumentSans-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 500 600;
+  font-display: swap;
+  src: url('/fonts/InstrumentSans-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/IBMPlexMono-Medium.woff2') format('woff2');
+}

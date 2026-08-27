@@ -11,9 +11,12 @@ import { dataset } from './dataset';
 
 const STOPWORDS = new Set([
   'och', 'eller', 'att', 'som', 'har', 'hur', 'vad', 'vem', 'vilka', 'vilken',
-  'vilket', 'den', 'det', 'de', 'du', 'jag', 'man', 'en', 'ett', 'i', 'på',
+  'vilket', 'den', 'det', 'de', 'du', 'jag', 'en', 'ett', 'i', 'på',
   'av', 'för', 'med', 'om', 'till', 'är', 'var', 'kan', 'många', 'mycket',
-  'procent', 'andel', 'använder', 'använda',
+  'procent', 'andel', 'senaste', 'månaderna', 'följande', 'något', 'någon',
+  // Böjningar av "använda" bär ingen information: nästan varje fråga i
+  // undersökningen innehåller någon av dem.
+  'använder', 'använda', 'använt', 'använts', 'använde', 'användt',
 ]);
 
 function normalize(s: string): string {
@@ -27,22 +30,77 @@ function normalize(s: string): string {
 
 const tokenize = (s: string): string[] => normalize(s).split(' ').filter(Boolean);
 
-interface Indexed { q: Question; tokens: Set<string>; optionTokens: Set<string>; baseTokens: Set<string>; }
+interface OptionTokens { tokens: Set<string>; brevity: number; }
+interface Indexed { q: Question; tokens: Set<string>; options: OptionTokens[]; optionTokens: Set<string>; baseTokens: Set<string>; }
 
-const index: Indexed[] = dataset.questions.map((q) => ({
-  q,
-  tokens: new Set(tokenize(q.text)),
-  optionTokens: new Set(q.options.flatMap((o) => tokenize(o.label))),
-  baseTokens: new Set(tokenize(q.base_label)),
-}));
+/**
+ * Ett ord som dyker upp i "Ja, ChatGPT" säger något. Samma ord inne i
+ * "E-vårdtjänster/e-tjänster för sjukvården (logga in på 1177.se, digitala
+ * vårdbesök, söka info online vid sjukdom etc.)" säger nästan ingenting —
+ * långa uppräkningar råkar innehålla allt. Dämpa efter etikettens längd.
+ */
+const brevityOf = (tokenCount: number): number => 1 / (1 + Math.log(1 + Math.max(0, tokenCount - 3) / 4));
+
+const index: Indexed[] = dataset.questions.map((q) => {
+  const options = q.options.map((o) => {
+    const t = tokenize(o.label);
+    return { tokens: new Set(t), brevity: brevityOf(t.length) };
+  });
+  return {
+    q,
+    tokens: new Set(tokenize(q.text)),
+    options,
+    optionTokens: new Set(q.options.flatMap((o) => tokenize(o.label))),
+    baseTokens: new Set(tokenize(q.base_label)),
+  };
+});
+
+/**
+ * Hur särskiljande ett ord är. "Chatgpt" och "arbetslös" pekar ut en enda
+ * fråga; "verktyg", "sociala" och "internet" finns i halva undersökningen.
+ * Utan den viktningen vinner alltid den fråga som råkar innehålla flest
+ * vanliga ord, vilket är fel fråga.
+ */
+const documentFrequency = new Map<string, number>();
+for (const entry of index) {
+  const seen = new Set([...entry.tokens, ...entry.optionTokens, ...entry.baseTokens]);
+  for (const t of seen) documentFrequency.set(t, (documentFrequency.get(t) ?? 0) + 1);
+}
+
+function weight(term: string): number {
+  let df = documentFrequency.get(term) ?? 0;
+  if (df === 0) {
+    // Okänt ord kan ändå matcha via prefix eller ordstam. Ge det den lägsta
+    // frekvensen bland de ord det liknar, annars vore det viktlöst.
+    for (const [t, n] of documentFrequency) {
+      if (t.length >= 4 && (t.startsWith(term) || term.startsWith(t))) df = df === 0 ? n : Math.min(df, n);
+    }
+  }
+  if (df === 0) df = 1;
+  return Math.log(1 + index.length / df);
+}
+
+/** Längden på ordens gemensamma inledning. */
+function sharedPrefix(a: string, b: string): number {
+  const max = Math.min(a.length, b.length);
+  let i = 0;
+  while (i < max && a[i] === b[i]) i++;
+  return i;
+}
 
 function hits(needle: string, haystack: Set<string>): number {
   if (haystack.has(needle)) return 1;
+  let best = 0;
   for (const t of haystack) {
-    if (t.length >= 4 && (t.startsWith(needle) || needle.startsWith(t))) return 0.7;
-    if (needle.length >= 4 && t.includes(needle)) return 0.5;
+    if (t.length >= 4 && (t.startsWith(needle) || needle.startsWith(t))) best = Math.max(best, 0.7);
+    // Svensk böjning: "e-handlar" mot "e-handlat", "bluffannons" mot
+    // "bluffannonser". Ingen stemmer, bara gemensam ordstam.
+    else if (t.length >= 5 && needle.length >= 5 && sharedPrefix(t, needle) >= Math.min(t.length, needle.length) - 1) {
+      best = Math.max(best, 0.6);
+    }
+    else if (needle.length >= 5 && t.includes(needle)) best = Math.max(best, 0.5);
   }
-  return 0;
+  return best;
 }
 
 export interface SearchHit { question: Question; score: number; }
@@ -53,15 +111,26 @@ export function searchQuestions(query: string, limit = 8): SearchHit[] {
   const use = terms.length ? terms : all;
   if (use.length === 0) return [];
 
+  const weights = new Map(use.map((t) => [t, weight(t)]));
+  const totalWeight = [...weights.values()].reduce((a, b) => a + b, 0) || 1;
+
   const scored: SearchHit[] = [];
   for (const entry of index) {
+    // Frågetexten väger tyngst, men ett namngivet verktyg som "ChatGPT" finns
+    // bara bland svarsalternativen — därför får de inte vara försumbara.
     let score = 0;
     for (const t of use) {
-      score += hits(t, entry.tokens) * 1.0;
-      score += hits(t, entry.optionTokens) * 0.8;
-      score += hits(t, entry.baseTokens) * 0.3;
+      const w = weights.get(t) ?? 1;
+      let optionHit = 0;
+      for (const o of entry.options) optionHit = Math.max(optionHit, hits(t, o.tokens) * o.brevity);
+      const best = Math.max(
+        hits(t, entry.tokens) * 1.0,
+        optionHit * 0.85,
+        hits(t, entry.baseTokens) * 0.5,
+      );
+      score += best * w;
     }
-    if (score > 0) scored.push({ question: entry.q, score: score / use.length });
+    if (score > 0) scored.push({ question: entry.q, score: score / totalWeight });
   }
 
   // Stabil sortering: poäng först, därefter id, så att lika träffar aldrig hoppar.
@@ -115,18 +184,31 @@ export function nearestQuestions(query: string, limit = 3): Question[] {
 /**
  * Gissar vilket svarsalternativ användaren är ute efter inom en fråga.
  * Ren textmatchning, ingen modell inblandad.
+ *
+ * Två saker gör den försiktig med flit. Ord som redan finns i frågetexten
+ * räknas inte: skriver någon "hur många har sett bluffannonser på sociala
+ * medier" så handlar "sociala medier" om frågan, inte om alternativet — utan
+ * den regeln väljs "Använder inte sociala medier", alltså raka motsatsen till
+ * det som efterfrågas. Och en svag träff ger null i stället för en gissning,
+ * så att första alternativet används.
  */
+const OPTION_MIN_SCORE = 0.75;
+
 export function bestOption(q: Question, query: string): string | null {
-  const terms = tokenize(query).filter((t) => !STOPWORDS.has(t));
+  const questionTokens = new Set(tokenize(q.text));
+  const terms = tokenize(query)
+    .filter((t) => !STOPWORDS.has(t) && t.length > 1)
+    .filter((t) => hits(t, questionTokens) === 0);
   if (!terms.length) return null;
+
   let best: { label: string; score: number } | null = null;
   for (const o of q.options) {
     const ot = new Set(tokenize(o.label));
     let score = 0;
-    for (const t of terms) score += hits(t, ot);
-    if (score > 0 && (!best || score > best.score)) best = { label: o.label, score };
+    for (const t of terms) score += hits(t, ot) * weight(t);
+    if (!best || score > best.score) best = { label: o.label, score };
   }
-  return best ? best.label : null;
+  return best && best.score >= OPTION_MIN_SCORE ? best.label : null;
 }
 
 /** Gissar segmentgrupp ur fritext, för fas 2 och som stöd i fas 3. */

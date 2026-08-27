@@ -146,12 +146,14 @@ export function App() {
             items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
             active={answer.option.label}
             onSelect={setOption}
+            maxVisible={6}
           />
           <Pills
             ariaLabel="Segmentgrupp"
             items={groupsForCard.map((g) => ({ id: g, label: g === TOTAL_GROUP ? 'Totalt' : g }))}
             active={answer.segmentGroup}
             onSelect={setGroup}
+            maxVisible={7}
           />
 
           <div className="card-wrap">

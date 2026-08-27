@@ -1,4 +1,5 @@
 import type { Question } from '../types';
+import { isAmbiguous, optionPreview } from '../lib/dataset';
 
 interface Props {
   hits: Question[];
@@ -26,6 +27,11 @@ export function Hits({ hits, activeId, onSelect, label }: Props) {
           >
             <span className="hits__text">{q.text}</span>
             <span className="hits__base label">Bas: {q.base_label}</span>
+            {/* Två tabeller kan ha samma frågetext och samma bas. Då är
+                svarsalternativen det enda som skiljer dem åt. */}
+            {isAmbiguous(q.id) && (
+              <span className="hits__options label">{optionPreview(q)}</span>
+            )}
           </button>
         </li>
       ))}

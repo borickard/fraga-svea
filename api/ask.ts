@@ -81,9 +81,11 @@ Regler:
 
 4. options ska innehålla svarsalternativens etiketter ordagrant som de står i frågans lista. Hitta aldrig på ett alternativ.
 
-5. confidence: "high" bara när du är säker på både fråga och bas. Vid minsta tvekan: "low". Låg confidence gör att appen visar förslag i stället för ett svar, vilket är rätt utfall när du är osäker.
+5. Indexet innehåller frågor med identisk frågetext OCH identisk bas som ändå är olika tabeller — typiskt en Netto-sammanställning ("Netto – Har använt AI-verktyg") och en detaljerad uppdelning ("Ja, ChatGPT", "Ja, Copilot", ...). De skiljs bara åt av svarsalternativen. Välj den vars svarsalternativ faktiskt innehåller det användaren frågar om. Frågar användaren om ett namngivet verktyg, välj den detaljerade. Frågar användaren om hur många som över huvud taget gjort något, välj Netto-tabellen.
 
-6. no_match: true när undersökningen helt enkelt inte mätt det användaren frågar om. Det är ett korrekt och önskvärt svar. Att välja en fråga som ligger ungefär rätt är värre än att säga att vi inte mätt det.
+6. confidence: "high" bara när du är säker på både fråga och bas. Vid minsta tvekan: "low". Låg confidence gör att appen visar förslag i stället för ett svar, vilket är rätt utfall när du är osäker.
+
+7. no_match: true när undersökningen helt enkelt inte mätt det användaren frågar om. Det är ett korrekt och önskvärt svar. Att välja en fråga som ligger ungefär rätt är värre än att säga att vi inte mätt det.
 
 Frågeindex:
 ${JSON.stringify(questionIndex, null, 1)}`;

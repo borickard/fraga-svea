@@ -12,32 +12,31 @@ formulering, källhänvisning och en nedladdningsbar graf.
 
 ## Läget just nu
 
-Fas 1–4 är byggda och verifierade. **Men den riktiga tabellbilagan finns inte i
-repot** — den låg inte i miljön och gick inte att hämta.
+Fas 1–4 är byggda och körda mot den skarpa tabellbilagan: **7 frågetabeller i
+`Studie 1 bas samtliga` och 91 i `Studie 1 bas internetanvändare`, noll
+överhoppade.** 98 frågor, 168 segment, 85 080 celler. Valideringen går igenom
+och fem värden är kontrollerade cell för cell mot arket.
 
-Allt är därför verifierat mot `data/fixture-tabellbilaga.xlsx`, ett ark som
-återskapar arkstrukturen exakt men har påhittade värden. Fixturen innehåller
-alla fyra fällorna med flit, så parsern har fått hantera dem på riktigt.
-
-**Så här kör du på den riktiga filen:**
+`src/data/dataset.json` i repot är genererad ur den riktiga filen. Själva
+xlsx-filen är gitignore:ad — den är Internetstiftelsens.
 
 ```bash
 npm install
+npm run fonts     # krävs, se Typsnitt nedan
+npm run dev
+```
+
+För att bygga om datan ur bilagan:
+
+```bash
 cp ~/Downloads/tabellbilaga-svenskarna-och-internet-2025.xlsx data/
 npm run parse -- data/tabellbilaga-svenskarna-och-internet-2025.xlsx
 npm run validate
 npm run spotcheck -- data/tabellbilaga-svenskarna-och-internet-2025.xlsx
-npm run dev
 ```
 
-Parsern skriver `src/data/dataset.json`, som resten av appen läser. Fixturen
-behövs inte efter det.
-
-Två saker att räkna med vid första körningen mot skarp fil: parsern är skriven
-mot arkstrukturen som den beskrivs i briefen, inte mot filen själv, så det kan
-finnas avvikelser den behöver justeras för. Den gissar aldrig — den hoppar över
-och loggar. **Läs `data/parse-log.txt` innan du litar på JSON:en.** Är antalet
-frågetabeller inte 7 respektive 91 står svaret i loggen.
+**Läs `data/parse-log.txt` efter varje körning.** Parsern gissar aldrig — den
+hoppar över och loggar.
 
 ---
 
@@ -95,8 +94,9 @@ som 0 %.
 kortet och i den exporterade bilden. Valideringen listar alla frågetexter som
 förekommer på flera baser.
 
-**Viktade baser.** Bilagan är inte konsekvent: en del tabeller har både
-`Antal intervjuer` och `Antal viktade intervjuer`, andra bara den viktade raden.
+**Viktade baser.** Bilagan är inte konsekvent: `Antal intervjuer` finns bara i
+första tabellen på varje blad. 96 av 98 tabeller redovisar enbart
+`Antal viktade intervjuer`.
 Saknas den ovägda raden används det viktade talet som bas, och `n_basis` sätts
 till `viktade_intervjuer`. Då står det `VIKTADE INTERVJUER = 2 920` i fotnoten i
 stället för `N = 2 806` — ett viktat tal är inte ett antal genomförda intervjuer
@@ -105,6 +105,15 @@ gäller, och parsern loggar varje sådan tabell.
 
 **Små baser.** `reliable: false` vid `n < 100`. Grafen sätter en diskret markör
 efter värdet och en förklarande rad i fotnoten.
+
+**Flyttalsartefakter.** Celler som är exakt 100 % ligger i arket som
+`1.0000000000000002`. De klipps till `1` inom flyttalsfelets storlek och
+räknas i loggen. Allt utanför den marginalen stoppar bygget i valideringen.
+
+**Identisk frågetext och identisk bas.** Fem frågor är olika tabeller trots
+samma text och samma bas — typiskt en Netto-sammanställning och en detaljerad
+uppdelning. De skiljs bara åt av svarsalternativen, så träfflistan visar en
+alternativrad för just dem, och frågelagret får veta att de finns.
 
 Signifikansmarkörerna (`Kolumn% Chi2`) parsas ut till `sig[]` i stället för att
 kastas. De visas inte i gränssnittet ännu.
@@ -159,18 +168,30 @@ korrekta. Det är inte gjort.
 
 ---
 
-## Typsnitt och export
-
-Appen laddar Instrument Sans och IBM Plex Mono från Google Fonts. En fristående
-SVG- eller PNG-fil renderas däremot utan tillgång till sidans typsnitt, så
-exporten bäddar in dem som base64 när de finns i `public/fonts/`:
+## Typsnitt
 
 ```bash
 npm run fonts
 ```
 
-Utan det fungerar exporten men faller tillbaka på systemtypsnitt. `public/fonts/`
-är tom i repot — nätverket i byggmiljön nådde inte Google Fonts.
+Hämtar Instrument Sans och IBM Plex Mono till `public/fonts/`. Behövs på två
+ställen: appen serverar dem lokalt, och exporten bäddar in dem som base64 (en
+fristående SVG- eller PNG-fil renderas utan tillgång till sidans typsnitt).
+
+Appen hämtar dem alltså **inte** från Google Fonts vid sidladdning. Ett
+`<link>` till fonts.googleapis.com i `<head>` blockerar renderingen: på ett nät
+där domänen är långsam eller blockerad stod sidan still i 13 sekunder mot 0,3
+med lokala filer. Saknas filerna faller webbläsaren tillbaka på systemtypsnitt
+direkt, utan att vänta.
+
+`public/fonts/` är tom i repot — byggmiljön nådde inte Google Fonts.
+
+## Prestanda
+
+Mätt mot produktionsbygget: 310 ms till interaktiv sida, 110 ms från fråga till
+svarskort. Bundlen är 7,4 MB (1,0 MB gzippad), varav nästan allt är datasetet.
+Blir det ett problem är nästa steg att flytta `dataset.json` till `public/` och
+hämta den vid körning i stället för att bunta in den.
 
 ---
 

@@ -1,9 +1,10 @@
 /**
  * Hämtar Instrument Sans och IBM Plex Mono till public/fonts/ som woff2.
  *
- * Typsnitten behövs bara för exporten: en fristående SVG- eller PNG-fil
- * renderas utan tillgång till sidans typsnitt, så de måste bäddas in i filen.
- * Appen i webbläsaren laddar typsnitten från Google Fonts som vanligt.
+ * Behövs på två ställen: appen serverar dem lokalt i stället för att hämta
+ * dem från Google Fonts vid varje sidladdning, och exporten bäddar in dem i
+ * SVG- och PNG-filen (en fristående bild renderas utan tillgång till sidans
+ * typsnitt). Saknas de faller allt tillbaka på systemtypsnitt.
  *
  *   node scripts/fetch-fonts.mjs
  */
@@ -39,4 +40,4 @@ for (const spec of SPECS) {
   await writeFile(resolve(OUT, spec.file), buf);
   console.log(`${spec.file}  ${(buf.length / 1024).toFixed(1)} kB`);
 }
-console.log('\nKlart. Exporten bäddar nu in typsnitten i SVG och PNG.');
+console.log('\nKlart. Appen serverar typsnitten lokalt och exporten bäddar in dem.');

@@ -67,13 +67,27 @@ const norm = (raw: Raw): string =>
 interface ParsedCell { num: number | null; sig: string[]; issue?: 'not_numeric'; }
 
 /**
+ * Celler som är exakt 100 % lagras i arket som 1.0000000000000002 — en ren
+ * IEEE-754-artefakt från summeringen i korstabellen. Klipp bara inom
+ * flyttalsfelets storlek; allt utanför det är ett riktigt fel och ska stoppa
+ * bygget i valideringen i stället för att tystas här.
+ */
+const FLOAT_EPS = 1e-9;
+let clamped = 0;
+
+/**
  * Cellinnehållet är "Kolumn% Chi2": talet kan följas av signifikansbokstäver
  * som pekar ut vilka andra kolumner värdet skiljer sig signifikant från.
  * De bokstäverna är data — de plockas ut separat, de kastas aldrig.
  */
 function parseValueCell(raw: Raw): ParsedCell {
   if (raw === null) return { num: null, sig: [] };
-  if (typeof raw === 'number') return { num: raw, sig: [] };
+  if (typeof raw === 'number') {
+    let n = raw;
+    if (n > 1 && n <= 1 + FLOAT_EPS) { n = 1; clamped++; }
+    else if (n < 0 && n >= -FLOAT_EPS) { n = 0; clamped++; }
+    return { num: n, sig: [] };
+  }
 
   const text = String(raw).trim();
   if (text === '' || text === '-' || text === '–') return { num: null, sig: [] };
@@ -88,6 +102,8 @@ function parseValueCell(raw: Raw): ParsedCell {
   let num = Number.parseFloat(m[0].replace(',', '.'));
   const rest = text.slice(0, m.index).concat(text.slice((m.index ?? 0) + m[0].length));
   if (/%/.test(rest)) num = num / 100; // explicit procentskrivning -> tillbaka till andel
+  if (num > 1 && num <= 1 + FLOAT_EPS) { num = 1; clamped++; }
+  else if (num < 0 && num >= -FLOAT_EPS) { num = 0; clamped++; }
 
   const sig = (rest.match(/[A-Za-z*†‡]/g) ?? []).filter((c) => c !== 'e' && c !== 'E');
   return { num, sig };
@@ -254,7 +270,10 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
         // Fälla 4: små baser är en funktion, inte en brist.
         reliable: parsed.num !== null && n >= RELIABLE_MIN_N,
       };
-      if (nw !== undefined) v.n_weighted = nw;
+      // n_weighted utelämnas när det är identiskt med n. För de 96 tabeller
+      // som bara redovisar viktade intervjuer är n hämtat därifrån, så fältet
+      // skulle bara upprepa samma tal i 79 000 celler och blåsa upp bundlen.
+      if (nw !== undefined && nw !== n) v.n_weighted = nw;
       if (parsed.num === null) {
         v.reason = parsed.issue === 'not_numeric' ? 'not_numeric' : 'missing';
         if (parsed.issue === 'not_numeric') {
@@ -403,6 +422,10 @@ async function main() {
     .join('\n');
   mkdirSync(resolve(ROOT, 'data'), { recursive: true });
   writeFileSync(resolve(ROOT, 'data/parse-log.txt'), logText + '\n', 'utf8');
+
+  if (clamped > 0) {
+    note('info', '(alla blad)', null, `${clamped} celler låg strax utanför 0–1 på grund av flyttalsavrundning och klipptes till exakt 0 respektive 1.`);
+  }
 
   const skips = log.filter((e) => e.level === 'skip').length;
   const warns = log.filter((e) => e.level === 'warn').length;
