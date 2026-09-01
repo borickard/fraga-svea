@@ -189,6 +189,24 @@ Parsern är idempotent — stabil nyckelsortering, verifierad med sha256 över t
 körningar. Segmentgrupperna läses ur arket via forward-fill av grupprubrikerna,
 de är inte hårdkodade.
 
+### Kluster och synonymer
+
+`src/data/clusters.json` slår ihop frågor som är samma fråga ställd om olika
+saker. Bilagan frågar om 22 plattformar — Youtube, Facebook, Tiktok, WhatsApp
+och 18 till — med identisk alternativlista och identisk bas. Som 22 poster i en
+lista är det brus; som en post med plattform som väljare är det en fråga.
+Detsamma gäller E-legitimation och Meddelandeappar, som låg som två poster var
+för att frekvensfrasen är formulerad olika. **64 poster blir 41.**
+
+`src/data/synonyms.json` innehåller sökord som aldrig visas. Journalister söker
+på vardagsspråk och undersökningen är skriven på utredningsspråk: ingen skriver
+"mikrootrohet" i ett sökfält, men många skriver "svartsjuka". Även "streaming",
+"tinder", "bankid", "kivra", "scam", "stalka", "distansarbete" och "influencer"
+leder rätt.
+
+Båda filerna ändrar bara vägen fram till en fråga. Frågans formulering är
+Internetstiftelsens och visas ordagrant på svarskortet som vanligt.
+
 ### Det stora talet
 
 Det stora talet visas bara när urvalet ger **ett** tal:

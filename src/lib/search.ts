@@ -9,6 +9,7 @@
 import type { Question } from '../types';
 import { dataset } from './dataset';
 import { titleFor } from './labels';
+import { synonymsFor } from './synonyms';
 
 const STOPWORDS = new Set([
   'och', 'eller', 'att', 'som', 'har', 'hur', 'vad', 'vem', 'vilka', 'vilken',
@@ -60,9 +61,12 @@ const index: Indexed[] = dataset.questions.map((q) => {
   // heter bara "Youtube" eller "Har du tidigare använt …?" och går annars
   // inte att hitta på det de faktiskt handlar om.
   const sequence = tokenize(`${titleFor(q)} ${q.text}`);
+  // Synonymerna indexeras men syns aldrig. Ingen skriver "mikrootrohet" i ett
+  // sökfält; många skriver "svartsjuka".
+  const synonyms = new Set(synonymsFor(q).flatMap(tokenize));
   return {
     q,
-    tokens: new Set(sequence),
+    tokens: new Set([...sequence, ...synonyms]),
     sequence,
     contentCount: Math.max(1, sequence.filter((t) => !STOPWORDS.has(t)).length),
     options,

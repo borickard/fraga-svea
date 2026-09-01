@@ -91,10 +91,13 @@ export function executeQuery({
     Math.max(0, question.options.findIndex((o) => o.label === label)) % DATA_COLORS.length;
 
   let series: AnswerSeries[];
+  // Hur många alternativ som faktiskt ritas. Avgör om det finns ett stort tal.
+  let renderedOptions = options.length;
 
   if (group === TOTAL_GROUP) {
     // På totalnivå jämförs svarsalternativen med varandra — en färg per alternativ.
     const compared = chosen.length ? options : question.options;
+    renderedOptions = compared.length;
     series = [{
       key: 'totalt',
       label: '',
@@ -132,7 +135,7 @@ export function executeQuery({
   // Ett tal, eller inget.
   let headline: SegmentValue | null = null;
   let headlineLabel = '';
-  if (options.length === 1) {
+  if (renderedOptions === 1) {
     const rows = series[0]?.rows ?? [];
     if (group !== TOTAL_GROUP && rows.length === 1) {
       headline = rows[0].value;

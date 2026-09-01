@@ -4,7 +4,7 @@ import { bestOption, bestSegmentGroup, nearestQuestions, searchQuestions } from 
 import { availableSegments, executeQuery } from './lib/query';
 import { askModel, AskUnavailable } from './lib/ask';
 import { exportFilename, exportPng, exportSvg } from './lib/export';
-import { allGroups, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
+import { allGroups, axesFor, bestObject, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
 import { examplesFor, questionsInTopic } from './lib/labels';
 import { SearchField } from './components/SearchField';
 import { Hits } from './components/Hits';
@@ -41,6 +41,7 @@ export function App() {
   // bilagan som slås upp; alternativ och segmentgrupp styr vad kortet visar.
   const [base, setBase] = useState<string | null>(null);
   const [frequency, setFrequency] = useState<string | null>(null);
+  const [object, setObject] = useState<string | null>(null);
   // Flerval. Tom lista betyder alla — så att man kan jämföra Tiktok och
   // Snapchat, eller Gen Z och millennials, utan att först behöva välja bort.
   const [options, setOptions] = useState<string[]>([]);
@@ -62,7 +63,7 @@ export function App() {
 
   const answer = useMemo(() => {
     if (!group) return null;
-    const question = resolve(group, { base, frequency });
+    const question = resolve(group, { base, frequency, object });
     return executeQuery({
       questionId: question.id,
       optionLabels: options,
@@ -70,7 +71,7 @@ export function App() {
       segmentIds: segments,
       question,
     });
-  }, [group, base, frequency, options, segmentGroup, segments]);
+  }, [group, base, frequency, object, options, segmentGroup, segments]);
 
   /** Öppnar en fråga och sätter val ur användarens egen text. */
   function select(
@@ -79,15 +80,22 @@ export function App() {
     from?: { questionId?: string; options?: string[]; group?: string | null; segments?: string[] },
   ) {
     const sel = from?.questionId ? selectionFor(from.questionId) : {};
-    const nextBase = sel.base ?? g.bases[0];
-    const nextFreq = sel.frequency ?? (g.frequencies[0] ?? null);
+    const guessObject = sel.object ?? bestObject(g, sourceText) ?? (g.objects[0] ?? null);
+    const axes = axesFor(g, { object: guessObject });
+    const nextBase = sel.base ?? axes.bases[0];
+    const nextFreq = sel.frequency ?? (axes.frequencies[0] ?? null);
+    const nextObject = guessObject;
     setBase(nextBase);
     setFrequency(nextFreq);
+    setObject(nextObject);
 
-    const question = resolve(g, { base: nextBase, frequency: nextFreq });
+    const question = resolve(g, { base: nextBase, frequency: nextFreq, object: nextObject });
 
+    // Utan uttryckligt val lämnas alternativen tomma, vilket betyder alla.
+    // På totalnivå jämförs de då med varandra i stället för att kortet visar
+    // en ensam stapel som upprepar det stora talet.
     const guessed = bestOption(question, sourceText);
-    setOptions(from?.options?.length ? from.options : guessed ? [guessed] : [question.options[0].label]);
+    setOptions(from?.options?.length ? from.options : guessed ? [guessed] : []);
 
     const sg = from?.group ?? bestSegmentGroup(question, sourceText);
     const nextGroup = sg && question.segment_groups.includes(sg) ? sg : TOTAL_GROUP;
@@ -168,6 +176,8 @@ export function App() {
     ? [TOTAL_GROUP, ...answer.question.segment_groups.filter((g) => g !== TOTAL_GROUP)]
     : [];
   const segmentOptions = answer ? availableSegments(answer.question, answer.segmentGroup) : [];
+  // Bas och frekvens beror på vilket objekt i klustret som är valt.
+  const axes = group ? axesFor(group, { object }) : null;
 
   return (
     <main className="page">
@@ -220,14 +230,23 @@ export function App() {
               inte en detalj: samma fråga på olika baser ger olika andelar. */}
           <Pills
             ariaLabel="Bas"
-            items={group.bases.map((b) => ({ id: b, label: b }))}
-            selected={[base ?? group.bases[0]]}
+            items={(axes?.bases ?? group.bases).map((b) => ({ id: b, label: b }))}
+            selected={[base ?? (axes?.bases ?? group.bases)[0]]}
             onChange={(next) => setBase(next[0] ?? null)}
             maxVisible={6}
           />
+          {group.objects.length > 1 && (
+            <Pills
+              ariaLabel={group.objectLabel ?? 'Val'}
+              items={group.objects.map((o) => ({ id: o, label: o }))}
+              selected={object ? [object] : []}
+              onChange={(next) => { setObject(next[0] ?? null); setBase(null); }}
+              maxVisible={8}
+            />
+          )}
           <Pills
             ariaLabel="Hur ofta"
-            items={group.frequencies.map((f) => ({ id: f, label: f }))}
+            items={(axes?.frequencies ?? group.frequencies).map((f) => ({ id: f, label: f }))}
             selected={frequency ? [frequency] : []}
             onChange={(next) => setFrequency(next[0] ?? null)}
           />

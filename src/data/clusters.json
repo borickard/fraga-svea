@@ -1,0 +1,61 @@
+{
+  "_kommentar": [
+    "Kluster slår ihop flera frågor i bilagan till en post att bläddra bland.",
+    "Handskriven fil — redigera fritt.",
+    "",
+    "Bilagan ställer samma fråga om 22 olika plattformar, med identisk",
+    "alternativlista och identisk bas. Som 22 poster i en lista är det brus;",
+    "som en post med plattform som väljare är det en fråga.",
+    "",
+    "dimension: 'objekt' lägger till en väljare med member.label som värde.",
+    "dimension: 'frekvens' sätter i stället frekvens på de frågor som saknar",
+    "en, så att de hamnar i samma frekvensväljare som sina syskon.",
+    "",
+    "member.text är frågans exakta formulering i arket. Klustret ändrar",
+    "aldrig formuleringen — den visas ordagrant på svarskortet som vanligt."
+  ],
+  "clusters": [
+    {
+      "id": "plattformar",
+      "label": "Enskilda plattformar",
+      "dimension": "objekt",
+      "dimensionLabel": "Plattform",
+      "members": [
+        { "text": "Youtube" }, { "text": "Facebook" }, { "text": "Instagram" },
+        { "text": "Snapchat" }, { "text": "Linkedin" }, { "text": "Flashback" },
+        { "text": "Tiktok" }, { "text": "Pinterest" }, { "text": "X (Twitter)" },
+        { "text": "Discord" }, { "text": "Reddit" }, { "text": "Roblox" },
+        { "text": "Twitch" }, { "text": "Threads" }, { "text": "BeReal" },
+        { "text": "Bluesky" }, { "text": "Yubo" }, { "text": "Mastodon" },
+        { "text": "Facebook Messenger" }, { "text": "WhatsApp" },
+        { "text": "Signal (Signal Private Messenger)" }, { "text": "Telegram Messenger" }
+      ]
+    },
+    {
+      "id": "e-legitimation",
+      "label": "E-legitimation",
+      "dimension": "frekvens",
+      "members": [
+        {
+          "text": "Har du minst någon gång under de senaste 12 månaderna använt någon av följande e-legitimationer?",
+          "label": "Minst någon gång"
+        },
+        { "text": "Vilka e-legitimationer har du använt minst varje vecka?" },
+        { "text": "Vilka e-legitimationer har du använt dagligen?" }
+      ]
+    },
+    {
+      "id": "meddelandeappar",
+      "label": "Meddelandeappar",
+      "dimension": "frekvens",
+      "members": [
+        {
+          "text": "Vilka av följande appar och tjänster har du använt minst någon gång de senaste 12 månaderna?",
+          "label": "Minst någon gång"
+        },
+        { "text": "Vilka har du använt minst varje vecka?" },
+        { "text": "Vilka har du använt dagligen?" }
+      ]
+    }
+  ]
+}

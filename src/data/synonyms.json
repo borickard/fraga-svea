@@ -1,0 +1,55 @@
+{
+  "_kommentar": [
+    "Sökord som leder till en fråga utan att synas någonstans.",
+    "Handskriven fil — redigera fritt.",
+    "",
+    "Journalister söker på vardagsspråk, undersökningen är skriven på",
+    "utredningsspråk. Ingen skriver 'mikrootrohet' i ett sökfält, men många",
+    "skriver 'svartsjuka'. Orden här indexeras tillsammans med frågetexten",
+    "men visas aldrig — rubriken förblir Internetstiftelsens formulering.",
+    "",
+    "Nyckeln är frågans exakta formulering i arket, eller ett kluster-id."
+  ],
+  "synonyms": {
+    "plattformar": ["tiktok", "snapchat", "instagram", "youtube", "facebook", "twitter", "x", "linkedin", "reddit", "discord", "twitch", "roblox", "threads", "bereal", "bluesky", "mastodon", "pinterest", "flashback", "yubo", "whatsapp", "signal", "telegram", "messenger", "plattform", "app", "hur ofta"],
+    "e-legitimation": ["bankid", "bank-id", "mobilt bankid", "freja", "e-leg", "legitimation", "logga in", "inloggning"],
+    "meddelandeappar": ["chatt", "chattapp", "meddelande", "sms", "kryptochatt"],
+
+    "Vilka sociala nätverksplatser/sociala medier har du använt minst någon gång de senaste 12 månaderna?": ["socialt", "nätet", "räckvidd", "spridning"],
+    "Brukar du regelbundet göra egna inlägg, exempelvis dela bilder, videos, Reels, Händelser, länkar, åsikter, tankar eller något annat, på...": ["posta", "publicera", "dela", "content", "skapare", "creator", "influencer", "tyst majoritet"],
+    "Har du tidigare använt …?": ["slutat", "lämnat", "hoppat av", "avhoppare", "raderat konto", "deppat"],
+
+    "Har du under de senaste 12 månaderna använt dig av några av följande AI-verktyg?": ["chatgpt", "copilot", "gemini", "generativ ai", "chattbot", "språkmodell"],
+    "Vilka typer av frågor ställer du i AI-verktyg?": ["prompt", "promptar", "googla", "sökmotor", "google"],
+    "Vad av följande har du använt AI-verktyg till?": ["skriva", "text", "sammanfatta", "översätta", "korrektur"],
+    "Har du använt AI-verktyg till att generera, alltså skapa, något av följande?": ["bildgenerering", "deepfake", "kod", "musik", "generera"],
+    "Är du orolig för att AI kommer att göra dig arbetslös?": ["jobben", "arbetslöshet", "ersätta", "automatisering", "rädsla"],
+    "Vilket av följande två påståenden instämmer du mest i?": ["jobben", "arbetsmarknad", "nya yrken", "framtidstro"],
+    "Har du frågat ett AI-verktyg om något hälso- eller sjukvårdsrelaterat?": ["doktor google", "symptom", "diagnos", "egenvård"],
+
+    "Har du under de senaste 12 månaderna sett en bluffannons på sociala medier?": ["scam", "fejkannons", "falsk annons", "lurad", "bedragare"],
+    "Har du under de senaste 12 månaderna anmält en bluffannons till den sociala medieplattform du såg bluffannonsen på?": ["anmäla", "rapportera", "flagga"],
+    "Har du under de senaste 12 månaderna varit intresserad av en produkt i en annons på sociala medier, men avstått från att köpa den för att du misstänkte att det var en bluffannons?": ["tveka", "köpstopp", "misstänksam"],
+
+    "Har du nätdejtat under de senaste 12 månaderna?": ["tinder", "dejtingapp", "dejt", "kärlek", "singel"],
+    "Föredrar du att få en första kontakt med potentiella partners via nätdejting eller IRL, alltså i livet utanför nätet?": ["träffas", "dejtingtrötthet", "swipe"],
+    "Oroar du dig för mikrootrohet, alltså att din partner ska chatta med någon de är attraherad av bakom din rygg?": ["svartsjuka", "otrogen", "flörta", "dm"],
+    "Har det hänt att du har kollat din partners mobil på grund av oro för otrohet?": ["svartsjuka", "snoka", "spionera", "kontrollera", "telefon"],
+    "Kan du se var din partner är/befinner sig genom platsdata (GPS) från din partners mobil, t ex. via snapchatkarta, Hitta-funktioner in mobilen eller liknande?": ["spåra", "positionsdelning", "find my", "snapchatkarta", "övervaka"],
+    "Brukar du kolla du upp dina ex på nätet, alltså googla dem eller kolla på deras sociala medier?": ["ex", "stalka", "googla", "snoka"],
+    "Tycker du att det är ok att din partner har/följer något av sina ex på sociala medier?": ["ex", "gränser", "svartsjuka"],
+
+    "Har du e-handlat under de senaste 12 månaderna?": ["näthandel", "shoppa", "beställa", "e-com", "temu", "shein"],
+    "E-handelsplatser kan ansöka om och använda sig av olika trygghetsmärkningar för att visa att deras webbplats är säker och pålitlig. Trygghetsmärkningen visas oftast i form av symboler eller certifikat. Upplever du generellt sett att denna trygghetsmärkning fyller sin funktion och gör dig tryggare i ditt köp?": ["trygg e-handel", "certifikat", "säkert köp"],
+    "Vilka av följande play- och strömmande tjänster har du använt minst någon gång under de senaste 12 månaderna?": ["streaming", "netflix", "svt play", "viaplay", "hbo", "max", "tv", "film", "serier"],
+    "Vilka av följande appar har du använt vid betalning de senaste 12 månaderna?": ["swish", "betala", "mobilbetalning", "kort", "apple pay"],
+    "Vilken eller vilka digitala brevlådor har du använt de senaste 12 månaderna?": ["kivra", "post", "brev", "myndighetspost", "papperslöst"],
+    "Har du under de senaste 12 månaderna använt någon av följande e-tjänster?": ["myndighet", "1177", "digital service", "offentlig sektor"],
+    "Tycker du att hälso- och sjukvårdens appar och e-tjänster underlättar eller försvårar tidsbokning av läkarbesök jämfört med bokning via telefonsamtal eller på plats på vårdcentral?": ["vårdcentral", "boka tid", "1177", "digital vård"],
+    "Har du avstått från att boka en tid hos läkare för att någon av hälso- och sjukvårdens appar och e-tjänster är för svåra att använda?": ["vårdgap", "digitalt utanförskap", "krånglig", "avstå vård"],
+    "Har du köpt eller sålt någon form av kryptovaluta (t ex. Bitcoin) under de senaste 12 månaderna?": ["bitcoin", "krypto", "ethereum", "investera"],
+    "Har du under de senaste 12 månaderna arbetat hemifrån digitalt minst någon dag under en genomsnittlig arbetsvecka?": ["distansarbete", "hemarbete", "hybrid", "kontoret"],
+    "Hur ofta använder du internet?": ["internetanvändning", "uppkoppling", "digitalt utanförskap", "penetration", "alla svenskar"],
+    "Gör du något av följande på Roblox?": ["gaming", "spel", "barn", "robux", "kompisar"]
+  }
+}
