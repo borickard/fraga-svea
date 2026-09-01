@@ -13,7 +13,11 @@ import { truncate, wrapText } from '../lib/wrap';
  * Siffran kan inte lämna appen utan sin bas och sin källa.
  *
  * Grafen: inga rutnät, inga axellinjer, ingen legend, ingen tooltip.
- * Segmentnamn till vänster, rundad stapel, värde till höger. Det är allt.
+ * Segmentnamn till vänster, rundad stapel, värde till höger.
+ *
+ * Väljs flera svarsalternativ blir varje alternativ en serie med egen färg och
+ * egen rubrik. Rubriken ersätter legenden: den står intill sina egna staplar
+ * i stället för i ett hörn som läsaren måste översätta ifrån.
  */
 
 const W = 720;
@@ -23,6 +27,8 @@ const VALUE_W = 78;
 const GAP = 16;
 const BAR_H = 14;
 const ROW_H = 40;
+const SERIES_HEAD_H = 30;
+const SERIES_GAP = 14;
 const TRACK_X = PAD + LABEL_W + GAP;
 const TRACK_W = W - PAD - VALUE_W - GAP - TRACK_X;
 
@@ -51,7 +57,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   { answer, still = false },
   ref,
 ) {
-  const { question, rows, headline, headlineLabel, baseN, hasSmallBase, segmentGroup } = answer;
+  const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup } = answer;
 
   // Utan den här raden går grafen inte att läsa. "Smartmobil 35 %, Dator 41 %"
   // säger ingenting om att det är andelen inom varje enhetsgrupp — och i en
@@ -60,18 +66,9 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
     ? 'Alla svarsalternativ · totalt'
     : `Nedbrutet på ${segmentGroup}`;
 
-  // Flera tabeller i bilagan redovisar bara viktade intervjuer. Ett viktat tal
-  // är inte ett antal genomförda intervjuer och märks därför ut, både i
-  // fotnoten och i varningen om små baser.
-  const weighted = question.n_basis === 'viktade_intervjuer';
-  const nLabel = weighted ? 'Viktade intervjuer' : 'n';
-  const cautionText = weighted
-    ? '° färre än 100 viktade intervjuer — tolka med försiktighet'
-    : '° färre än 100 intervjuer — tolka med försiktighet';
+  const showSeriesHeads = series.length > 1;
 
   // ---- vertikal layout, uträknad före render så att höjden alltid stämmer
-  // Frågans exakta formulering står överst: kortet ska gå att läsa fristående,
-  // och siffran får aldrig lämna appen utan sin fråga.
   const questionLines = wrapText(question.text, W - PAD * 2, 18, 'sans');
   const questionTop = PAD + 18;
   const questionEnd = questionTop + (questionLines.length - 1) * 25;
@@ -81,15 +78,30 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   const rule1Y = kickerY + 26;
   const breakdownY = rule1Y + 24;
   const rowsY = rule1Y + 44;
-  const rowsEnd = rowsY + rows.length * ROW_H;
-  const rule2Y = rowsEnd + 10;
 
+  // Varje serie får en rubrik när de är fler än en, plus luft emellan.
+  let cursor = rowsY;
+  const placed = series.map((s) => {
+    const headY = showSeriesHeads ? cursor + 12 : cursor;
+    const firstRow = showSeriesHeads ? cursor + SERIES_HEAD_H : cursor;
+    cursor = firstRow + s.rows.length * ROW_H + (showSeriesHeads ? SERIES_GAP : 0);
+    return { series: s, headY, firstRow };
+  });
+
+  const rule2Y = cursor + (showSeriesHeads ? -SERIES_GAP + 10 : 10);
   const metaY = rule2Y + 26;
   const sourceY = metaY + 17;
   const cautionY = sourceY + 17;
   const H = (hasSmallBase ? cautionY : sourceY) + PAD - 6;
 
+  const weighted = question.n_basis === 'viktade_intervjuer';
+  const nLabel = weighted ? 'Viktade intervjuer' : 'n';
+  const cautionText = weighted
+    ? '° färre än 100 viktade intervjuer — tolka med försiktighet'
+    : '° färre än 100 intervjuer — tolka med försiktighet';
+
   const label = (text: string) => text.toUpperCase();
+  let barIndex = 0;
 
   return (
     <svg
@@ -125,8 +137,6 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         ) : (
           <>
             {Math.round(headline.pct * 100)}
-            {/* Procenttecknet sätts mindre och tätt intill: i mono blir ett
-                fullstort tecken plus mellanslag en glugg på tjugo pixlar. */}
             <tspan fontSize="34" dx="4">%</tspan>
           </>
         )}
@@ -135,8 +145,6 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         x={PAD} y={kickerY}
         fontFamily={MONO} fontSize="11" fontWeight="500" fill={MUTED} letterSpacing="0.08em"
       >
-        {/* Svarsalternativen kan vara 117 tecken. Spärrad monoversal i den
-            längden går utanför kortet, så etiketten kortas här. */}
         {label(truncate(headlineLabel, W - PAD * 2, 12.4, 'mono'))}
       </text>
 
@@ -151,49 +159,67 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
 
       {/* Grafen. Skalan är alltid 0–100 %: utan axel måste stapelns längd
           gå att läsa mot hela spåret, annars blir bilden missvisande i en artikel. */}
-      {rows.map((row, i) => {
-        const y = rowsY + i * ROW_H;
-        const barY = y + (ROW_H - BAR_H) / 2 - 6;
-        const noBase = row.value.pct === null;
-        const w = noBase ? 0 : Math.max(BAR_H, TRACK_W * (row.value.pct as number));
-        const fill = noBase ? FALLBACK_COLOR : DATA_COLORS[row.colorIndex % DATA_COLORS.length];
-        const small = !noBase && !row.value.reliable;
+      {placed.map(({ series: s, headY, firstRow }) => (
+        <g key={s.key}>
+          {showSeriesHeads && (
+            <g>
+              {/* Färgprick intill rubriken binder serien till sina staplar.
+                  Det är närmare än en legend i ett hörn. */}
+              <circle cx={PAD + 5} cy={headY - 4} r="5" fill={DATA_COLORS[s.colorIndex % DATA_COLORS.length]} />
+              <text
+                x={PAD + 18} y={headY}
+                fontFamily={MONO} fontSize="11" fontWeight="500" fill={INK} letterSpacing="0.08em"
+              >
+                {label(truncate(s.label, W - PAD * 2 - 18, 12.4, 'mono'))}
+              </text>
+            </g>
+          )}
 
-        return (
-          <g key={row.key}>
-            <text
-              x={PAD} y={barY + BAR_H - 2}
-              fontFamily={MONO} fontSize="12" fill={MUTED}
-            >
-              {truncate(row.label, LABEL_W, 12, 'mono')}
-            </text>
+          {s.rows.map((row, i) => {
+            const y = firstRow + i * ROW_H;
+            const barY = y + (ROW_H - BAR_H) / 2 - 6;
+            const noBase = row.value.pct === null;
+            const w = noBase ? 0 : Math.max(BAR_H, TRACK_W * (row.value.pct as number));
+            const fill = noBase ? FALLBACK_COLOR : DATA_COLORS[row.colorIndex % DATA_COLORS.length];
+            const small = !noBase && !row.value.reliable;
+            const delay = barIndex++ * 40;
 
-            {noBase ? (
-              // Segment utan bas färgas aldrig och får aldrig ett värde.
-              <rect x={TRACK_X} y={barY} width={BAR_H} height={BAR_H} rx={BAR_H / 2} fill={fill} />
-            ) : (
-              <rect
-                className={still ? undefined : 'svea-bar'}
-                style={still ? undefined : { animationDelay: `${i * 40}ms` }}
-                x={TRACK_X} y={barY} width={w} height={BAR_H}
-                rx={BAR_H / 2}
-                fill={fill}
-              />
-            )}
+            return (
+              <g key={row.key}>
+                <text
+                  x={PAD} y={barY + BAR_H - 2}
+                  fontFamily={MONO} fontSize="12" fill={MUTED}
+                >
+                  {truncate(row.label, LABEL_W, 12, 'mono')}
+                </text>
 
-            {/* Värdet står efter stapeln, aldrig ovanpå den. Pastellerna klarar
-                inte kontrastkraven som textbakgrund. */}
-            <text
-              x={W - PAD} y={barY + BAR_H - 2}
-              textAnchor="end"
-              fontFamily={MONO} fontSize={noBase ? '11' : '13'} fontWeight="500"
-              fill={noBase ? MUTED : INK}
-            >
-              {noBase ? 'ingen bas' : `${formatPct(row.value.pct)}${small ? ' °' : ''}`}
-            </text>
-          </g>
-        );
-      })}
+                {noBase ? (
+                  <rect x={TRACK_X} y={barY} width={BAR_H} height={BAR_H} rx={BAR_H / 2} fill={fill} />
+                ) : (
+                  <rect
+                    className={still ? undefined : 'svea-bar'}
+                    style={still ? undefined : { animationDelay: `${delay}ms` }}
+                    x={TRACK_X} y={barY} width={w} height={BAR_H}
+                    rx={BAR_H / 2}
+                    fill={fill}
+                  />
+                )}
+
+                {/* Värdet står efter stapeln, aldrig ovanpå den. Pastellerna klarar
+                    inte kontrastkraven som textbakgrund. */}
+                <text
+                  x={W - PAD} y={barY + BAR_H - 2}
+                  textAnchor="end"
+                  fontFamily={MONO} fontSize={noBase ? '11' : '13'} fontWeight="500"
+                  fill={noBase ? MUTED : INK}
+                >
+                  {noBase ? 'ingen bas' : `${formatPct(row.value.pct)}${small ? ' °' : ''}`}
+                </text>
+              </g>
+            );
+          })}
+        </g>
+      ))}
 
       <line x1={PAD} y1={rule2Y} x2={W - PAD} y2={rule2Y} stroke={HAIRLINE} strokeWidth="1" />
 

@@ -33,6 +33,12 @@ const questionIndex = data.questions.map((q) => ({
 const QUESTION_IDS = data.questions.map((q) => q.id);
 const SEGMENT_GROUPS = [...new Set(data.segments.map((s) => s.group))];
 
+/** Segmentetiketter per grupp, så att modellen kan peka ut enskilda segment. */
+const SEGMENTS_BY_GROUP: Record<string, string[]> = {};
+for (const s of data.segments) {
+  (SEGMENTS_BY_GROUP[s.group] ??= []).push(s.label);
+}
+
 /**
  * Strukturerad output med enum över faktiska id:n. Modellen kan alltså inte
  * hitta på ett fråge-id ens om den vill — schemat tillåter bara de som finns.
@@ -48,15 +54,20 @@ const OUTPUT_SCHEMA = {
       anyOf: [{ type: 'string', enum: SEGMENT_GROUPS }, { type: 'null' }],
       description: 'Segmentgrupp att bryta ner på. null om användaren inte bett om en nedbrytning.',
     },
+    segments: {
+      type: 'array',
+      items: { type: 'string' },
+      description: 'Enskilda segment inom segment_group, ordagrant som etiketterna står i segmentlistan. Tom lista betyder alla segment i gruppen.',
+    },
     options: {
       type: 'array',
       items: { type: 'string' },
-      description: 'Svarsalternativ som frågan gäller, ordagrant som de står i frågans lista. Tom lista om inget särskilt alternativ efterfrågas.',
+      description: 'Svarsalternativ som frågan gäller, ordagrant som de står i frågans lista. Flera är tillåtna. Tom lista om inget särskilt alternativ efterfrågas.',
     },
     confidence: { type: 'string', enum: ['high', 'low'] },
     no_match: { type: 'boolean' },
   },
-  required: ['question_id', 'segment_group', 'options', 'confidence', 'no_match'],
+  required: ['question_id', 'segment_group', 'segments', 'options', 'confidence', 'no_match'],
   additionalProperties: false,
 } as const;
 
@@ -79,13 +90,18 @@ Regler:
 
 3. segment_group sätts bara när användaren faktiskt frågar efter en nedbrytning. "Hur många 00-talister..." betyder GENERATION. "Skiljer det mellan män och kvinnor" betyder KÖN. Frågar användaren efter totalen, lämna segment_group som null. Gruppen måste finnas i den valda frågans segmentgrupper.
 
-4. options ska innehålla svarsalternativens etiketter ordagrant som de står i frågans lista. Hitta aldrig på ett alternativ.
+4. segments används när användaren pekar ut vissa segment i stället för hela gruppen. "Gen Z vs millennials" betyder gruppen GEN (XYZ) och just de två segmenten. "Bara män" betyder gruppen KÖN och segmentet Man. Etiketterna måste stå ordagrant som i segmentlistan nedan. Vill användaren se hela gruppen, lämna segments tom.
 
-5. Indexet innehåller frågor med identisk frågetext OCH identisk bas som ändå är olika tabeller — typiskt en Netto-sammanställning ("Netto – Har använt AI-verktyg") och en detaljerad uppdelning ("Ja, ChatGPT", "Ja, Copilot", ...). De skiljs bara åt av svarsalternativen. Välj den vars svarsalternativ faktiskt innehåller det användaren frågar om. Frågar användaren om ett namngivet verktyg, välj den detaljerade. Frågar användaren om hur många som över huvud taget gjort något, välj Netto-tabellen.
+5. options ska innehålla svarsalternativens etiketter ordagrant som de står i frågans lista. Flera är tillåtna: "tiktok och snapchat" ger båda. Hitta aldrig på ett alternativ.
 
-6. confidence: "high" bara när du är säker på både fråga och bas. Vid minsta tvekan: "low". Låg confidence gör att appen visar förslag i stället för ett svar, vilket är rätt utfall när du är osäker.
+6. Indexet innehåller frågor med identisk frågetext OCH identisk bas som ändå är olika tabeller — typiskt en Netto-sammanställning ("Netto – Har använt AI-verktyg") och en detaljerad uppdelning ("Ja, ChatGPT", "Ja, Copilot", ...). De skiljs bara åt av svarsalternativen. Välj den vars svarsalternativ faktiskt innehåller det användaren frågar om. Frågar användaren om ett namngivet verktyg, välj den detaljerade. Frågar användaren om hur många som över huvud taget gjort något, välj Netto-tabellen.
 
-7. no_match: true när undersökningen helt enkelt inte mätt det användaren frågar om. Det är ett korrekt och önskvärt svar. Att välja en fråga som ligger ungefär rätt är värre än att säga att vi inte mätt det.
+7. confidence: "high" bara när du är säker på både fråga och bas. Vid minsta tvekan: "low". Låg confidence gör att appen visar förslag i stället för ett svar, vilket är rätt utfall när du är osäker.
+
+8. no_match: true när undersökningen helt enkelt inte mätt det användaren frågar om. Det är ett korrekt och önskvärt svar. Att välja en fråga som ligger ungefär rätt är värre än att säga att vi inte mätt det.
+
+Segment per grupp:
+${JSON.stringify(SEGMENTS_BY_GROUP, null, 1)}
 
 Frågeindex:
 ${JSON.stringify(questionIndex, null, 1)}`;
@@ -136,6 +152,7 @@ export default async function handler(req: Request): Promise<Response> {
     return json({
       question_id: parsed.question_id ?? null,
       segment_group: parsed.segment_group ?? null,
+      segments: Array.isArray(parsed.segments) ? parsed.segments : [],
       options: Array.isArray(parsed.options) ? parsed.options : [],
       confidence: parsed.confidence === 'high' ? 'high' : 'low',
       no_match: parsed.no_match === true,

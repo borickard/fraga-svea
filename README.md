@@ -189,6 +189,26 @@ Parsern är idempotent — stabil nyckelsortering, verifierad med sha256 över t
 körningar. Segmentgrupperna läses ur arket via forward-fill av grupprubrikerna,
 de är inte hårdkodade.
 
+### Flerval
+
+Grafen tar flera svarsalternativ och flera segment samtidigt. Väljer man Tiktok
+och Snapchat blir varje alternativ en **serie** med egen färg, och varje serie
+har en rad per valt segment. Serierubriken med färgprick står intill sina egna
+staplar i stället för i en legend i ett hörn — designen tillåter ingen legend,
+och en rubrik på plats är ändå lättare att läsa.
+
+Segment väljs inom en grupp: `KÖN` och sedan bara `Man`, eller `GEN (XYZ)` och
+sedan `Gen Z` och `Millenials` men inte `Baby Boomers`. Tom markering betyder
+alla segment i gruppen.
+
+Segmentgruppen är en kompakt lista, inte piller: bilagan har 39 grupper, och
+som piller blir det sex rader som fyller halva skärmen innan man sett ett svar.
+
+Frågelagret returnerar `segments` tillsammans med `options`, så att
+"användning av tiktok och snapchat hos gen Z vs millennials" går hela vägen
+i ett anrop. Etiketter modellen hittar på faller bort i klientens validering
+och kvar blir hela gruppen.
+
 ### Signaturen
 
 Svarskortet är **en enda SVG**, inte HTML med en graf inuti. Exporten

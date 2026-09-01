@@ -195,6 +195,31 @@ body {
 }
 .pills--topics { margin-top: 16px; }
 .pill:hover { color: var(--ink); }
+.groupselect {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 2px 0;
+}
+.groupselect__input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+  padding: 9px 15px;
+  cursor: pointer;
+  appearance: none;
+}
+.groupselect__input:hover { box-shadow: var(--shadow-md); }
+
 .pill--more {
   border-style: dashed;
   box-shadow: none;

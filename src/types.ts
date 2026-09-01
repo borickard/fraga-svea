@@ -74,6 +74,8 @@ export interface Dataset {
 export interface QuerySpec {
   question_id: string | null;
   segment_group: string | null;
+  /** Segmentetiketter inom gruppen. Tom lista betyder alla. */
+  segments: string[];
   options: string[];
   confidence: 'high' | 'low';
   no_match: boolean;

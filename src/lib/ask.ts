@@ -7,7 +7,7 @@
  * ett förslag om vilken uppslagning som ska göras, ingenting annat.
  */
 import type { QuerySpec } from '../types';
-import { getQuestion } from './dataset';
+import { getQuestion, segmentsInGroup } from './dataset';
 
 export class AskUnavailable extends Error {}
 
@@ -34,12 +34,25 @@ export async function askModel(question: string, signal?: AbortSignal): Promise<
   const id = typeof data.question_id === 'string' ? data.question_id : null;
   const known = id ? getQuestion(id) : undefined;
 
+  const segmentGroup =
+    known && typeof data.segment_group === 'string' && known.segment_groups.includes(data.segment_group)
+      ? data.segment_group
+      : null;
+
+  // Bara segment som finns i den valda gruppen. Etiketter modellen hittat på
+  // faller bort, och kvar blir tom lista, vilket betyder alla.
+  const inGroup = segmentGroup ? segmentsInGroup(segmentGroup) : [];
+  const segments = Array.isArray(data.segments)
+    ? data.segments
+        .filter((l): l is string => typeof l === 'string')
+        .map((l) => inGroup.find((s) => s.label === l)?.id)
+        .filter((id): id is string => Boolean(id))
+    : [];
+
   const spec: QuerySpec = {
     question_id: known ? known.id : null,
-    segment_group:
-      known && typeof data.segment_group === 'string' && known.segment_groups.includes(data.segment_group)
-        ? data.segment_group
-        : null,
+    segment_group: segmentGroup,
+    segments,
     // Bara alternativ som faktiskt finns i frågan släpps igenom.
     options: known && Array.isArray(data.options)
       ? data.options.filter((o): o is string => typeof o === 'string' && known.options.some((x) => x.label === o))

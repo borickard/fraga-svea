@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { dataset, TOTAL_GROUP } from './lib/dataset';
 import { bestOption, bestSegmentGroup, nearestQuestions, searchQuestions } from './lib/search';
-import { executeQuery } from './lib/query';
+import { availableSegments, executeQuery } from './lib/query';
 import { askModel, AskUnavailable } from './lib/ask';
 import { exportFilename, exportPng, exportSvg } from './lib/export';
 import { allGroups, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
@@ -9,6 +9,7 @@ import { examplesFor, questionsInTopic } from './lib/labels';
 import { SearchField } from './components/SearchField';
 import { Hits } from './components/Hits';
 import { Pills } from './components/Pills';
+import { GroupSelect } from './components/GroupSelect';
 import { NoMatch } from './components/NoMatch';
 import { AnswerCard } from './components/AnswerCard';
 import { Topics } from './components/Topics';
@@ -40,8 +41,11 @@ export function App() {
   // bilagan som slås upp; alternativ och segmentgrupp styr vad kortet visar.
   const [base, setBase] = useState<string | null>(null);
   const [frequency, setFrequency] = useState<string | null>(null);
-  const [option, setOption] = useState<string | null>(null);
+  // Flerval. Tom lista betyder alla — så att man kan jämföra Tiktok och
+  // Snapchat, eller Gen Z och millennials, utan att först behöva välja bort.
+  const [options, setOptions] = useState<string[]>([]);
   const [segmentGroup, setSegmentGroup] = useState<string>(TOTAL_GROUP);
+  const [segments, setSegments] = useState<string[]>([]);
 
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -59,11 +63,21 @@ export function App() {
   const answer = useMemo(() => {
     if (!group) return null;
     const question = resolve(group, { base, frequency });
-    return executeQuery({ questionId: question.id, optionLabel: option, segmentGroup, question });
-  }, [group, base, frequency, option, segmentGroup]);
+    return executeQuery({
+      questionId: question.id,
+      optionLabels: options,
+      segmentGroup,
+      segmentIds: segments,
+      question,
+    });
+  }, [group, base, frequency, options, segmentGroup, segments]);
 
   /** Öppnar en fråga och sätter val ur användarens egen text. */
-  function select(g: QuestionGroup, sourceText = query, from?: { questionId?: string; option?: string | null; group?: string | null }) {
+  function select(
+    g: QuestionGroup,
+    sourceText = query,
+    from?: { questionId?: string; options?: string[]; group?: string | null; segments?: string[] },
+  ) {
     const sel = from?.questionId ? selectionFor(from.questionId) : {};
     const nextBase = sel.base ?? g.bases[0];
     const nextFreq = sel.frequency ?? (g.frequencies[0] ?? null);
@@ -71,9 +85,18 @@ export function App() {
     setFrequency(nextFreq);
 
     const question = resolve(g, { base: nextBase, frequency: nextFreq });
-    setOption(from?.option ?? bestOption(question, sourceText) ?? question.options[0].label);
+
+    const guessed = bestOption(question, sourceText);
+    setOptions(from?.options?.length ? from.options : guessed ? [guessed] : [question.options[0].label]);
+
     const sg = from?.group ?? bestSegmentGroup(question, sourceText);
-    setSegmentGroup(sg && question.segment_groups.includes(sg) ? sg : TOTAL_GROUP);
+    const nextGroup = sg && question.segment_groups.includes(sg) ? sg : TOTAL_GROUP;
+    setSegmentGroup(nextGroup);
+
+    const wanted = from?.segments ?? [];
+    const available = availableSegments(question, nextGroup);
+    setSegments(wanted.filter((id) => available.some((s) => s.id === id)));
+
     setView({ kind: 'selected', groupId: g.id });
   }
 
@@ -96,7 +119,12 @@ export function App() {
         return;
       }
       // Modellens val av bas och frekvens följer med via fråge-id:t.
-      select(g, q, { questionId: spec.question_id, option: spec.options[0] ?? null, group: spec.segment_group });
+      select(g, q, {
+        questionId: spec.question_id,
+        options: spec.options,
+        group: spec.segment_group,
+        segments: spec.segments,
+      });
     } catch (e) {
       if ((e as Error).name === 'AbortError') return;
       // Utan frågelager faller appen tillbaka på fas 2. Verktyget är användbart ändå.
@@ -127,7 +155,7 @@ export function App() {
 
   async function download(kind: 'png' | 'svg') {
     if (!cardRef.current || !answer) return;
-    const name = exportFilename(answer.question.id, answer.option.label, answer.segmentGroup);
+    const name = exportFilename(answer.question.id, answer.selectedOptions.join('-'), answer.segmentGroup);
     try {
       if (kind === 'png') await exportPng(cardRef.current, name);
       else await exportSvg(cardRef.current, name);
@@ -139,6 +167,7 @@ export function App() {
   const segmentGroups = answer
     ? [TOTAL_GROUP, ...answer.question.segment_groups.filter((g) => g !== TOTAL_GROUP)]
     : [];
+  const segmentOptions = answer ? availableSegments(answer.question, answer.segmentGroup) : [];
 
   return (
     <main className="page">
@@ -192,30 +221,44 @@ export function App() {
           <Pills
             ariaLabel="Bas"
             items={group.bases.map((b) => ({ id: b, label: b }))}
-            active={base ?? group.bases[0]}
-            onSelect={setBase}
+            selected={[base ?? group.bases[0]]}
+            onChange={(next) => setBase(next[0] ?? null)}
             maxVisible={6}
           />
           <Pills
             ariaLabel="Hur ofta"
             items={group.frequencies.map((f) => ({ id: f, label: f }))}
-            active={frequency ?? group.frequencies[0] ?? ''}
-            onSelect={setFrequency}
+            selected={frequency ? [frequency] : []}
+            onChange={(next) => setFrequency(next[0] ?? null)}
           />
+
+          <GroupSelect
+            groups={segmentGroups}
+            active={answer.segmentGroup}
+            onSelect={(g) => { setSegmentGroup(g); setSegments([]); }}
+            totalLabel="Ingen — visa totalt"
+          />
+
           <Pills
             ariaLabel="Svarsalternativ"
             items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
-            active={answer.option.label}
-            onSelect={setOption}
+            selected={answer.selectedOptions}
+            onChange={(next) => setOptions(next.length ? next : [answer.optionLabels[0]])}
+            multi
             maxVisible={6}
           />
-          <Pills
-            ariaLabel="Segmentgrupp"
-            items={segmentGroups.map((g) => ({ id: g, label: g === TOTAL_GROUP ? 'Totalt' : g }))}
-            active={answer.segmentGroup}
-            onSelect={setSegmentGroup}
-            maxVisible={7}
-          />
+
+          {segmentOptions.length > 0 && (
+            <Pills
+              ariaLabel="Segment"
+              items={segmentOptions.map((s) => ({ id: s.id, label: s.label }))}
+              selected={segments}
+              onChange={setSegments}
+              multi
+              allLabel="Alla"
+              maxVisible={10}
+            />
+          )}
 
           <div className="card-wrap">
             {/* Samma nod renderas på skärmen och serialiseras vid export. */}
