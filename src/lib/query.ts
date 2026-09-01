@@ -41,7 +41,15 @@ export interface Answer {
   /** Segment-id som är valda inom gruppen. Tom lista betyder alla. */
   selectedSegments: string[];
   series: AnswerSeries[];
-  /** Stora talet: totalvärdet för det första valda svarsalternativet. */
+  /**
+   * Stora talet finns bara när urvalet ger exakt ett tal.
+   *
+   * Med ett valt alternativ och ett valt segment är det den cellen. Med ett
+   * alternativ och flera segment är det alternativets total, uttryckligen
+   * märkt som total. Med flera alternativ finns inget enskilt tal — då visas
+   * inget, för ett godtyckligt utvalt värde i 72 punkter läses som svaret på
+   * frågan även när det inte är det.
+   */
   headline: SegmentValue | null;
   headlineLabel: string;
   baseN: number;
@@ -118,8 +126,22 @@ export function executeQuery({
   }
 
   const primary = options[0];
-  const headline = primary.values['totalt'] ?? null;
+  const total = primary.values['totalt'] ?? null;
   const allRows = series.flatMap((s) => s.rows);
+
+  // Ett tal, eller inget.
+  let headline: SegmentValue | null = null;
+  let headlineLabel = '';
+  if (options.length === 1) {
+    const rows = series[0]?.rows ?? [];
+    if (group !== TOTAL_GROUP && rows.length === 1) {
+      headline = rows[0].value;
+      headlineLabel = `${primary.label} · ${rows[0].label}`;
+    } else {
+      headline = total;
+      headlineLabel = `${primary.label} · Totalt`;
+    }
+  }
 
   return {
     question,
@@ -129,8 +151,9 @@ export function executeQuery({
     selectedSegments: segmentIds ?? [],
     series,
     headline,
-    headlineLabel: primary.label,
-    baseN: headline?.n ?? 0,
+    headlineLabel,
+    // Basen är alltid frågans n, oavsett om ett enskilt tal visas eller inte.
+    baseN: total?.n ?? 0,
     hasSmallBase: allRows.some((r) => r.value.pct !== null && !r.value.reliable),
     hasNoBase: allRows.some((r) => r.value.reason === 'no_base'),
   };

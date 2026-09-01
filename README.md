@@ -189,6 +189,23 @@ Parsern är idempotent — stabil nyckelsortering, verifierad med sha256 över t
 körningar. Segmentgrupperna läses ur arket via forward-fill av grupprubrikerna,
 de är inte hårdkodade.
 
+### Det stora talet
+
+Det stora talet visas bara när urvalet ger **ett** tal:
+
+| Urval | Stort tal |
+| --- | --- |
+| Ett alternativ, ett segment | Den cellen, märkt `INSTAGRAM · GEN Z 1997-2009` |
+| Ett alternativ, flera eller alla segment | Alternativets total, märkt `INSTAGRAM · TOTALT` |
+| Flera alternativ | Inget — kortet går direkt till serierna |
+
+Skälet: med tre valda alternativ och två valda segment hörde totalen för det
+första alternativet inte ihop med något annat på kortet, men stod i 72 punkter
+och lästes som svaret. Ett godtyckligt utvalt värde i den storleken är
+missvisande även när det är korrekt hämtat. Suffixet `· TOTALT` finns av samma
+skäl: utan det gick det inte att se att talet var frågans total och inte det
+filtrerade urvalets.
+
 ### Flerval
 
 Grafen tar flera svarsalternativ och flera segment samtidigt. Väljer man Tiktok

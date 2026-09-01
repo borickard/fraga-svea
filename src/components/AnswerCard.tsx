@@ -73,9 +73,11 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   const questionTop = PAD + 18;
   const questionEnd = questionTop + (questionLines.length - 1) * 25;
 
+  // Utan stort tal krymper toppen i stället för att lämna ett tomt hål.
+  const hasHeadline = headline !== null;
   const headlineY = questionEnd + 84;
   const kickerY = headlineY + 24;
-  const rule1Y = kickerY + 26;
+  const rule1Y = hasHeadline ? kickerY + 26 : questionEnd + 30;
   const breakdownY = rule1Y + 24;
   const rowsY = rule1Y + 44;
 
@@ -112,7 +114,11 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
       width={W}
       height={H}
       role="img"
-      aria-label={`${headlineLabel}: ${formatPct(headline?.pct ?? null)}. Bas: ${question.base_label}, ${nLabel} = ${baseN}.`}
+      aria-label={
+        headline
+          ? `${headlineLabel}: ${formatPct(headline.pct)}. Bas: ${question.base_label}, ${nLabel} = ${baseN}.`
+          : `${question.text} ${breakdown}. Bas: ${question.base_label}, ${nLabel} = ${baseN}.`
+      }
     >
       {!still && <style>{BAR_ANIMATION_CSS}</style>}
       <rect x="0" y="0" width={W} height={H} fill={SURFACE} />
@@ -126,27 +132,32 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         </text>
       ))}
 
-      {/* Stora talet. Mono, så att siffror inte hoppar i bredd när värdet byts. */}
-      <text
-        x={PAD} y={headlineY}
-        fontFamily={MONO} fontSize="72" fontWeight="500" fill={INK}
-        letterSpacing="-0.02em"
-      >
-        {headline?.pct === null || headline === null ? (
-          <tspan fontSize="40">ingen bas</tspan>
-        ) : (
-          <>
-            {Math.round(headline.pct * 100)}
-            <tspan fontSize="34" dx="4">%</tspan>
-          </>
-        )}
-      </text>
-      <text
-        x={PAD} y={kickerY}
-        fontFamily={MONO} fontSize="11" fontWeight="500" fill={MUTED} letterSpacing="0.08em"
-      >
-        {label(truncate(headlineLabel, W - PAD * 2, 12.4, 'mono'))}
-      </text>
+      {/* Stora talet. Mono, så att siffror inte hoppar i bredd när värdet byts.
+          Visas bara när urvalet ger exakt ett tal — se headline i query.ts. */}
+      {hasHeadline && (
+        <>
+          <text
+            x={PAD} y={headlineY}
+            fontFamily={MONO} fontSize="72" fontWeight="500" fill={INK}
+            letterSpacing="-0.02em"
+          >
+            {headline.pct === null ? (
+              <tspan fontSize="40">ingen bas</tspan>
+            ) : (
+              <>
+                {Math.round(headline.pct * 100)}
+                <tspan fontSize="34" dx="4">%</tspan>
+              </>
+            )}
+          </text>
+          <text
+            x={PAD} y={kickerY}
+            fontFamily={MONO} fontSize="11" fontWeight="500" fill={MUTED} letterSpacing="0.08em"
+          >
+            {label(truncate(headlineLabel, W - PAD * 2, 12.4, 'mono'))}
+          </text>
+        </>
+      )}
 
       <line x1={PAD} y1={rule1Y} x2={W - PAD} y2={rule1Y} stroke={HAIRLINE} strokeWidth="1" />
 
