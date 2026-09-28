@@ -15,7 +15,7 @@
  */
 import type { Question, QuestionOption } from '../types';
 import { datasetFor, DEFAULT_YEAR, YEARS } from './dataset';
-import { titleFor } from './labels';
+import { titleFor, wordingsFor } from './concepts';
 import rawClusters from '../data/clusters.json';
 
 /**
@@ -75,7 +75,8 @@ export interface QuestionGroup {
   objectLabel: string | null;
 }
 
-interface ClusterMember { text: string; label?: string; }
+/** Klustermedlemmar pekar på begrepp, inte på frågetexter. */
+interface ClusterMember { concept: string; label?: string; }
 interface Cluster {
   id: string;
   label: string;
@@ -83,7 +84,7 @@ interface Cluster {
   dimensionLabel?: string;
   members: ClusterMember[];
 }
-const clusters = (rawClusters as { clusters: Cluster[] }).clusters;
+const clusters = (rawClusters as unknown as { clusters: Cluster[] }).clusters;
 
 const groupsByYear = new Map<number, QuestionGroup[]>();
 const groupByQuestionId = new Map<string, QuestionGroup>();
@@ -124,13 +125,18 @@ for (const year of YEARS) {
   for (const cluster of clusters) {
     const variants: Variant[] = [];
     for (const member of cluster.members) {
-      const g = draft.find((x) => !consumed.has(x) && x.variants.some((v) => v.question.text === member.text));
+      // Begreppets formulering i just den här årgången. Saknas den finns
+      // frågan inte det året, och medlemmen hoppas över.
+      const texts = wordingsFor(member.concept, year);
+      if (!texts.length) continue;
+      const g = draft.find((x) => !consumed.has(x) && x.variants.some((v) => texts.includes(v.question.text)));
       if (!g) continue;
       consumed.add(g);
+      const objectLabel = member.label ?? titleFor(g.variants[0].question);
       for (const v of g.variants) {
         variants.push(
           cluster.dimension === 'objekt'
-            ? { ...v, object: member.label ?? member.text }
+            ? { ...v, object: objectLabel }
             : { ...v, frequency: v.frequency ?? member.label ?? null },
         );
       }
@@ -145,7 +151,9 @@ for (const year of YEARS) {
   const placedClusters = new Set<string>();
   for (const g of draft) {
     if (!consumed.has(g)) { groups.push(g); continue; }
-    const cluster = clusters.find((c) => c.members.some((m) => g.variants.some((v) => v.question.text === m.text)));
+    const cluster = clusters.find((c) =>
+      c.members.some((m) => wordingsFor(m.concept, year).some((t) => g.variants.some((v) => v.question.text === t))),
+    );
     if (cluster && merged.has(cluster.id) && !placedClusters.has(cluster.id)) {
       placedClusters.add(cluster.id);
       groups.push(merged.get(cluster.id)!);

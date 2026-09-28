@@ -1,0 +1,2166 @@
+{
+  "_kommentar": [
+    "Begrepp: en sak undersökningen mäter. Handskriven fil — redigera fritt.",
+    "",
+    "formuleringar listar frågans exakta lydelse per årgång. Internetstiftelsen",
+    "skriver om frågorna mellan åren, så samma begrepp kan ha olika lydelse.",
+    "Titeln och synonymerna följer begreppet och överlever därför omskrivningar.",
+    "",
+    "matchning: \"obekräftad\" betyder att begreppet bara hittats i en årgång.",
+    "kandidat är ett FÖRSLAG på motsvarighet i ett annat år, beräknat på",
+    "ordlikhet. Det gör ingenting förrän en människa flyttat in texten under",
+    "formuleringar för det året och tagit bort matchning och kandidat.",
+    "Sätt matchning: \"ingen\" för begrepp som saknar motsvarighet — då slutar",
+    "de efterfrågas.",
+    "",
+    "Automatik kopplar aldrig ihop årgångar här. En felaktigt hopkopplad fråga",
+    "ger en felaktig trendlinje, vilket är precis det fel verktyget ska hindra."
+  ],
+  "concepts": [
+    {
+      "id": "anvandning_av_e_tjanster",
+      "titel": "Användning av e-tjänster",
+      "synonymer": [
+        "myndighet",
+        "1177",
+        "digital service",
+        "offentlig sektor"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du under de senaste 12 månaderna använt någon av följande e-tjänster?"
+        ],
+        "2026": [
+          "Har du under de senaste 12 månaderna använt någon av följande e-tjänster?"
+        ]
+      }
+    },
+    {
+      "id": "digitala_brevlador",
+      "titel": "Digitala brevlådor",
+      "synonymer": [
+        "kivra",
+        "post",
+        "brev",
+        "myndighetspost",
+        "papperslöst"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilken eller vilka digitala brevlådor har du använt de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Vilken eller vilka digitala brevlådor har du använt de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "e_legitimation_dagligen",
+      "titel": "E-legitimation – dagligen",
+      "synonymer": [
+        "bankid",
+        "bank-id",
+        "mobilt bankid",
+        "freja",
+        "e-leg",
+        "legitimation",
+        "logga in",
+        "inloggning"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka e-legitimationer har du använt dagligen?"
+        ],
+        "2026": [
+          "Vilka e-legitimationer har du använt dagligen?"
+        ]
+      }
+    },
+    {
+      "id": "betalappar",
+      "titel": "Betalappar",
+      "synonymer": [
+        "swish",
+        "betala",
+        "mobilbetalning",
+        "kort",
+        "apple pay"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka av följande appar har du använt vid betalning de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Vilka av följande appar har du använt vid betalning de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "e_handel",
+      "titel": "E-handel",
+      "synonymer": [
+        "näthandel",
+        "shoppa",
+        "beställa",
+        "e-com",
+        "temu",
+        "shein"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du e-handlat under de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Har du e-handlat under de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "sociala_medier_dagligen",
+      "titel": "Sociala medier – dagligen",
+      "formuleringar": {
+        "2025": [
+          "Vilka sociala nätverksplatser/sociala medier har du använt dagligen?"
+        ],
+        "2026": [
+          "Vilka sociala nätverksplatser/sociala medier har du använt dagligen?"
+        ]
+      }
+    },
+    {
+      "id": "youtube_hur_ofta",
+      "titel": "Youtube – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Youtube"
+        ],
+        "2026": [
+          "YouTube"
+        ]
+      }
+    },
+    {
+      "id": "facebook_hur_ofta",
+      "titel": "Facebook – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Facebook"
+        ],
+        "2026": [
+          "Facebook"
+        ]
+      }
+    },
+    {
+      "id": "instagram_hur_ofta",
+      "titel": "Instagram – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Instagram"
+        ],
+        "2026": [
+          "Instagram"
+        ]
+      }
+    },
+    {
+      "id": "snapchat_hur_ofta",
+      "titel": "Snapchat – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Snapchat"
+        ],
+        "2026": [
+          "Snapchat"
+        ]
+      }
+    },
+    {
+      "id": "linkedin_hur_ofta",
+      "titel": "Linkedin – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Linkedin"
+        ],
+        "2026": [
+          "Linkedin"
+        ]
+      }
+    },
+    {
+      "id": "flashback_hur_ofta",
+      "titel": "Flashback – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Flashback"
+        ],
+        "2026": [
+          "Flashback"
+        ]
+      }
+    },
+    {
+      "id": "tiktok_hur_ofta",
+      "titel": "Tiktok – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Tiktok"
+        ],
+        "2026": [
+          "TikTok"
+        ]
+      }
+    },
+    {
+      "id": "pinterest_hur_ofta",
+      "titel": "Pinterest – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Pinterest"
+        ],
+        "2026": [
+          "Pinterest"
+        ]
+      }
+    },
+    {
+      "id": "x_twitter_hur_ofta",
+      "titel": "X (Twitter) – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "X (Twitter)"
+        ],
+        "2026": [
+          "X (Twitter)"
+        ]
+      }
+    },
+    {
+      "id": "discord_hur_ofta",
+      "titel": "Discord – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Discord"
+        ],
+        "2026": [
+          "Discord"
+        ]
+      }
+    },
+    {
+      "id": "reddit_hur_ofta",
+      "titel": "Reddit – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Reddit"
+        ],
+        "2026": [
+          "Reddit"
+        ]
+      }
+    },
+    {
+      "id": "roblox_hur_ofta",
+      "titel": "Roblox – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Roblox"
+        ],
+        "2026": [
+          "Roblox"
+        ]
+      }
+    },
+    {
+      "id": "twitch_hur_ofta",
+      "titel": "Twitch – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Twitch"
+        ],
+        "2026": [
+          "Twitch"
+        ]
+      }
+    },
+    {
+      "id": "threads_hur_ofta",
+      "titel": "Threads – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Threads"
+        ],
+        "2026": [
+          "Threads"
+        ]
+      }
+    },
+    {
+      "id": "bereal_hur_ofta",
+      "titel": "BeReal – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "BeReal"
+        ],
+        "2026": [
+          "BeReal"
+        ]
+      }
+    },
+    {
+      "id": "bluesky_hur_ofta",
+      "titel": "Bluesky – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Bluesky"
+        ],
+        "2026": [
+          "Bluesky"
+        ]
+      }
+    },
+    {
+      "id": "yubo_hur_ofta",
+      "titel": "Yubo – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Yubo"
+        ],
+        "2026": [
+          "Yubo"
+        ]
+      }
+    },
+    {
+      "id": "mastodon_hur_ofta",
+      "titel": "Mastodon – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Mastodon"
+        ],
+        "2026": [
+          "Mastodon"
+        ]
+      }
+    },
+    {
+      "id": "facebook_messenger_hur_ofta",
+      "titel": "Facebook Messenger – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Facebook Messenger"
+        ],
+        "2026": [
+          "Facebook Messenger"
+        ]
+      }
+    },
+    {
+      "id": "whatsapp_hur_ofta",
+      "titel": "WhatsApp – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "WhatsApp"
+        ],
+        "2026": [
+          "WhatsApp"
+        ]
+      }
+    },
+    {
+      "id": "signal_hur_ofta",
+      "titel": "Signal – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Signal (Signal Private Messenger)"
+        ],
+        "2026": [
+          "Signal (Signal Private Messenger)"
+        ]
+      }
+    },
+    {
+      "id": "handel_med_kryptovaluta",
+      "titel": "Handel med kryptovaluta",
+      "synonymer": [
+        "bitcoin",
+        "krypto",
+        "ethereum",
+        "investera"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du köpt eller sålt någon form av kryptovaluta (t ex. Bitcoin) under de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Har du köpt eller sålt någon form av kryptovaluta (t ex. Bitcoin) under de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "sektor_man_arbetar_i",
+      "titel": "Sektor man arbetar i",
+      "formuleringar": {
+        "2025": [
+          "Arbetar du inom offentlig, privat eller ideell sektor?"
+        ],
+        "2026": [
+          "Arbetar du inom offentlig, privat eller ideell sektor?"
+        ]
+      }
+    },
+    {
+      "id": "arbetare_eller_tjansteman",
+      "titel": "Arbetare eller tjänsteman",
+      "formuleringar": {
+        "2025": [
+          "Skulle du säga att du är arbetare eller tjänsteman i din huvudsakliga yrkesroll?"
+        ],
+        "2026": [
+          "Skulle du säga att du är arbetare eller tjänsteman i din huvudsakliga yrkesroll?"
+        ]
+      }
+    },
+    {
+      "id": "arbetat_hemifran_digitalt",
+      "titel": "Arbetat hemifrån digitalt",
+      "synonymer": [
+        "distansarbete",
+        "hemarbete",
+        "hybrid",
+        "kontoret"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du under de senaste 12 månaderna arbetat hemifrån digitalt minst någon dag under en genomsnittlig arbetsvecka?"
+        ],
+        "2026": [
+          "Har du under de senaste 12 månaderna arbetat hemifrån digitalt minst någon dag under en genomsnittlig arbetsvecka?"
+        ]
+      }
+    },
+    {
+      "id": "hur_ofta_internet_anvands",
+      "titel": "Hur ofta internet används",
+      "synonymer": [
+        "internetanvändning",
+        "uppkoppling",
+        "digitalt utanförskap",
+        "penetration",
+        "alla svenskar"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Hur ofta använder du internet?"
+        ],
+        "2026": [
+          "Hur ofta använder du internet?"
+        ]
+      }
+    },
+    {
+      "id": "e_legitimation_nagon_gang",
+      "titel": "E-legitimation – någon gång",
+      "synonymer": [
+        "bankid",
+        "bank-id",
+        "mobilt bankid",
+        "freja",
+        "e-leg",
+        "legitimation",
+        "logga in",
+        "inloggning"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du minst någon gång under de senaste 12 månaderna använt någon av följande e-legitimationer?"
+        ],
+        "2026": [
+          "Har du under de senaste 12 månaderna använt någon av följande e-legitimationer?"
+        ]
+      }
+    },
+    {
+      "id": "e_legitimation_varje_vecka",
+      "titel": "E-legitimation – varje vecka",
+      "synonymer": [
+        "bankid",
+        "bank-id",
+        "mobilt bankid",
+        "freja",
+        "e-leg",
+        "legitimation",
+        "logga in",
+        "inloggning"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka e-legitimationer har du använt minst varje vecka?"
+        ],
+        "2026": [
+          "Vilka e-legitimationer har du använt varje vecka?"
+        ]
+      }
+    },
+    {
+      "id": "vardens_e_tjanster_underlattar_eller_forsvarar_tidsbokning",
+      "titel": "Vårdens e-tjänster – underlättar eller försvårar tidsbokning",
+      "synonymer": [
+        "vårdcentral",
+        "boka tid",
+        "1177",
+        "digital vård"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Tycker du att hälso- och sjukvårdens appar och e-tjänster underlättar eller försvårar tidsbokning av läkarbesök jämfört med bokning via telefonsamtal eller på plats på vårdcentral?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "avstatt_lakartid_for_att_e_tjansten_var_for_svar",
+      "titel": "Avstått läkartid för att e-tjänsten var för svår",
+      "synonymer": [
+        "vårdgap",
+        "digitalt utanförskap",
+        "krånglig",
+        "avstå vård"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du avstått från att boka en tid hos läkare för att någon av hälso- och sjukvårdens appar och e-tjänster är för svåra att använda?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "anvandning_av_ai_verktyg",
+      "titel": "Användning av AI-verktyg",
+      "synonymer": [
+        "chatgpt",
+        "copilot",
+        "gemini",
+        "generativ ai",
+        "chattbot",
+        "språkmodell"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du under de senaste 12 månaderna använt dig av några av följande AI-verktyg?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "vilka_fragor_som_stalls_till_ai",
+      "titel": "Vilka frågor som ställs till AI",
+      "synonymer": [
+        "prompt",
+        "promptar",
+        "googla",
+        "sökmotor",
+        "google"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka typer av frågor ställer du i AI-verktyg?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "ai_for_textbearbetning",
+      "titel": "AI för textbearbetning",
+      "synonymer": [
+        "skriva",
+        "text",
+        "sammanfatta",
+        "översätta",
+        "korrektur"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vad av följande har du använt AI-verktyg till?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "ai_for_att_skapa_bilder_ljud_och_kod",
+      "titel": "AI för att skapa bilder, ljud och kod",
+      "synonymer": [
+        "bildgenerering",
+        "deepfake",
+        "kod",
+        "musik",
+        "generera"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du använt AI-verktyg till att generera, alltså skapa, något av följande?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "ai_fragor_om_halsa_och_sjukvard",
+      "titel": "AI-frågor om hälsa och sjukvård",
+      "synonymer": [
+        "doktor google",
+        "symptom",
+        "diagnos",
+        "egenvård"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du frågat ett AI-verktyg om något hälso- eller sjukvårdsrelaterat?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "sammanhang_dar_ai_anvands",
+      "titel": "Sammanhang där AI används",
+      "formuleringar": {
+        "2025": [
+          "I vilket eller vilka sammanhang har du använt AI-verktyg?"
+        ],
+        "2026": [
+          "I vilket eller vilka sammanhang har du använt AI?"
+        ]
+      }
+    },
+    {
+      "id": "framsta_sammanhanget_for_ai",
+      "titel": "Främsta sammanhanget för AI",
+      "formuleringar": {
+        "2025": [
+          "I vilket sammanhang har du främst använt AI-verktyg?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "oro_for_att_ai_ska_gora_en_arbetslos",
+      "titel": "Oro för att AI ska göra en arbetslös",
+      "synonymer": [
+        "jobben",
+        "arbetslöshet",
+        "ersätta",
+        "automatisering",
+        "rädsla"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Är du orolig för att AI kommer att göra dig arbetslös?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "tror_ai_orsakar_arbetsloshet_eller_skapar_nya_jobb",
+      "titel": "Tror AI orsakar arbetslöshet eller skapar nya jobb",
+      "synonymer": [
+        "jobben",
+        "arbetsmarknad",
+        "nya yrken",
+        "framtidstro"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilket av följande två påståenden instämmer du mest i?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "sociala_medier_nagon_gang",
+      "titel": "Sociala medier – någon gång",
+      "synonymer": [
+        "socialt",
+        "nätet",
+        "räckvidd",
+        "spridning"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka sociala nätverksplatser/sociala medier har du använt minst någon gång de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Vilka sociala nätverksplatser/sociala medier har du använt de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "sociala_medier_varje_vecka",
+      "titel": "Sociala medier – varje vecka",
+      "formuleringar": {
+        "2025": [
+          "Vilka sociala nätverksplatser/sociala medier har du använt minst varje vecka?"
+        ],
+        "2026": [
+          "Vilka sociala nätverksplatser/sociala medier har du använt varje vecka?"
+        ]
+      }
+    },
+    {
+      "id": "meddelandeappar_nagon_gang",
+      "titel": "Meddelandeappar – någon gång",
+      "synonymer": [
+        "chatt",
+        "chattapp",
+        "meddelande",
+        "sms",
+        "kryptochatt"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka av följande appar och tjänster har du använt minst någon gång de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Vilka av följande appar och tjänster har du använt de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "meddelandeappar_varje_vecka",
+      "titel": "Meddelandeappar – varje vecka",
+      "synonymer": [
+        "chatt",
+        "chattapp",
+        "meddelande",
+        "sms",
+        "kryptochatt"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka har du använt minst varje vecka?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "meddelandeappar_dagligen",
+      "titel": "Meddelandeappar – dagligen",
+      "synonymer": [
+        "chatt",
+        "chattapp",
+        "meddelande",
+        "sms",
+        "kryptochatt"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka har du använt dagligen?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "telegram_hur_ofta",
+      "titel": "Telegram – hur ofta",
+      "synonymer": [
+        "tiktok",
+        "snapchat",
+        "instagram",
+        "youtube",
+        "facebook",
+        "twitter",
+        "x",
+        "linkedin",
+        "reddit",
+        "discord",
+        "twitch",
+        "roblox",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "flashback",
+        "yubo",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "messenger",
+        "plattform",
+        "app",
+        "hur ofta"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Telegram Messenger"
+        ],
+        "2026": [
+          "Telegram (Telegram Messenger)"
+        ]
+      }
+    },
+    {
+      "id": "sociala_medier_och_meddelandeappar_nagon_gang",
+      "titel": "Sociala medier och meddelandeappar – någon gång",
+      "formuleringar": {
+        "2025": [
+          "Vilka sociala nätverksplatser/sociala medier/appar och tjänster har du använt minst någon gång de senaste 12 månaderna?"
+        ],
+        "2026": [
+          "Vilka sociala nätverksplatser/sociala medier/appar och tjänster har du använt de senaste 12 månaderna?"
+        ]
+      }
+    },
+    {
+      "id": "tidigare_anvandning_av_en_plattform_man_slutat_med",
+      "titel": "Tidigare användning av en plattform man slutat med",
+      "synonymer": [
+        "slutat",
+        "lämnat",
+        "hoppat av",
+        "avhoppare",
+        "raderat konto",
+        "deppat"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du tidigare använt …?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "gor_egna_inlagg_pa_sociala_medier",
+      "titel": "Gör egna inlägg på sociala medier",
+      "synonymer": [
+        "posta",
+        "publicera",
+        "dela",
+        "content",
+        "skapare",
+        "creator",
+        "influencer",
+        "tyst majoritet"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Brukar du regelbundet göra egna inlägg, exempelvis dela bilder, videos, Reels, Händelser, länkar, åsikter, tankar eller något annat, på..."
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "vad_man_gor_pa_roblox",
+      "titel": "Vad man gör på Roblox",
+      "synonymer": [
+        "gaming",
+        "spel",
+        "barn",
+        "robux",
+        "kompisar"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Gör du något av följande på Roblox?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "sett_bluffannons_pa_sociala_medier",
+      "titel": "Sett bluffannons på sociala medier",
+      "synonymer": [
+        "scam",
+        "fejkannons",
+        "falsk annons",
+        "lurad",
+        "bedragare"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du under de senaste 12 månaderna sett en bluffannons på sociala medier?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "anmalt_bluffannons_till_plattformen",
+      "titel": "Anmält bluffannons till plattformen",
+      "synonymer": [
+        "anmäla",
+        "rapportera",
+        "flagga"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du under de senaste 12 månaderna anmält en bluffannons till den sociala medieplattform du såg bluffannonsen på?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "avstatt_kop_for_att_annonsen_misstanktes_vara_falsk",
+      "titel": "Avstått köp för att annonsen misstänktes vara falsk",
+      "synonymer": [
+        "tveka",
+        "köpstopp",
+        "misstänksam"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du under de senaste 12 månaderna varit intresserad av en produkt i en annons på sociala medier, men avstått från att köpa den för att du misstänkte att det var en bluffannons?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "avstatt_kop_for_att_trygghetsmarkning_saknades",
+      "titel": "Avstått köp för att trygghetsmärkning saknades",
+      "synonymer": [
+        "trygg e-handel",
+        "certifikat",
+        "säkert köp"
+      ],
+      "formuleringar": {
+        "2025": [
+          "E-handelsplatser kan ansöka om och använda sig av olika trygghetsmärkningar för att visa att deras webbplats är säker och pålitlig. Trygghetsmärkningen visas oftast i form av symboler eller certifikat. Upplever du generellt sett att denna trygghetsmärkning fyller sin funktion och gör dig tryggare i ditt köp?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "natdejtat_senaste_aret",
+      "titel": "Nätdejtat senaste året",
+      "synonymer": [
+        "tinder",
+        "dejtingapp",
+        "dejt",
+        "kärlek",
+        "singel"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har du nätdejtat under de senaste 12 månaderna?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "foredrar_forsta_kontakt_pa_natet_eller_irl",
+      "titel": "Föredrar första kontakt på nätet eller IRL",
+      "synonymer": [
+        "träffas",
+        "dejtingtrötthet",
+        "swipe"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Föredrar du att få en första kontakt med potentiella partners via nätdejting eller IRL, alltså i livet utanför nätet?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "oro_for_mikrootrohet",
+      "titel": "Oro för mikrootrohet",
+      "synonymer": [
+        "svartsjuka",
+        "otrogen",
+        "flörta",
+        "dm"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Oroar du dig för mikrootrohet, alltså att din partner ska chatta med någon de är attraherad av bakom din rygg?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "kollat_partnerns_mobil_av_svartsjuka",
+      "titel": "Kollat partnerns mobil av svartsjuka",
+      "synonymer": [
+        "svartsjuka",
+        "snoka",
+        "spionera",
+        "kontrollera",
+        "telefon"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Har det hänt att du har kollat din partners mobil på grund av oro för otrohet?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "ser_partnerns_position_via_gps",
+      "titel": "Ser partnerns position via GPS",
+      "formuleringar": {
+        "2025": [
+          "Kan du se var din partner är/befinner sig genom platsdata (GPS) från din partners mobil, t ex. via snapchatkarta, Hitta-funktioner i mobilen eller liknande?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "kollar_upp_sina_ex_pa_natet",
+      "titel": "Kollar upp sina ex på nätet",
+      "synonymer": [
+        "ex",
+        "stalka",
+        "googla",
+        "snoka"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Brukar du kolla du upp dina ex på nätet, alltså googla dem eller kolla på deras sociala medier?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "ok_att_partnern_foljer_sina_ex",
+      "titel": "Ok att partnern följer sina ex",
+      "synonymer": [
+        "ex",
+        "gränser",
+        "svartsjuka"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Tycker du att det är ok att din partner har/följer något av sina ex på sociala medier?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "play_och_strommat_nagon_gang",
+      "titel": "Play och strömmat – någon gång",
+      "synonymer": [
+        "streaming",
+        "netflix",
+        "svt play",
+        "viaplay",
+        "hbo",
+        "max",
+        "tv",
+        "film",
+        "serier"
+      ],
+      "formuleringar": {
+        "2025": [
+          "Vilka av följande play- och strömmande tjänster har du använt minst någon gång under de senaste 12 månaderna?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "play_och_strommat_varje_vecka",
+      "titel": "Play och strömmat – varje vecka",
+      "formuleringar": {
+        "2025": [
+          "Vilka av följande play- och strömmande tjänster har du använt minst varje vecka?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "play_och_strommat_dagligen",
+      "titel": "Play och strömmat – dagligen",
+      "formuleringar": {
+        "2025": [
+          "Vilka av följande play- och strömmande tjänster har du använt dagligen?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "skolstadier_bland_8_19_aringar",
+      "titel": "Skolstadier bland 8–19-åringar",
+      "formuleringar": {
+        "2025": [
+          "STADIER:"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "tycker_du_generellt_sett_att_din_digitala_brevlada_kivra_billo_digimail_e_boks_min_myndighetspost_har_underlattat_eller_forsvarat_for_dig",
+      "titel": "Nöjd med digital brevlåda",
+      "formuleringar": {
+        "2026": [
+          "Tycker du generellt sett att din digitala brevlåda (Kivra, Billo, Digimail, e-Boks, Min myndighetspost) har underlättat eller försvårat för dig?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "brevlåda",
+        "kivra",
+        "myndighetspost",
+        "post"
+      ]
+    },
+    {
+      "id": "om_du_bortser_fran_ai_genererade_sokresultat_fran_sokmotorer_vilka_av_foljande_ai_tjanster_har_du_anvant_de_senaste_12_manaderna",
+      "titel": "Använda AI-tjänster",
+      "formuleringar": {
+        "2026": [
+          "Om du bortser från AI-genererade sökresultat från sökmotorer, vilka av följande AI-tjänster har du använt de senaste 12 månaderna?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ai-tjänst",
+        "chatgpt",
+        "chattbot",
+        "claude",
+        "copilot",
+        "gemini",
+        "grok",
+        "meta ai"
+      ]
+    },
+    {
+      "id": "meddelandeappar_varje_vecka_2",
+      "titel": "AI-tjänster – varje vecka",
+      "synonymer": [
+        "ai-tjänst",
+        "chatgpt",
+        "chatt",
+        "chattapp",
+        "claude",
+        "copilot",
+        "gemini",
+        "grok",
+        "kryptochatt",
+        "meddelande",
+        "sms"
+      ],
+      "formuleringar": {
+        "2026": [
+          "Vilka har du använt varje vecka?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "meddelandeappar_dagligen_2",
+      "titel": "AI-tjänster – dagligen",
+      "synonymer": [
+        "ai-tjänst",
+        "chatgpt",
+        "chatt",
+        "chattapp",
+        "claude",
+        "copilot",
+        "gemini",
+        "grok",
+        "kryptochatt",
+        "meddelande",
+        "sms"
+      ],
+      "formuleringar": {
+        "2026": [
+          "Vilka har du använt dagligen?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "i_sokresultatet_pa_google_visas_numera_ai_oversikter_alltsa_ett_ai_genererat_svar_pa_din_sokning_brukar_du_ta_del_av_lasa_dessa_ai_oversikter",
+      "titel": "AI-översikter i Google",
+      "formuleringar": {
+        "2026": [
+          "I sökresultatet på Google visas numera AI-översikter, alltså ett AI-genererat svar på din sökning. Brukar du ta del av/läsa dessa AI-översikter?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ai overview",
+        "ai-översikt",
+        "google",
+        "söka",
+        "sökmotor"
+      ]
+    },
+    {
+      "id": "ai_anvandare",
+      "titel": "AI-användare",
+      "formuleringar": {
+        "2026": [
+          "AI-ANVÄNDARE:"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ai-användare",
+        "bakgrund"
+      ]
+    },
+    {
+      "id": "hur_ofta_soker_du_pa_google_idag_jamfort_med_for_12_manader_sedan",
+      "titel": "Googlar mer eller mindre än förr",
+      "formuleringar": {
+        "2026": [
+          "Hur ofta söker du på Google idag jämfört med för 12 månader sedan?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "google",
+        "minskar",
+        "söka",
+        "sökmotor"
+      ]
+    },
+    {
+      "id": "hur_kommer_det_sig_att_du_anvander_google_mindre_ofta_idag_jamfort_med_for_12_manader_sedan",
+      "titel": "Varför man googlar mindre",
+      "formuleringar": {
+        "2026": [
+          "Hur kommer det sig att du använder Google mindre ofta idag, jämfört med för 12 månader sedan?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ai i stället",
+        "google",
+        "slutat googla",
+        "sökmotor"
+      ]
+    },
+    {
+      "id": "brukar_du_dubbelkolla_att_svaret_informationen_du_far_fran_ai_ar_korrekt",
+      "titel": "Dubbelkollar AI-svar",
+      "formuleringar": {
+        "2026": [
+          "Brukar du dubbelkolla att svaret/informationen du får från AI är korrekt?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "faktakoll",
+        "hallucination",
+        "källkritik",
+        "litar på ai",
+        "verifiera"
+      ]
+    },
+    {
+      "id": "ai_for_textbearbetning_2",
+      "titel": "AI för textbearbetning",
+      "synonymer": [
+        "skriva",
+        "text",
+        "sammanfatta",
+        "översätta",
+        "korrektur"
+      ],
+      "formuleringar": {
+        "2026": [
+          "Vad har du använt AI till?"
+        ]
+      },
+      "matchning": "obekräftad"
+    },
+    {
+      "id": "anser_du_att_ai_gor_dig_mer_effektiv_alltsa_att_det_hjalper_dig_att_fa_mer_gjort",
+      "titel": "AI gör en mer effektiv",
+      "formuleringar": {
+        "2026": [
+          "Anser du att AI gör dig mer effektiv, alltså att det hjälper dig att få mer gjort?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "effektivitet",
+        "nytta",
+        "produktivitet",
+        "tidsvinst"
+      ]
+    },
+    {
+      "id": "tillater_din_arbetsgivare_att_du_anvander_ai_tjanster_i_din_yrkesroll",
+      "titel": "Arbetsgivarens AI-policy",
+      "formuleringar": {
+        "2026": [
+          "Tillåter din arbetsgivare att du använder AI-tjänster i din yrkesroll?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "arbetsplats",
+        "förbud",
+        "jobbet",
+        "policy",
+        "skugg-ai",
+        "tillåtet"
+      ]
+    },
+    {
+      "id": "har_du_ett_eget_namn_smeknamn_pa_nagon_ai_tjanst_som_till_exempel_chatgpt_gemini_copilot_eller_my_ai",
+      "titel": "Smeknamn på AI",
+      "formuleringar": {
+        "2026": [
+          "Har du ett eget namn/smeknamn på någon AI-tjänst som till exempel ChatGPT, Gemini, Copilot eller My AI?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "döper",
+        "personifiera",
+        "relation till ai",
+        "smeknamn"
+      ]
+    },
+    {
+      "id": "nar_du_chattar_skriver_med_ai_kan_du_da_fa_kanslan_av_att_du_talar_med",
+      "titel": "Känslan av vem AI är",
+      "formuleringar": {
+        "2026": [
+          "När du chattar/skriver med AI, kan du då få känslan av att du talar med…?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "antropomorf",
+        "kompis",
+        "människa",
+        "relation till ai",
+        "terapeut"
+      ]
+    },
+    {
+      "id": "tycker_du_att_ai_har_humor_alltsa_kan_svara_roligt",
+      "titel": "AI och humor",
+      "formuleringar": {
+        "2026": [
+          "Tycker du att AI har humor, alltså kan svara roligt?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "humor",
+        "rolig",
+        "skämt"
+      ]
+    },
+    {
+      "id": "vilka_av_foljande_appar_och_tjanster_har_du_anvant_varje_vecka",
+      "titel": "Meddelandeappar – varje vecka",
+      "formuleringar": {
+        "2026": [
+          "Vilka av följande appar och tjänster har du använt varje vecka?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "chatt",
+        "meddelande",
+        "messenger",
+        "signal",
+        "telegram",
+        "whatsapp"
+      ]
+    },
+    {
+      "id": "vilka_av_foljande_appar_och_tjanster_har_du_anvant_dagligen",
+      "titel": "Meddelandeappar – dagligen",
+      "formuleringar": {
+        "2026": [
+          "Vilka av följande appar och tjänster har du använt dagligen?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "chatt",
+        "meddelande",
+        "messenger",
+        "signal",
+        "telegram",
+        "whatsapp"
+      ]
+    },
+    {
+      "id": "upplever_du_att_innehallet_i_ditt_flode_pa_sociala_medier_framst_befaster_eller_framst_utmanar_traditionella_konsroller_och_konsnormer",
+      "titel": "Flödet befäster eller utmanar",
+      "formuleringar": {
+        "2026": [
+          "Upplever du att innehållet i ditt flöde på sociala medier främst befäster eller främst utmanar traditionella könsroller och könsnormer?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "algoritm",
+        "filterbubbla",
+        "flöde",
+        "polarisering",
+        "åsikter"
+      ]
+    },
+    {
+      "id": "har_du_under_de_senaste_12_manaderna_kant_att_du_fastnat_for_lange_i_ett_passivt_sloskrollande_pa_mobilen",
+      "titel": "Fastnat i slöskrollande",
+      "formuleringar": {
+        "2026": [
+          "Har du under de senaste 12 månaderna känt att du fastnat för länge i ett passivt slöskrollande på mobilen?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "doomscrolling",
+        "fastnat i mobilen",
+        "skrolla",
+        "skärmtid",
+        "slöskroll"
+      ]
+    },
+    {
+      "id": "hur_tror_du_att_passivt_skrollande_paverkar_ditt_maende",
+      "titel": "Skrollandets påverkan på måendet",
+      "formuleringar": {
+        "2026": [
+          "Hur tror du att passivt skrollande påverkar ditt mående?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "doomscrolling",
+        "mående",
+        "psykisk hälsa",
+        "skärmtid"
+      ]
+    },
+    {
+      "id": "nar_du_skrollar_pa_mobilen_brukar_du_tanka_pa_vilka_algoritmer_som_kan_styra_innehallet_i_ditt_flode",
+      "titel": "Tänker på algoritmerna",
+      "formuleringar": {
+        "2026": [
+          "När du skrollar på mobilen, brukar du tänka på vilka algoritmer som kan styra innehållet i ditt flöde?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "algoritm",
+        "flöde",
+        "medvetenhet"
+      ]
+    },
+    {
+      "id": "har_du_nagon_gang_testat_att_ta_en_digital_detox_alltsa_att_ta_en_paus_fran_digitala_enheter_eller_digitalt_innehall_pa_nagot_av_foljande_satt",
+      "titel": "Digital detox",
+      "formuleringar": {
+        "2026": [
+          "Har du någon gång testat att ta en digital detox, alltså att ta en paus från digitala enheter eller digitalt innehåll, på något av följande sätt ..."
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "detox",
+        "mobilfri",
+        "offline",
+        "skärmpaus"
+      ]
+    },
+    {
+      "id": "upplevde_du_framst_fordelar_eller_framst_nackdelar_med_att_ta_en_digital_detox",
+      "titel": "Detoxens för- och nackdelar",
+      "formuleringar": {
+        "2026": [
+          "Upplevde du främst fördelar eller främst nackdelar med att ta en digital detox?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "detox",
+        "offline",
+        "skärmpaus"
+      ]
+    },
+    {
+      "id": "om_du_ar_pa_restaurang_med_vanner_brukar_du_i_regel_da_ha_mobilen_framme_eller_undanstoppad",
+      "titel": "Mobilen på restaurang",
+      "formuleringar": {
+        "2026": [
+          "Om du är på restaurang med vänner, brukar du i regel då ha mobilen framme eller undanstoppad?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "bordet",
+        "etikett",
+        "middag",
+        "mobilvett",
+        "umgänge"
+      ]
+    },
+    {
+      "id": "om_du_ar_pa_restaurang_med_vanner_brukar_du_i_regel_ha_ljudet_pa_mobilen_pa_eller_av",
+      "titel": "Ljudet på vid middagen",
+      "formuleringar": {
+        "2026": [
+          "Om du är på restaurang med vänner, brukar du i regel ha ljudet på mobilen på eller av?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ljud",
+        "mobilvett",
+        "ringsignal",
+        "tyst läge"
+      ]
+    },
+    {
+      "id": "var_forvarar_du_i_regel_mobilen_om_natterna_nar_du_sover",
+      "titel": "Mobilen på natten",
+      "formuleringar": {
+        "2026": [
+          "Var förvarar du i regel mobilen om nätterna när du sover?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ladda",
+        "nattbord",
+        "sovrum",
+        "sömn"
+      ]
+    },
+    {
+      "id": "hander_det_att_du_tittar_pa_mobilen_for_att_mota_bort_kanslor_av_ensamhet",
+      "titel": "Mobilen mot ensamhet",
+      "formuleringar": {
+        "2026": [
+          "Händer det att du tittar på mobilen för att mota bort känslor av ensamhet?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ensamhet",
+        "mående",
+        "sällskap",
+        "tröst"
+      ]
+    },
+    {
+      "id": "hander_det_att_du_kanner_dig_nedprioriterad_om_nagon_du_umgas_med_tittar_pa_sin_mobil_istallet_for_pa_dig",
+      "titel": "Nedprioriterad för mobilen",
+      "formuleringar": {
+        "2026": [
+          "Händer det att du känner dig nedprioriterad om någon du umgås med tittar på sin mobil istället för på dig?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "ignorerad",
+        "nedprioriterad",
+        "phubbing",
+        "umgänge"
+      ]
+    },
+    {
+      "id": "hander_det_att_du_kanner_dig_avundsjuk_pa_den_tid_din_partner_agnar_at_sin_mobiltelefon_istallet_for_att_umgas_med_dig",
+      "titel": "Avundsjuk på partnerns mobil",
+      "formuleringar": {
+        "2026": [
+          "Händer det att du känner dig avundsjuk på den tid din partner ägnar åt sin mobiltelefon istället för att umgås med dig?"
+        ]
+      },
+      "matchning": "obekräftad",
+      "synonymer": [
+        "avundsjuk",
+        "partner",
+        "phubbing",
+        "relation",
+        "svartsjuka"
+      ]
+    }
+  ]
+}

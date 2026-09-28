@@ -178,6 +178,25 @@ Raden med ovägda intervjuer heter olika mellan åren — 2025 skriver
 `Antal intervjuer`, 2026 skriver `Antal oviktade intervjuer`. Parsern känner
 igen båda. Utan det hade hela 2026 tyst fallit tillbaka på viktade tal.
 
+### Begrepp: ryggraden i det redaktionella lagret
+
+`src/data/concepts.json` är en post per sak undersökningen mäter: titel,
+synonymer och frågans exakta lydelse **per årgång**. Titlar och sökord hängde
+tidigare på exakt frågetext och tappades vid varje omskrivning; nu hänger de på
+begreppet. Filen ersätter `titles.json` och `synonyms.json`, och `clusters.json`
+pekar numera på begrepps-id i stället för frågetexter.
+
+```bash
+npm run seed-concepts -- --force   # räkna om kopplingarna, behåll titlar och sökord
+npm run link-concepts              # lista förslagen
+npm run link-concepts -- ja 1 2 3  # bekräfta
+npm run link-concepts -- nej 4     # markera som utan motsvarighet
+npm run check-links                # granska alla kopplingar mot svarsalternativen
+```
+
+**Automatiken kopplar aldrig ihop årgångar på egen hand.** Den föreslår; en
+människa bekräftar. Skälet står nedan.
+
 ### Jämförelser mellan år är ännu inte byggda
 
 Och de får inte byggas på textmatchning. **Bara 31 av ~70 frågeformuleringar är
@@ -189,8 +208,22 @@ blev `varje vecka`.
 
 En automatisk matchning skulle alltså missa mer än hälften, och — värre — råka
 para ihop frågor som bara liknar varandra. En felaktig trendlinje är exakt den
-sortens fel verktyget finns för att förhindra. Kopplingen mellan årgångar måste
-vara en granskad fil, inte en gissning.
+sortens fel verktyget finns för att förhindra.
+
+Tre konkreta fall ur 2026 års inläsning, alla fångade:
+
+- Textlikhet 0.82 parade ihop `play- och strömmande tjänster ... dagligen` (2025)
+  med `appar och tjänster ... dagligen` (2026). Den senare handlar om
+  meddelandeappar.
+- **Identisk frågetext räcker inte.** `Vilka har du använt dagligen?` står
+  ordagrant i båda årgångarna, men gäller meddelandeappar 2025 och AI-tjänster
+  2026.
+- Av samma skäl fick en 2026-fråga om AI-tjänster rubriken
+  `Meddelandeappar – dagligen`, eftersom titeln ärvdes via identisk text.
+
+Därför krävs **överlappande svarsalternativ** för varje koppling, både när
+seedern föreslår och i `npm run check-links`. Frågetexten avgör aldrig ensam,
+och titlar nycklas på år och text tillsammans.
 
 ## Ämnen och exempel
 

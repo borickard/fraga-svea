@@ -9,7 +9,7 @@
 import type { Question } from '../types';
 import { datasetFor, DEFAULT_YEAR } from './dataset';
 import { titleFor } from './labels';
-import { synonymsFor } from './synonyms';
+import { synonymsFor } from './concepts';
 
 const STOPWORDS = new Set([
   'och', 'eller', 'att', 'som', 'har', 'hur', 'vad', 'vem', 'vilka', 'vilken',

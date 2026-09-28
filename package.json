@@ -13,7 +13,10 @@
     "data": "echo \"Kör: npm run parse -- <xlsx> <årtal> && npm run validate -- <årtal>\"",
     "spotcheck": "tsx scripts/spotcheck.ts",
     "fonts": "node scripts/fetch-fonts.mjs",
-    "inspect": "tsx scripts/inspect.ts"
+    "inspect": "tsx scripts/inspect.ts",
+    "seed-concepts": "tsx scripts/seed-concepts.ts",
+    "link-concepts": "tsx scripts/link-concepts.ts",
+    "check-links": "tsx scripts/check-links.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.121.0",

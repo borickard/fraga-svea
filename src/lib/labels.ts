@@ -9,21 +9,12 @@
  * bilden visar alltid frågan ordagrant; titeln är en ingång till den.
  */
 import type { Question } from '../types';
-import rawTitles from '../data/titles.json';
+import { titleFor } from './concepts';
 import rawTopics from '../data/topics.json';
 import rawExamples from '../data/examples.json';
 import { datasetFor, DEFAULT_YEAR, YEARS } from './dataset';
 
-const titles = rawTitles as Record<string, string | string[]>;
-
-export function titleFor(q: Question): string {
-  const t = titles[q.text];
-  return typeof t === 'string' && t ? t : q.text;
-}
-
-/** Sant när titeln säger något frågetexten inte redan säger. */
-export const hasTitle = (q: Question): boolean => titleFor(q) !== q.text;
-
+export { titleFor, hasTitle } from './concepts';
 export interface Topic {
   id: string;
   label: string;

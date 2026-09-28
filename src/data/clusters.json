@@ -1,18 +1,18 @@
 {
   "_kommentar": [
-    "Kluster slår ihop flera frågor i bilagan till en post att bläddra bland.",
+    "Kluster slår ihop flera begrepp till en post att bläddra bland.",
     "Handskriven fil — redigera fritt.",
     "",
     "Bilagan ställer samma fråga om 22 olika plattformar, med identisk",
     "alternativlista och identisk bas. Som 22 poster i en lista är det brus;",
     "som en post med plattform som väljare är det en fråga.",
     "",
-    "dimension: 'objekt' lägger till en väljare med member.label som värde.",
+    "dimension: 'objekt' lägger till en väljare med begreppets titel som värde.",
     "dimension: 'frekvens' sätter i stället frekvens på de frågor som saknar",
     "en, så att de hamnar i samma frekvensväljare som sina syskon.",
     "",
-    "member.text är frågans exakta formulering i arket. Klustret ändrar",
-    "aldrig formuleringen — den visas ordagrant på svarskortet som vanligt."
+    "members pekar på begrepp i concepts.json, inte på frågetexter. Det gör",
+    "att klustret överlever att Internetstiftelsen skriver om en fråga."
   ],
   "clusters": [
     {
@@ -21,14 +21,72 @@
       "dimension": "objekt",
       "dimensionLabel": "Plattform",
       "members": [
-        { "text": "Youtube" }, { "text": "Facebook" }, { "text": "Instagram" },
-        { "text": "Snapchat" }, { "text": "Linkedin" }, { "text": "Flashback" },
-        { "text": "Tiktok" }, { "text": "Pinterest" }, { "text": "X (Twitter)" },
-        { "text": "Discord" }, { "text": "Reddit" }, { "text": "Roblox" },
-        { "text": "Twitch" }, { "text": "Threads" }, { "text": "BeReal" },
-        { "text": "Bluesky" }, { "text": "Yubo" }, { "text": "Mastodon" },
-        { "text": "Facebook Messenger" }, { "text": "WhatsApp" },
-        { "text": "Signal (Signal Private Messenger)" }, { "text": "Telegram Messenger" }
+        {
+          "concept": "youtube_hur_ofta"
+        },
+        {
+          "concept": "facebook_hur_ofta"
+        },
+        {
+          "concept": "instagram_hur_ofta"
+        },
+        {
+          "concept": "snapchat_hur_ofta"
+        },
+        {
+          "concept": "linkedin_hur_ofta"
+        },
+        {
+          "concept": "flashback_hur_ofta"
+        },
+        {
+          "concept": "tiktok_hur_ofta"
+        },
+        {
+          "concept": "pinterest_hur_ofta"
+        },
+        {
+          "concept": "x_twitter_hur_ofta"
+        },
+        {
+          "concept": "discord_hur_ofta"
+        },
+        {
+          "concept": "reddit_hur_ofta"
+        },
+        {
+          "concept": "roblox_hur_ofta"
+        },
+        {
+          "concept": "twitch_hur_ofta"
+        },
+        {
+          "concept": "threads_hur_ofta"
+        },
+        {
+          "concept": "bereal_hur_ofta"
+        },
+        {
+          "concept": "bluesky_hur_ofta"
+        },
+        {
+          "concept": "yubo_hur_ofta"
+        },
+        {
+          "concept": "mastodon_hur_ofta"
+        },
+        {
+          "concept": "facebook_messenger_hur_ofta"
+        },
+        {
+          "concept": "whatsapp_hur_ofta"
+        },
+        {
+          "concept": "signal_hur_ofta"
+        },
+        {
+          "concept": "telegram_hur_ofta"
+        }
       ]
     },
     {
@@ -37,11 +95,15 @@
       "dimension": "frekvens",
       "members": [
         {
-          "text": "Har du minst någon gång under de senaste 12 månaderna använt någon av följande e-legitimationer?",
+          "concept": "e_legitimation_nagon_gang",
           "label": "Minst någon gång"
         },
-        { "text": "Vilka e-legitimationer har du använt minst varje vecka?" },
-        { "text": "Vilka e-legitimationer har du använt dagligen?" }
+        {
+          "concept": "e_legitimation_varje_vecka"
+        },
+        {
+          "concept": "e_legitimation_dagligen"
+        }
       ]
     },
     {
@@ -50,11 +112,15 @@
       "dimension": "frekvens",
       "members": [
         {
-          "text": "Vilka av följande appar och tjänster har du använt minst någon gång de senaste 12 månaderna?",
+          "concept": "meddelandeappar_nagon_gang",
           "label": "Minst någon gång"
         },
-        { "text": "Vilka har du använt minst varje vecka?" },
-        { "text": "Vilka har du använt dagligen?" }
+        {
+          "concept": "meddelandeappar_varje_vecka"
+        },
+        {
+          "concept": "meddelandeappar_dagligen"
+        }
       ]
     }
   ]
