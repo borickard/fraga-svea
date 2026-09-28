@@ -22,7 +22,12 @@ const say = (line = '') => { report.push(line); console.log(line); };
 const fail = (m: string) => { errors.push(m); };
 const warn = (m: string) => { warnings.push(m); };
 
-const dataset: Dataset = JSON.parse(readFileSync(resolve(ROOT, 'src/data/dataset.json'), 'utf8'));
+const yearArg = process.argv[2];
+if (!/^\d{4}$/.test(yearArg ?? '')) {
+  console.error('\nAnvändning: npm run validate -- <årtal>\n');
+  process.exit(1);
+}
+const dataset: Dataset = JSON.parse(readFileSync(resolve(ROOT, `src/data/dataset-${yearArg}.json`), 'utf8'));
 const segmentIds = new Set(dataset.segments.map((s) => s.id));
 
 say(`Validerar ${dataset.meta.appendix}`);
@@ -195,7 +200,7 @@ if (warnings.length) {
   say();
 }
 
-writeFileSync(resolve(ROOT, 'data/validation-report.txt'), report.join('\n') + '\n', 'utf8');
+writeFileSync(resolve(ROOT, `data/validation-report-${yearArg}.txt`), report.join('\n') + '\n', 'utf8');
 
 if (errors.length) {
   console.error(`\n${errors.length} HÅRDA FEL:`);
@@ -203,4 +208,4 @@ if (errors.length) {
   console.error('\nDatasetet är inte publicerbart.');
   process.exit(1);
 }
-console.log('Validering OK. Rapport: data/validation-report.txt');
+console.log(`Validering OK. Rapport: data/validation-report-${yearArg}.txt`);

@@ -14,7 +14,7 @@
  * cellerna medan gränssnittet visar en fråga.
  */
 import type { Question, QuestionOption } from '../types';
-import { dataset } from './dataset';
+import { datasetFor, DEFAULT_YEAR, YEARS } from './dataset';
 import { titleFor } from './labels';
 import rawClusters from '../data/clusters.json';
 
@@ -85,7 +85,7 @@ interface Cluster {
 }
 const clusters = (rawClusters as { clusters: Cluster[] }).clusters;
 
-const groups: QuestionGroup[] = [];
+const groupsByYear = new Map<number, QuestionGroup[]>();
 const groupByQuestionId = new Map<string, QuestionGroup>();
 
 function build(id: string, title: string, variants: Variant[]): QuestionGroup {
@@ -106,9 +106,10 @@ function build(id: string, title: string, variants: Variant[]): QuestionGroup {
   };
 }
 
-{
+for (const year of YEARS) {
+  const groups: QuestionGroup[] = [];
   const byStem = new Map<string, Variant[]>();
-  for (const q of dataset.questions) {
+  for (const q of datasetFor(year).questions) {
     const { stem, frequency } = stemOf(q.text);
     const key = `${groupTitleOf(q)}||${stem}`;
     byStem.set(key, [...(byStem.get(key) ?? []), { question: q, base: q.base_label, frequency, object: null }]);
@@ -151,11 +152,13 @@ function build(id: string, title: string, variants: Variant[]): QuestionGroup {
     }
   }
 
-  for (const g of groups) for (const v of g.variants) groupByQuestionId.set(v.question.id, g);
+  for (const g of groups) for (const v of g.variants) groupByQuestionId.set(`${year}:${v.question.id}`, g);
+  groupsByYear.set(year, groups);
 }
 
-export const allGroups = (): QuestionGroup[] => groups;
-export const groupOf = (questionId: string): QuestionGroup | undefined => groupByQuestionId.get(questionId);
+export const allGroups = (year: number = DEFAULT_YEAR): QuestionGroup[] => groupsByYear.get(year) ?? [];
+export const groupOf = (year: number, questionId: string): QuestionGroup | undefined =>
+  groupByQuestionId.get(`${year}:${questionId}`);
 
 /**
  * Slår ihop varianter som delar både bas och frekvens.
@@ -215,8 +218,8 @@ export function resolve(group: QuestionGroup, sel: Selection = {}): Question {
 }
 
 /** Vilken bas och frekvens en given fråga motsvarar inom sin grupp. */
-export function selectionFor(questionId: string): Selection {
-  const g = groupByQuestionId.get(questionId);
+export function selectionFor(year: number, questionId: string): Selection {
+  const g = groupByQuestionId.get(`${year}:${questionId}`);
   const v = g?.variants.find((x) => x.question.id === questionId);
   return { base: v?.base ?? null, frequency: v?.frequency ?? null, object: v?.object ?? null };
 }

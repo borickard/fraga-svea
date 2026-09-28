@@ -7,7 +7,7 @@
  *    närmaste frågorna föreslås i stället för ett svar
  */
 import type { Question } from '../types';
-import { dataset } from './dataset';
+import { datasetFor, DEFAULT_YEAR } from './dataset';
 import { titleFor } from './labels';
 import { synonymsFor } from './synonyms';
 
@@ -52,7 +52,8 @@ interface Indexed {
  */
 const brevityOf = (tokenCount: number): number => 1 / (1 + Math.log(1 + Math.max(0, tokenCount - 3) / 4));
 
-const index: Indexed[] = dataset.questions.map((q) => {
+function buildIndex(year: number): Indexed[] {
+  return datasetFor(year).questions.map((q) => {
   const options = q.options.map((o) => {
     const t = tokenize(o.label);
     return { tokens: new Set(t), brevity: brevityOf(t.length) };
@@ -73,7 +74,8 @@ const index: Indexed[] = dataset.questions.map((q) => {
     optionTokens: new Set(q.options.flatMap((o) => tokenize(o.label))),
     baseTokens: new Set(tokenize(q.base_label)),
   };
-});
+  });
+}
 
 /**
  * Hur särskiljande ett ord är. "Chatgpt" och "arbetslös" pekar ut en enda
@@ -81,13 +83,26 @@ const index: Indexed[] = dataset.questions.map((q) => {
  * Utan den viktningen vinner alltid den fråga som råkar innehålla flest
  * vanliga ord, vilket är fel fråga.
  */
-const documentFrequency = new Map<string, number>();
-for (const entry of index) {
-  const seen = new Set([...entry.tokens, ...entry.optionTokens, ...entry.baseTokens]);
-  for (const t of seen) documentFrequency.set(t, (documentFrequency.get(t) ?? 0) + 1);
+interface YearIndex { index: Indexed[]; documentFrequency: Map<string, number>; bigrams: { q: Question; grams: Set<string> }[]; }
+const yearCache = new Map<number, YearIndex>();
+
+function indexFor(year: number): YearIndex {
+  let cached = yearCache.get(year);
+  if (cached) return cached;
+  const index = buildIndex(year);
+  const documentFrequency = new Map<string, number>();
+  for (const entry of index) {
+    const seen = new Set([...entry.tokens, ...entry.optionTokens, ...entry.baseTokens]);
+    for (const t of seen) documentFrequency.set(t, (documentFrequency.get(t) ?? 0) + 1);
+  }
+  const bigrams = index.map((e) => ({ q: e.q, grams: bigramsOf(`${e.q.text} ${e.q.base_label}`) }));
+  cached = { index, documentFrequency, bigrams };
+  yearCache.set(year, cached);
+  return cached;
 }
 
-function weight(term: string): number {
+function weight(term: string, year: number): number {
+  const { index, documentFrequency } = indexFor(year);
   let df = documentFrequency.get(term) ?? 0;
   if (df === 0) {
     // Okänt ord kan ändå matcha via prefix eller ordstam. Ge det den lägsta
@@ -125,13 +140,14 @@ function hits(needle: string, haystack: Set<string>): number {
 
 export interface SearchHit { question: Question; score: number; }
 
-export function searchQuestions(query: string, limit = 8): SearchHit[] {
+export function searchQuestions(year: number, query: string, limit = 8): SearchHit[] {
+  const { index } = indexFor(year);
   const all = tokenize(query);
   const terms = all.filter((t) => !STOPWORDS.has(t) && t.length > 1);
   const use = terms.length ? terms : all;
   if (use.length === 0) return [];
 
-  const weights = new Map(use.map((t) => [t, weight(t)]));
+  const weights = new Map(use.map((t) => [t, weight(t, year)]));
   const totalWeight = [...weights.values()].reduce((a, b) => a + b, 0) || 1;
 
   const scored: SearchHit[] = [];
@@ -182,7 +198,7 @@ export function searchQuestions(query: string, limit = 8): SearchHit[] {
 }
 
 /** Teckenbigram, för när inget ord alls överlappar. */
-function bigrams(s: string): Set<string> {
+function bigramsOf(s: string): Set<string> {
   const t = normalize(s).replace(/\s/g, '');
   const out = new Set<string>();
   for (let i = 0; i < t.length - 1; i++) out.add(t.slice(i, i + 2));
@@ -196,8 +212,6 @@ function dice(a: Set<string>, b: Set<string>): number {
   return (2 * shared) / (a.size + b.size);
 }
 
-const bigramIndex = dataset.questions.map((q) => ({ q, grams: bigrams(`${q.text} ${q.base_label}`) }));
-
 /**
  * De tre närmaste frågorna. Visas i stället för ett svar när ingenting matchar.
  *
@@ -206,13 +220,13 @@ const bigramIndex = dataset.questions.map((q) => ({ q, grams: bigrams(`${q.text}
  * förslag, alltid. Teckenlikhet fyller på så att listan aldrig är tom när det
  * finns frågor att föreslå — det är fortfarande ett förslag, aldrig ett svar.
  */
-export function nearestQuestions(query: string, limit = 3): Question[] {
-  const picked = searchQuestions(query, limit).map((h) => h.question);
+export function nearestQuestions(year: number, query: string, limit = 3): Question[] {
+  const picked = searchQuestions(year, query, limit).map((h) => h.question);
   if (picked.length >= limit) return picked;
 
   const have = new Set(picked.map((q) => q.id));
-  const grams = bigrams(query);
-  const rest = bigramIndex
+  const grams = bigramsOf(query);
+  const rest = indexFor(year).bigrams
     .filter((e) => !have.has(e.q.id))
     .map((e) => ({ q: e.q, score: dice(grams, e.grams) }))
     .sort((a, b) => b.score - a.score || a.q.id.localeCompare(b.q.id));
@@ -237,7 +251,7 @@ export function nearestQuestions(query: string, limit = 3): Question[] {
  */
 const OPTION_MIN_SCORE = 0.75;
 
-export function bestOption(q: Question, query: string): string | null {
+export function bestOption(q: Question, query: string, year: number = DEFAULT_YEAR): string | null {
   const questionTokens = new Set(tokenize(q.text));
   const terms = tokenize(query)
     .filter((t) => !STOPWORDS.has(t) && t.length > 1)
@@ -248,7 +262,7 @@ export function bestOption(q: Question, query: string): string | null {
   for (const o of q.options) {
     const ot = new Set(tokenize(o.label));
     let score = 0;
-    for (const t of terms) score += hits(t, ot) * weight(t);
+    for (const t of terms) score += hits(t, ot) * weight(t, year);
     if (!best || score > best.score) best = { label: o.label, score };
   }
   return best && best.score >= OPTION_MIN_SCORE ? best.label : null;
@@ -267,7 +281,7 @@ const SEGMENT_MIN_SCORE = 0.9;
  * bett om är värre än ingen nedbrytning — totalen är rätt svar på en fråga
  * utan segment.
  */
-export function bestSegmentGroup(q: Question, query: string): string | null {
+export function bestSegmentGroup(year: number, q: Question, query: string): string | null {
   const questionTokens = new Set(tokenize(q.text));
   const terms = tokenize(query)
     .filter((t) => !STOPWORDS.has(t) && t.length > 1)
@@ -278,9 +292,9 @@ export function bestSegmentGroup(q: Question, query: string): string | null {
   for (const group of q.segment_groups) {
     const gt = new Set(tokenize(group));
     // Segmentetiketterna räknas också: "00-talister" ska peka på GENERATION.
-    for (const s of dataset.segments) if (s.group === group) for (const t of tokenize(s.label)) gt.add(t);
+    for (const s of datasetFor(year).segments) if (s.group === group) for (const t of tokenize(s.label)) gt.add(t);
     let score = 0;
-    for (const t of terms) score += hits(t, gt) * weight(t);
+    for (const t of terms) score += hits(t, gt) * weight(t, year);
     if (!best || score > best.score) best = { group, score };
   }
   return best && best.score >= SEGMENT_MIN_SCORE ? best.group : null;

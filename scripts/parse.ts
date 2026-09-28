@@ -135,7 +135,12 @@ interface ColumnSegment { col: number; segment: Segment; }
 const BAS_RE = /^(?:frg\s*:\s*[^.]*\.\s*)?bas\s*:/i;
 const QUESTION_CODE_RE = /^frg\s*:\s*([^.]+)\./i;
 const CELL_CONTENT_RE = /^cellinneh[åa]ll\s*:/i;
-const N_ROW = 'antal intervjuer';
+/**
+ * Raden med ovägda intervjuer heter olika mellan årgångarna: 2025 skriver
+ * "Antal intervjuer", 2026 skriver "Antal oviktade intervjuer". Båda måste
+ * kännas igen, annars faller en hel årgång tyst tillbaka på viktade tal.
+ */
+const N_ROWS = ['antal intervjuer', 'antal oviktade intervjuer'];
 const NW_ROW = 'antal viktade intervjuer';
 
 /** Hur långt nedåt vi letar efter "Cellinnehåll:" innan vi ger upp på tabellen. */
@@ -231,18 +236,18 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
   let nRow = -1, nwRow = -1, cursor = labelRow + 1;
   for (let i = labelRow + 1; i < Math.min(grid.length, labelRow + 8); i++) {
     const key = norm(grid[i]?.[0]);
-    if (key === N_ROW) { nRow = i; cursor = i + 1; }
+    if (N_ROWS.includes(key)) { nRow = i; cursor = i + 1; }
     else if (key === NW_ROW) { nwRow = i; cursor = i + 1; }
     else if (nRow !== -1 || nwRow !== -1) break;
   }
   if (nRow === -1 && nwRow === -1) {
-    return fail('Hittade varken "Antal intervjuer" eller "Antal viktade intervjuer". Utan bas går tabellen inte att publicera.', cursor);
+    return fail('Hittade varken oviktade eller viktade intervjuer. Utan bas går tabellen inte att publicera.', cursor);
   }
 
   const basisRow = nRow !== -1 ? nRow : nwRow;
   const nBasis: 'intervjuer' | 'viktade_intervjuer' = nRow !== -1 ? 'intervjuer' : 'viktade_intervjuer';
   if (nRow === -1) {
-    note('info', sheet, rowNo(nwRow), 'Tabellen saknar "Antal intervjuer". n hämtas från de viktade intervjuerna och märks som viktat.');
+    note('info', sheet, rowNo(nwRow), 'Tabellen saknar oviktade intervjuer. n hämtas från de viktade och märks som viktat.');
   }
 
   const nPerCol = new Map<number, number>();
@@ -346,7 +351,20 @@ function stableStringify(value: unknown, indent = 2): string {
 
 async function main() {
   const argPath = process.argv[2];
-  const xlsxPath = resolve(ROOT, argPath ?? 'data/tabellbilaga-svenskarna-och-internet-2025.xlsx');
+  if (!argPath) {
+    console.error('\nAnvändning: npm run parse -- <xlsx> <årtal>\n');
+    process.exit(1);
+  }
+  const xlsxPath = resolve(ROOT, argPath);
+
+  // Årtalet styr både filnamnet och meta.year. Det gissas inte ur filnamnet:
+  // en felgissad årgång skulle tyst skriva över en annan.
+  const yearArg = process.argv[3];
+  if (!/^\d{4}$/.test(yearArg ?? '')) {
+    console.error('\nAnge årgång som andra argument, t.ex.:\n  npm run parse -- data/tabellbilaga-...-2026.xlsx 2026\n');
+    process.exit(1);
+  }
+  const year = Number.parseInt(yearArg, 10);
 
   if (!existsSync(xlsxPath)) {
     console.error(
@@ -415,7 +433,8 @@ async function main() {
 
   const dataset: Dataset = {
     meta: {
-      source: 'Svenskarna och internet 2025',
+      year,
+      source: `Svenskarna och internet ${year}`,
       publisher: 'Internetstiftelsen',
       appendix: basename(xlsxPath),
       generated_from: basename(xlsxPath),
@@ -428,13 +447,14 @@ async function main() {
   };
 
   mkdirSync(resolve(ROOT, 'src/data'), { recursive: true });
-  writeFileSync(resolve(ROOT, 'src/data/dataset.json'), stableStringify(dataset), 'utf8');
+  const outFile = `src/data/dataset-${year}.json`;
+  writeFileSync(resolve(ROOT, outFile), stableStringify(dataset), 'utf8');
 
   const logText = log
     .map((e) => `[${e.level.toUpperCase()}] ${e.sheet}${e.row ? `:${e.row}` : ''} — ${e.message}`)
     .join('\n');
   mkdirSync(resolve(ROOT, 'data'), { recursive: true });
-  writeFileSync(resolve(ROOT, 'data/parse-log.txt'), logText + '\n', 'utf8');
+  writeFileSync(resolve(ROOT, `data/parse-log-${year}.txt`), logText + '\n', 'utf8');
 
   if (clamped > 0) {
     note('info', '(alla blad)', null, `${clamped} celler låg strax utanför 0–1 på grund av flyttalsavrundning och klipptes till exakt 0 respektive 1.`);
@@ -443,8 +463,8 @@ async function main() {
   const skips = log.filter((e) => e.level === 'skip').length;
   const warns = log.filter((e) => e.level === 'warn').length;
   console.log(
-    `\nSkrev src/data/dataset.json — ${questions.length} frågor, ${segments.length} segment.\n` +
-    `Logg: data/parse-log.txt (${skips} överhoppade, ${warns} varningar)`
+    `\nSkrev ${outFile} — ${questions.length} frågor, ${segments.length} segment.\n` +
+    `Logg: data/parse-log-${year}.txt (${skips} överhoppade, ${warns} varningar)`
   );
   if (skips > 0) console.log('Överhoppade tabeller finns i loggen. Läs den.');
 }

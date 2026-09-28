@@ -1,6 +1,7 @@
 import { activeTopics } from '../lib/labels';
 
 interface Props {
+  year: number;
   active: string | null;
   onSelect: (id: string | null) => void;
 }
@@ -12,8 +13,8 @@ interface Props {
  * innehåller för att kunna fråga den. Ämnena visar vad som går att fråga om.
  * De är neutrala i färg — pastellerna hör hemma i grafen.
  */
-export function Topics({ active, onSelect }: Props) {
-  const topics = activeTopics();
+export function Topics({ year, active, onSelect }: Props) {
+  const topics = activeTopics(year);
   if (topics.length === 0) return null;
 
   return (

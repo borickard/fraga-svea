@@ -54,6 +54,8 @@ export interface Question {
 }
 
 export interface DatasetMeta {
+  /** Undersökningens årgång. Styr filnamn och all årsvisning. */
+  year: number;
   source: string;
   publisher: string;
   appendix: string;

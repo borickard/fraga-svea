@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { Answer } from '../lib/query';
-import { DATA_COLORS, FALLBACK_COLOR, sourceLine } from '../lib/query';
+import { DATA_COLORS, FALLBACK_COLOR, sourceLineFor } from '../lib/query';
 import { formatN, formatPct } from '../lib/format';
 import { truncate, wrapText } from '../lib/wrap';
 
@@ -49,12 +49,14 @@ const BAR_ANIMATION_CSS = `
 
 export interface AnswerCardProps {
   answer: Answer;
+  /** Årgång. Står i källhänvisningen och får aldrig utelämnas. */
+  year: number;
   /** Sätts vid export: stänger av animationen så att bilden aldrig fångas halvvägs. */
   still?: boolean;
 }
 
 export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function AnswerCard(
-  { answer, still = false },
+  { answer, year, still = false },
   ref,
 ) {
   const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup } = answer;
@@ -239,7 +241,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         {label(`Bas: ${question.base_label} · ${nLabel} = ${formatN(baseN)}`)}
       </text>
       <text x={PAD} y={sourceY} fontFamily={MONO} fontSize="11" fill={MUTED} letterSpacing="0.08em">
-        {label(sourceLine)}
+        {label(sourceLineFor(year))}
       </text>
 
       {hasSmallBase && (

@@ -7,7 +7,7 @@
  * i klienten, mot den statiska JSON:en.
  */
 import type { Question, QuestionOption, SegmentValue } from '../types';
-import { dataset, getQuestion, getSegment, segmentsInGroup, TOTAL_GROUP } from './dataset';
+import { datasetFor, getQuestion, getSegment, segmentsInGroup, TOTAL_GROUP } from './dataset';
 
 /** Pastellerna är data. En serie = en färg. */
 export const DATA_COLORS = ['#C8E7DD', '#A7D8FD', '#FFE696', '#FF9FB4'] as const;
@@ -58,6 +58,7 @@ export interface Answer {
 }
 
 export interface QueryInput {
+  year: number;
   questionId: string;
   optionLabels?: string[] | null;
   segmentGroup?: string | null;
@@ -72,9 +73,9 @@ export interface QueryInput {
 const MISSING: SegmentValue = { pct: null, n: 0, reliable: false, reason: 'missing' };
 
 export function executeQuery({
-  questionId, optionLabels, segmentGroup, segmentIds, question: given,
+  year, questionId, optionLabels, segmentGroup, segmentIds, question: given,
 }: QueryInput): Answer | null {
-  const question = given ?? getQuestion(questionId);
+  const question = given ?? getQuestion(year, questionId);
   if (!question) return null;
 
   // Bara alternativ som faktiskt finns i frågan, i frågans egen ordning.
@@ -110,7 +111,7 @@ export function executeQuery({
       })),
     }];
   } else {
-    const inGroup = segmentsInGroup(group).filter((s) => s.id in question.options[0].values);
+    const inGroup = segmentsInGroup(year, group).filter((s) => s.id in question.options[0].values);
     const picked = (segmentIds ?? []).filter((id) => inGroup.some((s) => s.id === id));
     const segments = picked.length ? inGroup.filter((s) => picked.includes(s.id)) : inGroup;
 
@@ -163,11 +164,15 @@ export function executeQuery({
 }
 
 /** Segment i en grupp som frågan faktiskt har värden för. */
-export function availableSegments(question: Question, group: string) {
+export function availableSegments(year: number, question: Question, group: string) {
   if (group === TOTAL_GROUP) return [];
-  return segmentsInGroup(group).filter((s) => s.id in question.options[0].values);
+  return segmentsInGroup(year, group).filter((s) => s.id in question.options[0].values);
 }
 
-export const segmentLabel = (id: string): string => getSegment(id)?.label ?? id;
+export const segmentLabel = (year: number, id: string): string => getSegment(year, id)?.label ?? id;
 
-export const sourceLine = `${dataset.meta.source} · ${dataset.meta.publisher}`;
+/** Källhänvisningen bär årgången — den är en del av källan, inte dekor. */
+export const sourceLineFor = (year: number): string => {
+  const m = datasetFor(year).meta;
+  return `${m.source} · ${m.publisher}`;
+};

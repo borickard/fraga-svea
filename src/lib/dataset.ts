@@ -1,43 +1,67 @@
-import raw from '../data/dataset.json';
+/**
+ * Datasetet, en årgång per fil.
+ *
+ * Varje årgång är en egen, orörd spegling av sin tabellbilaga. De blandas
+ * aldrig: en fråga hör till ett år, och ett svar hämtas alltid ur det år
+ * användaren valt. Att jämföra år kräver en granskad koppling mellan
+ * frågorna, inte en gissning på att texten råkar vara lika — se README.
+ */
+import d2025 from '../data/dataset-2025.json';
+import d2026 from '../data/dataset-2026.json';
 import type { Dataset, Question, Segment } from '../types';
-
-export const dataset = raw as unknown as Dataset;
 
 export const TOTAL_GROUP = 'TOTALT';
 
-const segmentById = new Map<string, Segment>(dataset.segments.map((s) => [s.id, s]));
-const questionById = new Map<string, Question>(dataset.questions.map((q) => [q.id, q]));
+const datasets: Dataset[] = [d2026, d2025] as unknown as Dataset[];
 
-export const getSegment = (id: string): Segment | undefined => segmentById.get(id);
-export const getQuestion = (id: string): Question | undefined => questionById.get(id);
+/** Nyast först. Ordningen styr årsväljaren. */
+export const YEARS: number[] = datasets.map((d) => d.meta.year);
+export const DEFAULT_YEAR = YEARS[0];
+
+const byYear = new Map<number, Dataset>(datasets.map((d) => [d.meta.year, d]));
+
+export function datasetFor(year: number): Dataset {
+  return byYear.get(year) ?? datasets[0];
+}
+
+/** Bygger en uppslagning per årgång, en gång, vid första användning. */
+function perYear<T>(build: (d: Dataset) => T): (year: number) => T {
+  const cache = new Map<number, T>();
+  return (year: number) => {
+    const key = byYear.has(year) ? year : DEFAULT_YEAR;
+    let v = cache.get(key);
+    if (v === undefined) { v = build(datasetFor(key)); cache.set(key, v); }
+    return v;
+  };
+}
+
+const segmentIndex = perYear((d) => new Map(d.segments.map((s) => [s.id, s])));
+const questionIndex = perYear((d) => new Map(d.questions.map((q) => [q.id, q])));
+
+export const getSegment = (year: number, id: string): Segment | undefined => segmentIndex(year).get(id);
+export const getQuestion = (year: number, id: string): Question | undefined => questionIndex(year).get(id);
 
 /** Segment i en grupp, i arkets ordning. */
-export function segmentsInGroup(group: string): Segment[] {
-  return dataset.segments.filter((s) => s.group === group);
-}
-
-/** Grupper som just den här frågan faktiskt är nedbruten på. */
-export function groupsForQuestion(q: Question): string[] {
-  return q.segment_groups;
-}
+export const segmentsInGroup = (year: number, group: string): Segment[] =>
+  datasetFor(year).segments.filter((s) => s.group === group);
 
 /**
  * Bilagan innehåller frågor med identisk frågetext OCH identisk bas som ändå
  * är olika tabeller — typiskt en Netto-sammanställning och en detaljerad
- * uppdelning av samma fråga. De skiljs bara åt av svarsalternativen, så de
- * måste märkas ut där de listas. Annars ser journalisten två likadana rader.
+ * uppdelning av samma fråga. De skiljs bara åt av svarsalternativen.
  */
-const ambiguous = new Set<string>();
-{
+const ambiguousIds = perYear((d) => {
   const byKey = new Map<string, string[]>();
-  for (const q of dataset.questions) {
+  for (const q of d.questions) {
     const key = `${q.text}||${q.base_label}`;
     byKey.set(key, [...(byKey.get(key) ?? []), q.id]);
   }
-  for (const ids of byKey.values()) if (ids.length > 1) for (const id of ids) ambiguous.add(id);
-}
+  const out = new Set<string>();
+  for (const ids of byKey.values()) if (ids.length > 1) for (const id of ids) out.add(id);
+  return out;
+});
 
-export const isAmbiguous = (id: string): boolean => ambiguous.has(id);
+export const isAmbiguous = (year: number, id: string): boolean => ambiguousIds(year).has(id);
 
 /** Kort lista av svarsalternativ, för att skilja annars identiska frågor åt. */
 export function optionPreview(q: Question, max = 3): string {
@@ -48,7 +72,6 @@ export function optionPreview(q: Question, max = 3): string {
 
 /**
  * Frågeindexet är det enda språkmodellen får se. Inga värden, bara metadata.
- * Byggs här så att både klienten och serverless-funktionen använder samma form.
  */
 export interface IndexEntry {
   id: string;
@@ -58,8 +81,8 @@ export interface IndexEntry {
   options: string[];
 }
 
-export function buildQuestionIndex(d: Dataset = dataset): IndexEntry[] {
-  return d.questions.map((q) => ({
+export function buildQuestionIndex(year: number): IndexEntry[] {
+  return datasetFor(year).questions.map((q) => ({
     id: q.id,
     text: q.text,
     base_label: q.base_label,

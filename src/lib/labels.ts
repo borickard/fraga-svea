@@ -12,7 +12,7 @@ import type { Question } from '../types';
 import rawTitles from '../data/titles.json';
 import rawTopics from '../data/topics.json';
 import rawExamples from '../data/examples.json';
-import { dataset } from './dataset';
+import { datasetFor, DEFAULT_YEAR, YEARS } from './dataset';
 
 const titles = rawTitles as Record<string, string | string[]>;
 
@@ -43,25 +43,29 @@ const haystackFor = (q: Question): string =>
     .join(' ')
     .toLowerCase();
 
+// Ämnestillhörighet beräknas per årgång: frågorna skiljer sig mellan åren.
 const topicsByQuestion = new Map<string, string[]>();
 const questionsByTopic = new Map<string, Question[]>();
 
-for (const q of dataset.questions) {
-  const hay = haystackFor(q);
-  const matched = topics.filter((t) => t.keywords.some((k) => hay.includes(k.toLowerCase())));
-  topicsByQuestion.set(q.id, matched.map((t) => t.id));
-  for (const t of matched) questionsByTopic.set(t.id, [...(questionsByTopic.get(t.id) ?? []), q]);
+for (const year of YEARS) {
+  for (const q of datasetFor(year).questions) {
+    const hay = haystackFor(q);
+    const matched = topics.filter((t) => t.keywords.some((k) => hay.includes(k.toLowerCase())));
+    topicsByQuestion.set(`${year}:${q.id}`, matched.map((t) => t.id));
+    for (const t of matched) questionsByTopic.set(`${year}:${t.id}`, [...(questionsByTopic.get(`${year}:${t.id}`) ?? []), q]);
+  }
 }
 
-export const topicsFor = (q: Question): Topic[] =>
-  (topicsByQuestion.get(q.id) ?? []).map((id) => topics.find((t) => t.id === id)!).filter(Boolean);
+export const topicsFor = (q: Question, year: number = DEFAULT_YEAR): Topic[] =>
+  (topicsByQuestion.get(`${year}:${q.id}`) ?? []).map((id) => topics.find((t) => t.id === id)!).filter(Boolean);
 
-export const questionsInTopic = (topicId: string): Question[] => questionsByTopic.get(topicId) ?? [];
+export const questionsInTopic = (year: number, topicId: string): Question[] =>
+  questionsByTopic.get(`${year}:${topicId}`) ?? [];
 
-/** Ämnen som faktiskt har frågor, i filens ordning. */
-export const activeTopics = (): (Topic & { count: number })[] =>
+/** Ämnen som faktiskt har frågor det valda året, i filens ordning. */
+export const activeTopics = (year: number): (Topic & { count: number })[] =>
   topics
-    .map((t) => ({ ...t, count: questionsInTopic(t.id).length }))
+    .map((t) => ({ ...t, count: questionsInTopic(year, t.id).length }))
     .filter((t) => t.count > 0);
 
 export interface Example { topic: string; text: string; }

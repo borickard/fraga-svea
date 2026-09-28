@@ -1,11 +1,12 @@
 import { useMemo, useRef, useState } from 'react';
-import { dataset, TOTAL_GROUP } from './lib/dataset';
+import { datasetFor, DEFAULT_YEAR, TOTAL_GROUP, YEARS } from './lib/dataset';
 import { bestOption, bestSegmentGroup, nearestQuestions, searchQuestions } from './lib/search';
 import { availableSegments, executeQuery } from './lib/query';
 import { askModel, AskUnavailable } from './lib/ask';
 import { exportFilename, exportPng, exportSvg } from './lib/export';
 import { allGroups, axesFor, bestObject, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
 import { examplesFor, questionsInTopic } from './lib/labels';
+import { YearPicker } from './components/YearPicker';
 import { SearchField } from './components/SearchField';
 import { Hits } from './components/Hits';
 import { Pills } from './components/Pills';
@@ -20,11 +21,11 @@ type View =
   | { kind: 'no_match'; query: string; suggestions: QuestionGroup[] };
 
 /** Träffar är frågor, inte tabeller. Flera tabeller i samma grupp blir en rad. */
-function toGroups(questions: { id: string }[]): QuestionGroup[] {
+function toGroups(year: number, questions: { id: string }[]): QuestionGroup[] {
   const out: QuestionGroup[] = [];
   const seen = new Set<string>();
   for (const q of questions) {
-    const g = groupOf(q.id);
+    const g = groupOf(year, q.id);
     if (!g || seen.has(g.id)) continue;
     seen.add(g.id);
     out.push(g);
@@ -33,6 +34,9 @@ function toGroups(questions: { id: string }[]): QuestionGroup[] {
 }
 
 export function App() {
+  // Årgången är det yttersta valet: allt annat — sökning, frågor, segment,
+  // frågelagret — är scopat till den. Årgångar blandas aldrig.
+  const [year, setYear] = useState<number>(DEFAULT_YEAR);
   const [query, setQuery] = useState('');
   const [view, setView] = useState<View>({ kind: 'idle' });
   const [topic, setTopic] = useState<string | null>(null);
@@ -55,23 +59,24 @@ export function App() {
   // Fas 2: sökningen är helt deterministisk och gör inga API-anrop.
   const hits = useMemo(() => {
     if (view.kind === 'selected') return [];
-    if (query.trim().length >= 2) return toGroups(searchQuestions(query, 12).map((h) => h.question));
-    return topic ? toGroups(questionsInTopic(topic)) : [];
-  }, [query, view.kind, topic]);
+    if (query.trim().length >= 2) return toGroups(year, searchQuestions(year, query, 12).map((h) => h.question));
+    return topic ? toGroups(year, questionsInTopic(year, topic)) : [];
+  }, [year, query, view.kind, topic]);
 
-  const group = view.kind === 'selected' ? allGroups().find((g) => g.id === view.groupId) : undefined;
+  const group = view.kind === 'selected' ? allGroups(year).find((g) => g.id === view.groupId) : undefined;
 
   const answer = useMemo(() => {
     if (!group) return null;
     const question = resolve(group, { base, frequency, object });
     return executeQuery({
+      year,
       questionId: question.id,
       optionLabels: options,
       segmentGroup,
       segmentIds: segments,
       question,
     });
-  }, [group, base, frequency, object, options, segmentGroup, segments]);
+  }, [year, group, base, frequency, object, options, segmentGroup, segments]);
 
   /** Öppnar en fråga och sätter val ur användarens egen text. */
   function select(
@@ -79,7 +84,7 @@ export function App() {
     sourceText = query,
     from?: { questionId?: string; options?: string[]; group?: string | null; segments?: string[] },
   ) {
-    const sel = from?.questionId ? selectionFor(from.questionId) : {};
+    const sel = from?.questionId ? selectionFor(year, from.questionId) : {};
     const guessObject = sel.object ?? bestObject(g, sourceText) ?? (g.objects[0] ?? null);
     const axes = axesFor(g, { object: guessObject });
     const nextBase = sel.base ?? axes.bases[0];
@@ -94,15 +99,15 @@ export function App() {
     // Utan uttryckligt val lämnas alternativen tomma, vilket betyder alla.
     // På totalnivå jämförs de då med varandra i stället för att kortet visar
     // en ensam stapel som upprepar det stora talet.
-    const guessed = bestOption(question, sourceText);
+    const guessed = bestOption(question, sourceText, year);
     setOptions(from?.options?.length ? from.options : guessed ? [guessed] : []);
 
-    const sg = from?.group ?? bestSegmentGroup(question, sourceText);
+    const sg = from?.group ?? bestSegmentGroup(year, question, sourceText);
     const nextGroup = sg && question.segment_groups.includes(sg) ? sg : TOTAL_GROUP;
     setSegmentGroup(nextGroup);
 
     const wanted = from?.segments ?? [];
-    const available = availableSegments(question, nextGroup);
+    const available = availableSegments(year, question, nextGroup);
     setSegments(wanted.filter((id) => available.some((s) => s.id === id)));
 
     setView({ kind: 'selected', groupId: g.id });
@@ -115,15 +120,15 @@ export function App() {
     setBusy(true);
     setNotice(null);
     try {
-      const spec = await askModel(q);
+      const spec = await askModel(year, q);
       // Ingen match eller låg tillförsikt: visa de tre närmaste, gissa aldrig.
       if (spec.no_match || spec.confidence === 'low' || !spec.question_id) {
-        setView({ kind: 'no_match', query: q, suggestions: toGroups(nearestQuestions(q)) });
+        setView({ kind: 'no_match', query: q, suggestions: toGroups(year, nearestQuestions(year, q)) });
         return;
       }
-      const g = groupOf(spec.question_id);
+      const g = groupOf(year, spec.question_id);
       if (!g) {
-        setView({ kind: 'no_match', query: q, suggestions: toGroups(nearestQuestions(q)) });
+        setView({ kind: 'no_match', query: q, suggestions: toGroups(year, nearestQuestions(year, q)) });
         return;
       }
       // Modellens val av bas och frekvens följer med via fråge-id:t.
@@ -154,6 +159,19 @@ export function App() {
     if (view.kind !== 'idle') setView({ kind: 'idle' });
   }
 
+  /**
+   * Årsbyte nollställer urvalet. Ett fråge-id, ett segment och en bas hör
+   * till sin årgång — att bära över dem hade tyst kunnat visa fel års siffra.
+   */
+  function chooseYear(next: number) {
+    setYear(next);
+    setView({ kind: 'idle' });
+    setTopic(null);
+    setBase(null); setFrequency(null); setObject(null);
+    setOptions([]); setSegmentGroup(TOTAL_GROUP); setSegments([]);
+    setNotice(null);
+  }
+
   function chooseTopic(id: string | null) {
     setTopic(id);
     setQuery('');
@@ -163,7 +181,7 @@ export function App() {
 
   async function download(kind: 'png' | 'svg') {
     if (!cardRef.current || !answer) return;
-    const name = exportFilename(answer.question.id, answer.selectedOptions.join('-'), answer.segmentGroup);
+    const name = exportFilename(`${year}-${answer.question.id}`, answer.selectedOptions.join('-'), answer.segmentGroup);
     try {
       if (kind === 'png') await exportPng(cardRef.current, name);
       else await exportSvg(cardRef.current, name);
@@ -175,13 +193,16 @@ export function App() {
   const segmentGroups = answer
     ? [TOTAL_GROUP, ...answer.question.segment_groups.filter((g) => g !== TOTAL_GROUP)]
     : [];
-  const segmentOptions = answer ? availableSegments(answer.question, answer.segmentGroup) : [];
+  const segmentOptions = answer ? availableSegments(year, answer.question, answer.segmentGroup) : [];
   // Bas och frekvens beror på vilket objekt i klustret som är valt.
   const axes = group ? axesFor(group, { object }) : null;
 
   return (
     <main className="page">
-      <p className="masthead">Fråga Svenskarna · {dataset.meta.source}</p>
+      <div className="masthead-row">
+        <p className="masthead">Fråga Svenskarna</p>
+        <YearPicker years={YEARS} active={year} onSelect={chooseYear} />
+      </div>
 
       <SearchField
         value={query}
@@ -196,10 +217,10 @@ export function App() {
       {view.kind !== 'selected' && !query.trim() && (
         <section className="empty">
           <p>
-            {allGroups().length} frågor ur {dataset.meta.source}, nedbrutna på{' '}
-            {dataset.segments.length} segment. Skriv en fråga, eller välj ett ämne.
+            {allGroups(year).length} frågor ur {datasetFor(year).meta.source}, nedbrutna på{' '}
+            {datasetFor(year).segments.length} segment. Skriv en fråga, eller välj ett ämne.
           </p>
-          <Topics active={topic} onSelect={chooseTopic} />
+          <Topics year={year} active={topic} onSelect={chooseTopic} />
 
           {/* Rapportens egna avsnittsrubriker. Det är så Internetstiftelsen
               formulerar sig om materialet, och ungefär så en journalist
@@ -281,7 +302,7 @@ export function App() {
 
           <div className="card-wrap">
             {/* Samma nod renderas på skärmen och serialiseras vid export. */}
-            <AnswerCard ref={cardRef} answer={answer} />
+            <AnswerCard ref={cardRef} answer={answer} year={year} />
             <div className="card-actions">
               <button type="button" className="button" onClick={() => download('png')}>Ladda ner PNG</button>
               <button type="button" className="button" onClick={() => download('svg')}>Ladda ner SVG</button>

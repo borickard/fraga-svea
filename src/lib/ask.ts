@@ -11,13 +11,13 @@ import { getQuestion, segmentsInGroup } from './dataset';
 
 export class AskUnavailable extends Error {}
 
-export async function askModel(question: string, signal?: AbortSignal): Promise<QuerySpec> {
+export async function askModel(year: number, question: string, signal?: AbortSignal): Promise<QuerySpec> {
   let res: Response;
   try {
     res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question }),
+      body: JSON.stringify({ question, year }),
       signal,
     });
   } catch (e) {
@@ -32,7 +32,7 @@ export async function askModel(question: string, signal?: AbortSignal): Promise<
 
   // Modellen får inte hitta på ett id. Finns det inte i datasetet är det ingen match.
   const id = typeof data.question_id === 'string' ? data.question_id : null;
-  const known = id ? getQuestion(id) : undefined;
+  const known = id ? getQuestion(year, id) : undefined;
 
   const segmentGroup =
     known && typeof data.segment_group === 'string' && known.segment_groups.includes(data.segment_group)
@@ -41,7 +41,7 @@ export async function askModel(question: string, signal?: AbortSignal): Promise<
 
   // Bara segment som finns i den valda gruppen. Etiketter modellen hittat på
   // faller bort, och kvar blir tom lista, vilket betyder alla.
-  const inGroup = segmentGroup ? segmentsInGroup(segmentGroup) : [];
+  const inGroup = segmentGroup ? segmentsInGroup(year, segmentGroup) : [];
   const segments = Array.isArray(data.segments)
     ? data.segments
         .filter((l): l is string => typeof l === 'string')

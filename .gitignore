@@ -14,8 +14,8 @@ data/*.pdf
 !data/fixture-tabellbilaga.xlsx
 
 # Genereras av parsern
-data/parse-log.txt
-data/validation-report.txt
+data/parse-log*.txt
+data/validation-report*.txt
 
 # Genereras av tsc
 tsconfig.tsbuildinfo

@@ -14,73 +14,39 @@
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { jsonSchemaOutputFormat } from '@anthropic-ai/sdk/helpers/json-schema';
-import dataset from '../src/data/dataset.json' with { type: 'json' };
+import d2025 from '../src/data/dataset-2025.json' with { type: 'json' };
+import d2026 from '../src/data/dataset-2026.json' with { type: 'json' };
 import type { Dataset } from '../src/types';
 
 export const config = { runtime: 'nodejs' };
 
-const data = dataset as unknown as Dataset;
+/**
+ * En systemprompt per årgång. Frågorna skiljer sig mellan åren, och modellen
+ * får bara se den årgång användaren faktiskt frågar om — annars kan den peka
+ * ut ett fråge-id som inte finns i det valda året.
+ */
+const DATASETS: Dataset[] = [d2026, d2025] as unknown as Dataset[];
+const YEARS = DATASETS.map((d) => d.meta.year);
+const DEFAULT_YEAR = YEARS[0];
 
 /** Exakt det modellen får se. Inga värden, inga n, inga andelar. */
-const questionIndex = data.questions.map((q) => ({
-  id: q.id,
-  fraga: q.text,
-  bas: q.base_label,
-  segmentgrupper: q.segment_groups,
-  svarsalternativ: q.options.map((o) => o.label),
-}));
+function promptFor(data: Dataset): string {
+  const questionIndex = data.questions.map((q) => ({
+    id: q.id,
+    fraga: q.text,
+    bas: q.base_label,
+    segmentgrupper: q.segment_groups,
+    svarsalternativ: q.options.map((o) => o.label),
+  }));
 
-const QUESTION_IDS = data.questions.map((q) => q.id);
-const SEGMENT_GROUPS = [...new Set(data.segments.map((s) => s.group))];
+  const segmentsByGroup: Record<string, string[]> = {};
+  for (const s of data.segments) (segmentsByGroup[s.group] ??= []).push(s.label);
 
-/** Segmentetiketter per grupp, så att modellen kan peka ut enskilda segment. */
-const SEGMENTS_BY_GROUP: Record<string, string[]> = {};
-for (const s of data.segments) {
-  (SEGMENTS_BY_GROUP[s.group] ??= []).push(s.label);
-}
-
-/**
- * Strukturerad output med enum över faktiska id:n. Modellen kan alltså inte
- * hitta på ett fråge-id ens om den vill — schemat tillåter bara de som finns.
- */
-const OUTPUT_SCHEMA = {
-  type: 'object',
-  properties: {
-    question_id: {
-      anyOf: [{ type: 'string', enum: QUESTION_IDS }, { type: 'null' }],
-      description: 'Id för den fråga i undersökningen som bäst matchar. null om ingen matchar.',
-    },
-    segment_group: {
-      anyOf: [{ type: 'string', enum: SEGMENT_GROUPS }, { type: 'null' }],
-      description: 'Segmentgrupp att bryta ner på. null om användaren inte bett om en nedbrytning.',
-    },
-    segments: {
-      type: 'array',
-      items: { type: 'string' },
-      description: 'Enskilda segment inom segment_group, ordagrant som etiketterna står i segmentlistan. Tom lista betyder alla segment i gruppen.',
-    },
-    options: {
-      type: 'array',
-      items: { type: 'string' },
-      description: 'Svarsalternativ som frågan gäller, ordagrant som de står i frågans lista. Flera är tillåtna. Tom lista om inget särskilt alternativ efterfrågas.',
-    },
-    confidence: { type: 'string', enum: ['high', 'low'] },
-    no_match: { type: 'boolean' },
-  },
-  required: ['question_id', 'segment_group', 'segments', 'options', 'confidence', 'no_match'],
-  additionalProperties: false,
-} as const;
-
-const SYSTEM = `Du är ett översättningslager i ett verktyg för journalister som slår upp siffror i undersökningen "${data.meta.source}" från ${data.meta.publisher}.
+  return `Du är ett översättningslager i ett verktyg för journalister som slår upp siffror i undersökningen "${data.meta.source}" från ${data.meta.publisher}.
 
 Din enda uppgift är att översätta användarens fråga till en query mot ett färdigt dataset. Du svarar aldrig på själva frågan. Du skriver aldrig ut någon siffra, andel eller procentsats — du har inte tillgång till värdena, och du ska inte gissa dem.
 
-Du får ett index över undersökningens frågor. För varje fråga finns:
-- id
-- den exakta frågetexten
-- basen (vilken population frågan ställdes till)
-- vilka segmentgrupper frågan är nedbruten på
-- vilka svarsalternativ frågan har
+Du får ett index över undersökningens frågor. För varje fråga finns id, den exakta frågetexten, basen, vilka segmentgrupper frågan är nedbruten på och vilka svarsalternativ den har.
 
 Regler:
 
@@ -94,21 +60,63 @@ Regler:
 
 5. options ska innehålla svarsalternativens etiketter ordagrant som de står i frågans lista. Flera är tillåtna: "tiktok och snapchat" ger båda. Hitta aldrig på ett alternativ.
 
-6. Indexet innehåller frågor med identisk frågetext OCH identisk bas som ändå är olika tabeller — typiskt en Netto-sammanställning ("Netto – Har använt AI-verktyg") och en detaljerad uppdelning ("Ja, ChatGPT", "Ja, Copilot", ...). De skiljs bara åt av svarsalternativen. Välj den vars svarsalternativ faktiskt innehåller det användaren frågar om. Frågar användaren om ett namngivet verktyg, välj den detaljerade. Frågar användaren om hur många som över huvud taget gjort något, välj Netto-tabellen.
+6. Indexet innehåller frågor med identisk frågetext OCH identisk bas som ändå är olika tabeller — typiskt en Netto-sammanställning ("Netto – Har använt AI-verktyg") och en detaljerad uppdelning ("Ja, ChatGPT", "Ja, Copilot", ...). De skiljs bara åt av svarsalternativen. Välj den vars svarsalternativ faktiskt innehåller det användaren frågar om.
 
 7. confidence: "high" bara när du är säker på både fråga och bas. Vid minsta tvekan: "low". Låg confidence gör att appen visar förslag i stället för ett svar, vilket är rätt utfall när du är osäker.
 
 8. no_match: true när undersökningen helt enkelt inte mätt det användaren frågar om. Det är ett korrekt och önskvärt svar. Att välja en fråga som ligger ungefär rätt är värre än att säga att vi inte mätt det.
 
 Segment per grupp:
-${JSON.stringify(SEGMENTS_BY_GROUP, null, 1)}
+${JSON.stringify(segmentsByGroup, null, 1)}
 
 Frågeindex:
 ${JSON.stringify(questionIndex, null, 1)}`;
+}
+
+/** Schema och prompt byggs en gång per årgång, vid första anropet. */
+const cache = new Map<number, { system: string; schema: Record<string, unknown> }>();
+
+function configFor(year: number) {
+  const hit = cache.get(year);
+  if (hit) return hit;
+  const data = DATASETS.find((d) => d.meta.year === year) ?? DATASETS[0];
+
+  const schema = {
+    type: 'object',
+    properties: {
+      question_id: {
+        anyOf: [{ type: 'string', enum: data.questions.map((q) => q.id) }, { type: 'null' }],
+        description: 'Id för den fråga i undersökningen som bäst matchar. null om ingen matchar.',
+      },
+      segment_group: {
+        anyOf: [{ type: 'string', enum: [...new Set(data.segments.map((s) => s.group))] }, { type: 'null' }],
+        description: 'Segmentgrupp att bryta ner på. null om användaren inte bett om en nedbrytning.',
+      },
+      segments: {
+        type: 'array',
+        items: { type: 'string' },
+        description: 'Enskilda segment inom segment_group, ordagrant som etiketterna står i segmentlistan. Tom lista betyder alla segment i gruppen.',
+      },
+      options: {
+        type: 'array',
+        items: { type: 'string' },
+        description: 'Svarsalternativ som frågan gäller, ordagrant som de står i frågans lista. Flera är tillåtna. Tom lista om inget särskilt alternativ efterfrågas.',
+      },
+      confidence: { type: 'string', enum: ['high', 'low'] },
+      no_match: { type: 'boolean' },
+    },
+    required: ['question_id', 'segment_group', 'segments', 'options', 'confidence', 'no_match'],
+    additionalProperties: false,
+  } as Record<string, unknown>;
+
+  const entry = { system: promptFor(data), schema };
+  cache.set(year, entry);
+  return entry;
+}
 
 const client = new Anthropic();
 
-interface AskBody { question?: unknown; }
+interface AskBody { question?: unknown; year?: unknown; }
 
 export default async function handler(req: Request): Promise<Response> {
   const json = (body: unknown, status = 200) =>
@@ -135,17 +143,31 @@ export default async function handler(req: Request): Promise<Response> {
   if (!question) return json({ error: 'Fältet question saknas.' }, 400);
   if (question.length > 500) return json({ error: 'Frågan är för lång.' }, 400);
 
+  const year = typeof body.year === 'number' && YEARS.includes(body.year) ? body.year : DEFAULT_YEAR;
+  const { system, schema } = configFor(year);
+
   try {
     const response = await client.messages.parse({
       model: 'claude-opus-5',
       max_tokens: 2000,
-      output_config: { format: jsonSchemaOutputFormat(OUTPUT_SCHEMA) },
-      // Indexet är identiskt mellan anrop, så det cachas.
-      system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      output_config: { format: jsonSchemaOutputFormat(schema as any) },
+      // Indexet är identiskt mellan anrop för samma årgång, så det cachas.
+      system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
       messages: [{ role: 'user', content: question }],
     });
 
-    const parsed = response.parsed_output;
+    // Schemat byggs per årgång och är därför inte statiskt typat. Formen
+    // valideras ändå två gånger: av strukturerad output här, och mot det
+    // faktiska datasetet i klienten innan något slås upp.
+    const parsed = response.parsed_output as {
+      question_id?: string | null;
+      segment_group?: string | null;
+      segments?: unknown;
+      options?: unknown;
+      confidence?: string;
+      no_match?: boolean;
+    } | null;
     if (!parsed) return json({ error: 'Modellen gav inget giltigt svar.' }, 502);
 
     // Sista kontrollen sker ändå i klienten mot det faktiska datasetet.

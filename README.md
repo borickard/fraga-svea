@@ -37,14 +37,18 @@ cp .env.example .env       # fyll i ANTHROPIC_API_KEY
 modulen. Utan nyckel svarar `/api/ask` med 501 och appen faller tillbaka på
 den deterministiska sökningen med en notis i gränssnittet.
 
-För att bygga om datan ur bilagan:
+För att lägga till eller bygga om en årgång:
 
 ```bash
-cp ~/Downloads/tabellbilaga-svenskarna-och-internet-2025.xlsx data/
-npm run parse -- data/tabellbilaga-svenskarna-och-internet-2025.xlsx
-npm run validate
-npm run spotcheck -- data/tabellbilaga-svenskarna-och-internet-2025.xlsx
+cp ~/Downloads/tabellbilaga-svenskarna-och-internet-2026.xlsx data/
+npm run parse -- data/tabellbilaga-svenskarna-och-internet-2026.xlsx 2026
+npm run validate -- 2026
+npm run spotcheck -- data/tabellbilaga-svenskarna-och-internet-2026.xlsx 2026
 ```
+
+Årtalet är ett eget argument och gissas aldrig ur filnamnet: en felgissad
+årgång hade tyst skrivit över en annan. Parsern skriver
+`src/data/dataset-<år>.json`, och appen plockar upp varje sådan fil.
 
 **Läs `data/parse-log.txt` efter varje körning.** Parsern gissar aldrig — den
 hoppar över och loggar.
@@ -156,6 +160,37 @@ Signifikansmarkörerna (`Kolumn% Chi2`) parsas ut till `sig[]` i stället för a
 kastas. De visas inte i gränssnittet ännu.
 
 ---
+
+## Årgångar
+
+Varje årgång är en egen fil och en egen, orörd spegling av sin tabellbilaga.
+De blandas aldrig: en fråga hör till ett år, och ett svar hämtas alltid ur det
+år användaren valt. Årsväljaren står överst, och ett årsbyte nollställer hela
+urvalet — ett fråge-id, en bas och ett segment hör till sin årgång, och att
+bära över dem hade tyst kunnat visa fel års siffra.
+
+| Årgång | Frågetabeller | Frågor efter klustring | Segment |
+| --- | --- | --- | --- |
+| 2025 | 101 | 41 | 168 |
+| 2026 | 84 | 51 | 165 |
+
+Raden med ovägda intervjuer heter olika mellan åren — 2025 skriver
+`Antal intervjuer`, 2026 skriver `Antal oviktade intervjuer`. Parsern känner
+igen båda. Utan det hade hela 2026 tyst fallit tillbaka på viktade tal.
+
+### Jämförelser mellan år är ännu inte byggda
+
+Och de får inte byggas på textmatchning. **Bara 31 av ~70 frågeformuleringar är
+identiska mellan 2025 och 2026** — Internetstiftelsen skriver om frågorna
+mellan årgångarna. `Har du minst någon gång under de senaste 12 månaderna
+använt någon av följande e-legitimationer?` blev `Har du under de senaste 12
+månaderna använt någon av följande e-legitimationer?`, och `minst varje vecka`
+blev `varje vecka`.
+
+En automatisk matchning skulle alltså missa mer än hälften, och — värre — råka
+para ihop frågor som bara liknar varandra. En felaktig trendlinje är exakt den
+sortens fel verktyget finns för att förhindra. Kopplingen mellan årgångar måste
+vara en granskad fil, inte en gissning.
 
 ## Ämnen och exempel
 

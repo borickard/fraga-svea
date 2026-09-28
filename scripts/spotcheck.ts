@@ -14,7 +14,12 @@ import { fileURLToPath } from 'node:url';
 import type { Dataset, Question } from '../src/types.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const dataset: Dataset = JSON.parse(readFileSync(resolve(ROOT, 'src/data/dataset.json'), 'utf8'));
+const yearArg = process.argv[3];
+if (!/^\d{4}$/.test(yearArg ?? '')) {
+  console.error('\nAnvändning: npm run spotcheck -- <xlsx> <årtal>\n');
+  process.exit(1);
+}
+const dataset: Dataset = JSON.parse(readFileSync(resolve(ROOT, `src/data/dataset-${yearArg}.json`), 'utf8'));
 
 const colLetter = (c: number): string => {
   let s = '';
@@ -92,7 +97,7 @@ async function main() {
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.readFile(xlsxPath);
 
-  const [, , , qArg, optArg, segArg] = process.argv;
+  const [, , , , qArg, optArg, segArg] = process.argv;
   const targets: Target[] = qArg
     ? (() => {
         const q = dataset.questions.find((x) => x.id === qArg);
