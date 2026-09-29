@@ -1,0 +1,3 @@
+# Tabellbilagorna och rapporterna är Internetstiftelsens filer och behövs
+# inte i bygget — datasetet är redan genererat till src/data/.
+data/

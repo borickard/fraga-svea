@@ -14,29 +14,43 @@
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { jsonSchemaOutputFormat } from '@anthropic-ai/sdk/helpers/json-schema';
-import d2025 from '../src/data/dataset-2025.json' with { type: 'json' };
-import d2026 from '../src/data/dataset-2026.json' with { type: 'json' };
-import type { Dataset } from '../src/types';
+import i2025 from '../src/data/index-2025.json' with { type: 'json' };
+import i2026 from '../src/data/index-2026.json' with { type: 'json' };
 
 export const config = { runtime: 'nodejs' };
+
+/**
+ * Indexfilerna innehåller ingenting annat än metadata: id, frågetext, bas,
+ * segmentgrupper och svarsalternativens etiketter. Inga andelar, inga n.
+ *
+ * Det är avsiktligt. Regeln att modellen aldrig får se ett värde blir
+ * strukturell i stället för en kodkonvention — värdena finns helt enkelt inte
+ * i den modul språkmodellen körs ifrån. Filerna byggs av scripts/build-index.ts
+ * före varje bygge.
+ */
+interface QuestionIndex {
+  meta: { year: number; source: string; publisher: string };
+  segments: { id: string; group: string; label: string }[];
+  questions: { id: string; text: string; base_label: string; segment_groups: string[]; options: string[] }[];
+}
 
 /**
  * En systemprompt per årgång. Frågorna skiljer sig mellan åren, och modellen
  * får bara se den årgång användaren faktiskt frågar om — annars kan den peka
  * ut ett fråge-id som inte finns i det valda året.
  */
-const DATASETS: Dataset[] = [d2026, d2025] as unknown as Dataset[];
-const YEARS = DATASETS.map((d) => d.meta.year);
+const INDEXES: QuestionIndex[] = [i2026, i2025] as unknown as QuestionIndex[];
+const YEARS = INDEXES.map((d) => d.meta.year);
 const DEFAULT_YEAR = YEARS[0];
 
-/** Exakt det modellen får se. Inga värden, inga n, inga andelar. */
-function promptFor(data: Dataset): string {
+/** Exakt det modellen får se. */
+function promptFor(data: QuestionIndex): string {
   const questionIndex = data.questions.map((q) => ({
     id: q.id,
     fraga: q.text,
     bas: q.base_label,
     segmentgrupper: q.segment_groups,
-    svarsalternativ: q.options.map((o) => o.label),
+    svarsalternativ: q.options,
   }));
 
   const segmentsByGroup: Record<string, string[]> = {};
@@ -79,7 +93,7 @@ const cache = new Map<number, { system: string; schema: Record<string, unknown> 
 function configFor(year: number) {
   const hit = cache.get(year);
   if (hit) return hit;
-  const data = DATASETS.find((d) => d.meta.year === year) ?? DATASETS[0];
+  const data = INDEXES.find((d) => d.meta.year === year) ?? INDEXES[0];
 
   const schema = {
     type: 'object',
@@ -118,12 +132,37 @@ const client = new Anthropic();
 
 interface AskBody { question?: unknown; year?: unknown; }
 
-export default async function handler(req: Request): Promise<Response> {
-  const json = (body: unknown, status = 200) =>
-    new Response(JSON.stringify(body), {
-      status,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-    });
+/**
+ * Vercel anropar funktioner i api/ antingen med webbstandardens Request eller
+ * med Nodes (req, res). Vilken det blir beror på runtime och projektversion,
+ * och fel gissning ger 500 i produktion utan att något syns i dev. Handlern
+ * tar emot båda och svarar i motsvarande form.
+ */
+interface NodeLikeResponse {
+  statusCode: number;
+  setHeader(name: string, value: string): void;
+  end(body: string): void;
+}
+
+export default async function handler(
+  req: Request | { method?: string; body?: unknown; on?: unknown },
+  res?: NodeLikeResponse,
+): Promise<Response | void> {
+  const isWeb = typeof (req as Request).json === 'function' && !res;
+
+  const json = (body: unknown, status = 200): Response | void => {
+    const text = JSON.stringify(body);
+    if (isWeb) {
+      return new Response(text, {
+        status,
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+      });
+    }
+    res!.statusCode = status;
+    res!.setHeader('Content-Type', 'application/json');
+    res!.setHeader('Cache-Control', 'no-store');
+    res!.end(text);
+  };
 
   if (req.method !== 'POST') return json({ error: 'Method Not Allowed' }, 405);
 
@@ -134,7 +173,12 @@ export default async function handler(req: Request): Promise<Response> {
 
   let body: AskBody;
   try {
-    body = (await req.json()) as AskBody;
+    if (isWeb) body = (await (req as Request).json()) as AskBody;
+    else {
+      const raw = (req as { body?: unknown }).body;
+      body = (typeof raw === 'string' ? JSON.parse(raw) : raw) as AskBody;
+    }
+    if (!body || typeof body !== 'object') throw new Error('tom kropp');
   } catch {
     return json({ error: 'Ogiltig JSON.' }, 400);
   }

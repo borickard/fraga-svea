@@ -16,7 +16,9 @@
     "inspect": "tsx scripts/inspect.ts",
     "seed-concepts": "tsx scripts/seed-concepts.ts",
     "link-concepts": "tsx scripts/link-concepts.ts",
-    "check-links": "tsx scripts/check-links.ts"
+    "check-links": "tsx scripts/check-links.ts",
+    "build-index": "tsx scripts/build-index.ts",
+    "prebuild": "node scripts/fetch-fonts.mjs && tsx scripts/build-index.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.121.0",

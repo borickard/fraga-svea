@@ -374,11 +374,40 @@ hämta den vid körning i stället för att bunta in den.
 ## Deploy
 
 Vercel, ej indexerad. `vercel.json` sätter `X-Robots-Tag: noindex` och
-`index.html` har motsvarande meta-tagg. Sätt `ANTHROPIC_API_KEY` som
-miljövariabel i projektet — den läses bara av `api/ask.ts`.
+`index.html` har motsvarande meta-tagg.
 
-Utan nyckel svarar `/api/ask` med 501 och appen faller tillbaka på fas 2 med en
-notis i gränssnittet. Verktyget är användbart även då.
+```bash
+npm i -g vercel
+vercel link
+vercel env add ANTHROPIC_API_KEY production
+vercel --prod
+```
+
+Nyckeln läses bara av `api/ask.ts`. Utan den svarar `/api/ask` med 501 och
+appen faller tillbaka på den deterministiska sökningen med en notis i
+gränssnittet — allt utom frågelagret fungerar.
+
+### Frågelagret ser aldrig ett värde, strukturellt
+
+`api/ask.ts` importerar `src/data/index-<år>.json`, inte datasetet. Indexfilen
+innehåller id, frågetext, bas, segmentgrupper och svarsalternativens etiketter
+— och ingenting annat. 27 MB blir 343 kB, men det viktiga är att värdena inte
+finns i den modul språkmodellen körs ifrån. Det går inte att läcka en siffra
+som inte är där. Filerna byggs av `scripts/build-index.ts` före varje bygge.
+
+### Typsnitten ligger i repot
+
+`public/fonts/` är versionshanterad, så bygget är oberoende av nätverket.
+`npm run fonts` hämtar bara det som saknas; `-- --force` hämtar om allt.
+Utan typsnitt faller appen tillbaka på systemtypsnitt — fult men fungerande,
+och `prebuild` fäller aldrig ett bygge på en misslyckad hämtning.
+
+### Handlern tar emot båda anropsformerna
+
+Vercel anropar funktioner i `api/` antingen med webbstandardens `Request` eller
+med Nodes `(req, res)`, beroende på runtime och projektversion. Fel gissning
+ger 500 i produktion utan att något syns i dev, så handlern svarar i båda
+formerna. Verktyget är användbart även då.
 
 ---
 

@@ -9,6 +9,7 @@
  *   node scripts/fetch-fonts.mjs
  */
 import { mkdir, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -27,17 +28,36 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 await mkdir(OUT, { recursive: true });
 
-for (const spec of SPECS) {
-  const cssUrl = `https://fonts.googleapis.com/css2?family=${spec.css}&display=swap`;
-  const css = await fetch(cssUrl, { headers: { 'User-Agent': UA } }).then((r) => r.text());
-  // Latin Extended täcker å, ä och ö. Ta sista latin-blocket, det är det bredaste.
-  const urls = [...css.matchAll(/url\((https:\/\/[^)]+\.woff2)\)/g)].map((m) => m[1]);
-  if (!urls.length) {
-    console.error(`Hittade ingen woff2 för ${spec.css}. Hoppar över.`);
-    continue;
-  }
-  const buf = Buffer.from(await fetch(urls[urls.length - 1]).then((r) => r.arrayBuffer()));
-  await writeFile(resolve(OUT, spec.file), buf);
-  console.log(`${spec.file}  ${(buf.length / 1024).toFixed(1)} kB`);
+// Typsnitten ligger i repot, så bygget är oberoende av nätverket. Hämtningen
+// är kvar för en fräsch klon som saknar dem, och för att byta version.
+const force = process.argv.includes('--force');
+const missing = SPECS.filter((s) => !existsSync(resolve(OUT, s.file)));
+if (!force && missing.length === 0) {
+  console.log(`Typsnitten finns redan i public/fonts/. Kör med --force för att hämta om.`);
+  process.exit(0);
 }
-console.log('\nKlart. Appen serverar typsnitten lokalt och exporten bäddar in dem.');
+
+let ok = 0;
+for (const spec of force ? SPECS : missing) {
+  try {
+    const cssUrl = `https://fonts.googleapis.com/css2?family=${spec.css}&display=swap`;
+    const css = await fetch(cssUrl, { headers: { 'User-Agent': UA } }).then((r) => r.text());
+    // Latin Extended täcker å, ä och ö. Ta sista latin-blocket, det är det bredaste.
+    const urls = [...css.matchAll(/url\((https:\/\/[^)]+\.woff2)\)/g)].map((m) => m[1]);
+    if (!urls.length) throw new Error('ingen woff2 i css-svaret');
+    const buf = Buffer.from(await fetch(urls[urls.length - 1]).then((r) => r.arrayBuffer()));
+    await writeFile(resolve(OUT, spec.file), buf);
+    console.log(`${spec.file}  ${(buf.length / 1024).toFixed(1)} kB`);
+    ok++;
+  } catch (err) {
+    console.error(`Kunde inte hämta ${spec.file}: ${err.message}`);
+  }
+}
+
+// Får aldrig fälla ett bygge. Utan typsnitt faller appen tillbaka på
+// systemtypsnitt, vilket är fult men fungerande — ett vitt fel vore värre.
+if (ok === 0) {
+  console.error('\nInga typsnitt hämtade. Appen och exporten använder systemtypsnitt.');
+} else {
+  console.log(`\n${ok} hämtade. Appen serverar dem lokalt och exporten bäddar in dem.`);
+}
