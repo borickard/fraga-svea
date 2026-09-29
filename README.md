@@ -292,6 +292,39 @@ missvisande även när det är korrekt hämtat. Suffixet `· TOTALT` finns av sa
 skäl: utan det gick det inte att se att talet var frågans total och inte det
 filtrerade urvalets.
 
+### Väljarnas utgångsläge
+
+Det alternativ som råkar stå först i tabellbilagan är aldrig ett vettigt
+förval. "Youtube" som svar på *Hur många gör egna inlägg på sociala medier?*
+säger mer om arkets sortering än om vad användaren frågade.
+
+| Läge | Förval |
+| --- | --- |
+| Ingen nedbrytning | **Alla svarsalternativ** jämförs med varandra |
+| Nedbrutet på segment | Frågans **Netto-rad**, bilagans egen sammanfattning |
+
+Med en nedbrytning går "alla" inte att visa — tjugo alternativ gånger tio
+segment är tvåhundra staplar — så där måste minst ett alternativ vara valt,
+och `Alla`-knappen erbjuds inte.
+
+Valda piller ligger på egen rad överst, ovalda under en hårfin linje. Med
+tjugo alternativ i en klump gick det annars inte att se vad som var påslaget
+utan att läsa varje piller, och det är just det valet som avgör vad grafen
+visar. Enkelvalsväljare behåller en rad — där syns det ändå.
+
+### Exempelfrågor filtreras till årgången
+
+Rubrikerna kommer ur 2025 års rapport, och flera av frågorna finns inte 2026.
+Ett exempel som leder till fel fråga är värre än inget exempel: användaren tror
+att hen fått svar på det hen frågade. Exemplen visas bara i de årgångar där
+frågan faktiskt går att besvara.
+
+Av samma skäl märks svaga sökträffar ut. Rätt fråga landar normalt på 0.6–1.5 i
+sökpoäng; *Hur många gör egna inlägg på sociala medier?* mot 2026 — där frågan
+inte finns — gav 0.33 på något orelaterat. Under 0.5 står det numera att ingen
+tydlig träff finns, och listan presenteras som det närmaste i stället för som
+svar.
+
 ### Flerval
 
 Grafen tar flera svarsalternativ och flera segment samtidigt. Väljer man Tiktok

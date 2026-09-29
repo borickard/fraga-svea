@@ -66,11 +66,21 @@ const examples = (rawExamples as { examples: Example[] }).examples;
 /**
  * Exempelfrågor, ordagrant ur rapportens avsnittsrubriker. Utan dem är
  * sökfältet en tom ruta och det är oklart vad man kan fråga om.
- * Utan valt ämne visas en fråga från vart och ett av rapportens kapitel.
+ *
+ * Filtreras mot årgången. Rubrikerna kommer från 2025 års rapport, och flera
+ * av frågorna finns inte 2026 — "Hur många gör egna inlägg på sociala medier?"
+ * är en av dem. Ett exempel som leder till fel fråga är värre än inget
+ * exempel: användaren tror att hen fått svar på det hen frågade.
  */
-export function examplesFor(topicId: string | null, limit = 4): Example[] {
-  if (topicId) return examples.filter((e) => e.topic === topicId).slice(0, limit);
+export function examplesFor(
+  year: number,
+  topicId: string | null,
+  answerable: (year: number, text: string) => boolean,
+  limit = 4,
+): Example[] {
+  const usable = examples.filter((e) => answerable(year, e.text));
+  if (topicId) return usable.filter((e) => e.topic === topicId).slice(0, limit);
   const perTopic = new Map<string, Example>();
-  for (const e of examples) if (!perTopic.has(e.topic)) perTopic.set(e.topic, e);
+  for (const e of usable) if (!perTopic.has(e.topic)) perTopic.set(e.topic, e);
   return [...perTopic.values()].slice(0, limit);
 }

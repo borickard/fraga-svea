@@ -1,7 +1,8 @@
 import { useMemo, useRef, useState } from 'react';
+import type { Question } from './types';
 import { datasetFor, DEFAULT_YEAR, TOTAL_GROUP, YEARS } from './lib/dataset';
-import { bestOption, bestSegmentGroup, nearestQuestions, searchQuestions } from './lib/search';
-import { availableSegments, executeQuery } from './lib/query';
+import { answerable, bestOption, bestSegmentGroup, CONFIDENT_SCORE, nearestQuestions, searchQuestions } from './lib/search';
+import { availableSegments, defaultOption, executeQuery } from './lib/query';
 import { askModel, AskUnavailable } from './lib/ask';
 import { exportFilename, exportPng, exportSvg } from './lib/export';
 import { allGroups, axesFor, bestObject, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
@@ -57,11 +58,22 @@ export function App() {
   const cardRef = useRef<SVGSVGElement>(null);
 
   // Fas 2: sökningen är helt deterministisk och gör inga API-anrop.
+  const search = useMemo(() => {
+    if (view.kind === 'selected' || query.trim().length < 2) return null;
+    return searchQuestions(year, query, 12);
+  }, [year, query, view.kind]);
+
   const hits = useMemo(() => {
     if (view.kind === 'selected') return [];
-    if (query.trim().length >= 2) return toGroups(year, searchQuestions(year, query, 12).map((h) => h.question));
+    if (search) return toGroups(year, search.map((h) => h.question));
     return topic ? toGroups(year, questionsInTopic(year, topic)) : [];
-  }, [year, query, view.kind, topic]);
+  }, [year, search, view.kind, topic]);
+
+  /**
+   * Ingen av träffarna är egentligen en träff — de är bara det närmaste som
+   * fanns. Vanligast när frågan finns i en annan årgång än den valda.
+   */
+  const weakMatch = Boolean(search?.length) && (search![0].score < CONFIDENT_SCORE);
 
   const group = view.kind === 'selected' ? allGroups(year).find((g) => g.id === view.groupId) : undefined;
 
@@ -99,12 +111,19 @@ export function App() {
     // Utan uttryckligt val lämnas alternativen tomma, vilket betyder alla.
     // På totalnivå jämförs de då med varandra i stället för att kortet visar
     // en ensam stapel som upprepar det stora talet.
+    // Utan uttryckligt val: tom lista på totalnivå (= alla jämförs), annars
+    // frågans Netto-rad. Det alternativ som råkar stå först i arket är aldrig
+    // ett vettigt förval — "Youtube" som svar på en fråga om sociala medier
+    // säger mer om arkets sortering än om vad användaren frågade.
     const guessed = bestOption(question, sourceText, year);
-    setOptions(from?.options?.length ? from.options : guessed ? [guessed] : []);
 
     const sg = from?.group ?? bestSegmentGroup(year, question, sourceText);
     const nextGroup = sg && question.segment_groups.includes(sg) ? sg : TOTAL_GROUP;
     setSegmentGroup(nextGroup);
+
+    if (from?.options?.length) setOptions(from.options);
+    else if (guessed) setOptions([guessed]);
+    else setOptions(nextGroup === TOTAL_GROUP ? [] : [defaultOption(question)]);
 
     const wanted = from?.segments ?? [];
     const available = availableSegments(year, question, nextGroup);
@@ -172,6 +191,24 @@ export function App() {
     setNotice(null);
   }
 
+  /**
+   * Byte av nedbrytning.
+   *
+   * På totalnivå jämförs alla svarsalternativ med varandra, och tom lista
+   * betyder just det. Med en segmentgrupp går det inte — tjugo alternativ
+   * gånger tio segment är tvåhundra staplar — så ett alternativ måste väljas.
+   * Då tas frågans Netto-rad, aldrig det som råkar stå först i arket.
+   */
+  function changeBreakdown(next: string, question: Question) {
+    setSegmentGroup(next);
+    setSegments([]);
+    if (next === TOTAL_GROUP) {
+      if (options.length === 1 && options[0] === defaultOption(question)) setOptions([]);
+    } else if (options.length === 0) {
+      setOptions([defaultOption(question)]);
+    }
+  }
+
   function chooseTopic(id: string | null) {
     setTopic(id);
     setQuery('');
@@ -226,7 +263,7 @@ export function App() {
               formulerar sig om materialet, och ungefär så en journalist
               skulle söka i det. */}
           <ul className="empty__examples">
-            {examplesFor(topic).map((e) => (
+            {examplesFor(year, topic, answerable).map((e) => (
               <li key={e.text}>
                 <button type="button" className="empty__example" onClick={() => reset(e.text)}>
                   {e.text}
@@ -235,6 +272,12 @@ export function App() {
             ))}
           </ul>
         </section>
+      )}
+
+      {view.kind !== 'selected' && weakMatch && (
+        <p className="weak" role="status">
+          Ingen tydlig träff på ”{query.trim()}” i {year}. Det här ligger närmast.
+        </p>
       )}
 
       {view.kind !== 'selected' && (
@@ -275,17 +318,23 @@ export function App() {
           <GroupSelect
             groups={segmentGroups}
             active={answer.segmentGroup}
-            onSelect={(g) => { setSegmentGroup(g); setSegments([]); }}
-            totalLabel="Ingen — visa totalt"
+            onSelect={(g) => changeBreakdown(g, answer.question)}
+            totalLabel="Ingen nedbrytning — visa totalt"
           />
 
           <Pills
             ariaLabel="Svarsalternativ"
             items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
             selected={answer.selectedOptions}
-            onChange={(next) => setOptions(next.length ? next : [answer.optionLabels[0]])}
+            onChange={(next) =>
+              setOptions(next.length || answer.segmentGroup === TOTAL_GROUP ? next : [defaultOption(answer.question)])
+            }
             multi
-            maxVisible={6}
+            /* "Alla" går bara att erbjuda på totalnivå. Med en nedbrytning
+               skulle tjugo alternativ gånger tio segment bli tvåhundra
+               staplar, så där måste minst ett alternativ vara valt. */
+            allLabel={answer.segmentGroup === TOTAL_GROUP ? 'Alla svarsalternativ' : undefined}
+            maxVisible={8}
           />
 
           {segmentOptions.length > 0 && (

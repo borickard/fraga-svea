@@ -7,6 +7,17 @@
  * i klienten, mot den statiska JSON:en.
  */
 import type { Question, QuestionOption, SegmentValue } from '../types';
+
+/**
+ * Netto-raden är bilagans egen sammanfattning av frågan: "Netto – Använder
+ * sociala medier" i stället för Youtube, Facebook, Instagram var för sig.
+ * När användaren inte pekat ut något alternativ är det den som svarar på
+ * "hur många" — inte det alternativ som råkar stå först i arket.
+ */
+export function defaultOption(question: Question): string {
+  const netto = question.options.find((o) => /^netto/i.test(o.label.trim()));
+  return (netto ?? question.options[0]).label;
+}
 import { datasetFor, getQuestion, getSegment, segmentsInGroup, TOTAL_GROUP } from './dataset';
 
 /** Pastellerna är data. En serie = en färg. */

@@ -15,7 +15,9 @@ interface Props {
 export function GroupSelect({ groups, active, onSelect, totalLabel }: Props) {
   return (
     <div className="groupselect">
-      <label className="label" htmlFor="svea-group">Nedbrytning</label>
+      {/* "Nedbrytning" är undersökningsspråk. "Visa per" säger vad kontrollen
+          gör, vilket är det enda en journalist på deadline behöver veta. */}
+      <label className="label" htmlFor="svea-group">Visa per</label>
       <select
         id="svea-group"
         className="groupselect__input"

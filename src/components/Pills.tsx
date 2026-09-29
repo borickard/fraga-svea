@@ -5,13 +5,13 @@ export interface PillItem { id: string; label: string; }
 interface Props {
   items: PillItem[];
   ariaLabel: string;
+  selected: string[];
+  onChange: (next: string[]) => void;
   /**
    * Flervalsläge. Tom lista betyder alla — det är skillnad på att inte ha
    * valt något och att ha valt allt, men i grafen visas samma sak, och
    * "alla" är rätt utgångsläge när man inte sagt något.
    */
-  selected: string[];
-  onChange: (next: string[]) => void;
   multi?: boolean;
   maxVisible?: number;
   /** Text på knappen som nollställer till alla. Utelämnas i enkelval. */
@@ -21,66 +21,93 @@ interface Props {
 /**
  * Segment- och alternativväljare. Neutrala: pastellerna hör hemma i grafen,
  * aldrig i knappar eller paneler.
+ *
+ * Valda piller ligger på en egen rad överst, de ovalda under. Med tjugo
+ * alternativ i samma klump gick det annars inte att se vad som var påslaget
+ * utan att läsa varje piller — och det är just det valet som avgör vad grafen
+ * visar.
  */
 export function Pills({
   items, ariaLabel, selected, onChange, multi = false, maxVisible = 8, allLabel,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
-  if (items.length <= 1 && !multi) return null;
   if (items.length === 0) return null;
+  if (items.length <= 1 && !multi) return null;
 
-  const isOn = (id: string) => (multi && selected.length === 0 ? false : selected.includes(id));
+  const isOn = (id: string) => selected.includes(id);
+  const active = items.filter((i) => isOn(i.id));
+  const inactive = items.filter((i) => !isOn(i.id));
+
+  // Uppdelningen i två rader finns för att flervalet annars är oläsbart. Med
+  // ett enda val syns det redan vilket piller som är påslaget, och en extra
+  // avdelare vore bara en linje till.
+  const split = multi;
 
   function toggle(id: string) {
     if (!multi) return onChange([id]);
     onChange(selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id]);
   }
 
-  // Valda piller måste alltid synas, även om de ligger långt ner i listan.
-  const collapse = !expanded && items.length > maxVisible;
-  const visible = collapse
-    ? [
-        ...items.slice(0, maxVisible),
-        ...items.slice(maxVisible).filter((i) => isOn(i.id)),
-      ]
-    : items;
-  const hidden = items.length - visible.length;
+  const collapse = !expanded && inactive.length > maxVisible;
+  const shown = collapse ? inactive.slice(0, maxVisible) : inactive;
+  const hidden = inactive.length - shown.length;
+
+  const pill = (item: PillItem, on: boolean) => (
+    <button
+      key={item.id}
+      type="button"
+      className="pill"
+      aria-pressed={on}
+      onClick={() => toggle(item.id)}
+      title={item.label}
+    >
+      {item.label}
+    </button>
+  );
+
+  if (!split) {
+    return (
+      <div className="pillset" role="group" aria-label={ariaLabel}>
+        <div className="pills">
+          {items.map((i) => pill(i, isOn(i.id)))}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="pills" role="group" aria-label={ariaLabel}>
-      {multi && allLabel && (
-        <button
-          type="button"
-          className="pill"
-          aria-pressed={selected.length === 0}
-          onClick={() => onChange([])}
-        >
-          {allLabel}
-        </button>
-      )}
+    <div className="pillset" role="group" aria-label={ariaLabel}>
+      {/* Aktiv rad. Tom markering i flervalsläge betyder alla, och då står
+          det uttryckligen i stället för att raden ser tom och trasig ut. */}
+      <div className="pills pills--active">
+        {multi && selected.length === 0 ? (
+          <span className="pill pill--all" aria-current="true">
+            {allLabel ?? 'Alla'}
+          </span>
+        ) : (
+          active.map((i) => pill(i, true))
+        )}
+        {multi && selected.length > 0 && allLabel && (
+          <button type="button" className="pill pill--more" onClick={() => onChange([])}>
+            {allLabel}
+          </button>
+        )}
+      </div>
 
-      {visible.map((item) => (
-        <button
-          key={item.id}
-          type="button"
-          className="pill"
-          aria-pressed={isOn(item.id)}
-          onClick={() => toggle(item.id)}
-          title={item.label}
-        >
-          {item.label}
-        </button>
-      ))}
-
-      {collapse && hidden > 0 && (
-        <button type="button" className="pill pill--more" onClick={() => setExpanded(true)}>
-          +{hidden} till
-        </button>
-      )}
-      {expanded && items.length > maxVisible && (
-        <button type="button" className="pill pill--more" onClick={() => setExpanded(false)}>
-          Visa färre
-        </button>
+      {shown.length > 0 && (
+        <div className="pills pills--inactive">
+          {shown.map((i) => pill(i, false))}
+          {collapse && hidden > 0 && (
+            <button type="button" className="pill pill--more" onClick={() => setExpanded(true)}>
+              +{hidden} till
+            </button>
+          )}
+          {expanded && inactive.length > maxVisible && (
+            <button type="button" className="pill pill--more" onClick={() => setExpanded(false)}>
+              Visa färre
+            </button>
+          )}
+        </div>
       )}
     </div>
   );

@@ -140,6 +140,18 @@ function hits(needle: string, haystack: Set<string>): number {
 
 export interface SearchHit { question: Question; score: number; }
 
+/**
+ * Under den här poängen är träffen inte en träff, bara det närmaste som
+ * fanns. Gränsen är satt efter mätning: rätt fråga landar normalt på 0.6–1.5,
+ * medan "Hur många gör egna inlägg på sociala medier?" mot 2026 — där frågan
+ * inte finns — ger 0.33 på något orelaterat.
+ */
+export const CONFIDENT_SCORE = 0.5;
+
+/** Går frågan att besvara i den här årgången? Används för exempelfrågorna. */
+export const answerable = (year: number, text: string): boolean =>
+  (searchQuestions(year, text, 1)[0]?.score ?? 0) >= CONFIDENT_SCORE;
+
 export function searchQuestions(year: number, query: string, limit = 8): SearchHit[] {
   const { index } = indexFor(year);
   const all = tokenize(query);
