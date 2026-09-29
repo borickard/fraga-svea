@@ -1,3 +1,6 @@
-# Tabellbilagorna och rapporterna är Internetstiftelsens filer och behövs
-# inte i bygget — datasetet är redan genererat till src/data/.
-data/
+# Tabellbilagorna och rapporterna är Internetstiftelsens filer och behövs inte
+# i bygget — datasetet är redan genererat till src/data/.
+#
+# Inledande snedstreck är nödvändigt. Utan det matchar mönstret varje katalog
+# som heter data, inklusive src/data/, och då byggs appen utan sitt dataset.
+/data/
