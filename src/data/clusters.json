@@ -122,6 +122,23 @@
           "concept": "meddelandeappar_dagligen"
         }
       ]
+    },
+    {
+      "id": "ai-tjanster",
+      "label": "AI-tjänster",
+      "dimension": "frekvens",
+      "members": [
+        {
+          "concept": "om_du_bortser_fran_ai_genererade_sokresultat_fran_sokmotorer_vilka_av_foljande_ai_tjanster_har_du_anvant_de_senaste_12_manaderna",
+          "label": "Minst någon gång"
+        },
+        {
+          "concept": "ai_tjanster_varje_vecka"
+        },
+        {
+          "concept": "ai_tjanster_dagligen"
+        }
+      ]
     }
   ]
 }

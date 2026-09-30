@@ -1708,7 +1708,7 @@
       ]
     },
     {
-      "id": "meddelandeappar_varje_vecka_2",
+      "id": "ai_tjanster_varje_vecka",
       "titel": "AI-tjänster – varje vecka",
       "synonymer": [
         "ai-tjänst",
@@ -1731,7 +1731,7 @@
       "matchning": "obekräftad"
     },
     {
-      "id": "meddelandeappar_dagligen_2",
+      "id": "ai_tjanster_dagligen",
       "titel": "AI-tjänster – dagligen",
       "synonymer": [
         "ai-tjänst",

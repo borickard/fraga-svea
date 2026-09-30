@@ -59,7 +59,8 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   { answer, year, still = false },
   ref,
 ) {
-  const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup, selectedOptions, optionLabels } = answer;
+  const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup,
+    selectedOptions, optionLabels, shape, hasNettoRow } = answer;
 
   // Utan den här raden går grafen inte att läsa. "Smartmobil 35 %, Dator 41 %"
   // säger ingenting om att det är andelen inom varje enhetsgrupp — och i en
@@ -102,14 +103,40 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   const rule2Y = cursor + (showSeriesHeads ? -SERIES_GAP + 10 : 10);
   const metaY = rule2Y + 26;
   const sourceY = metaY + 17;
-  const cautionY = sourceY + 17;
-  const H = (hasSmallBase ? cautionY : sourceY) + PAD - 6;
 
   const weighted = question.n_basis === 'viktade_intervjuer';
   const nLabel = weighted ? 'Viktade intervjuer' : 'n';
-  const cautionText = weighted
-    ? '° färre än 100 viktade intervjuer — tolka med försiktighet'
-    : '° färre än 100 intervjuer — tolka med försiktighet';
+
+  /**
+   * Läsanvisningar. De hör hemma på kortet och inte i gränssnittet, eftersom
+   * det är kortet som lämnar appen: i en exporterad bild finns ingenting
+   * runtomkring som förklarar varför staplarna inte får läggas ihop.
+   */
+  const notes: string[] = [];
+  // Bara på totalnivå är raderna frågans svarsalternativ. Med en nedbrytning
+  // är de segment, och då handlar summan om något som inte syns i bilden.
+  const showsSum = Boolean(shape) && segmentGroup === 'TOTALT';
+  if (shape && showsSum) {
+    const pct = Math.round(shape.sum * 100);
+    notes.push(shape.exclusive
+      ? `Ett svar per person — alternativen utesluter varandra och summerar till ${pct} %`
+      : `Alternativen kan inte läggas ihop — de summerar till ${pct} %`);
+  }
+  if (hasNettoRow) {
+    // Netto-raderna ligger utanför summan ovan. Utan den upplysningen kan man
+    // försöka lägga ihop alla staplar på kortet och landa på 300 %.
+    notes.push(showsSum
+      ? 'Netto-rader är bilagans egna sammanfattningar och ingår inte i summan'
+      : 'Netto-rader är bilagans egna sammanfattningar av flera alternativ');
+  }
+  if (hasSmallBase) {
+    notes.push(weighted
+      ? '° färre än 100 viktade intervjuer — tolka med försiktighet'
+      : '° färre än 100 intervjuer — tolka med försiktighet');
+  }
+
+  const noteY = (i: number) => sourceY + 17 * (i + 1);
+  const H = (notes.length ? noteY(notes.length - 1) : sourceY) + PAD - 6;
 
   const label = (text: string) => text.toUpperCase();
   let barIndex = 0;
@@ -251,11 +278,14 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         {label(sourceLineFor(year))}
       </text>
 
-      {hasSmallBase && (
-        <text x={PAD} y={cautionY} fontFamily={MONO} fontSize="11" fill={MUTED} letterSpacing="0.06em">
-          {label(cautionText)}
+      {notes.map((note, i) => (
+        <text
+          key={note} x={PAD} y={noteY(i)}
+          fontFamily={MONO} fontSize="11" fill={MUTED} letterSpacing="0.06em"
+        >
+          {label(truncate(note, W - PAD * 2, 11.8, 'mono'))}
         </text>
-      )}
+      ))}
     </svg>
   );
 });

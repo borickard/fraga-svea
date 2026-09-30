@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Dropdown } from './Dropdown';
 
 export interface PillItem { id: string; label: string; }
 
@@ -39,6 +40,24 @@ export function Pills({
   const inactive = items.filter((i) => !isOn(i.id));
 
   const head = <p className="pillset__label label">{label}</p>;
+
+  /**
+   * Över den här gränsen är piller fel form. Klustret "Enskilda plattformar"
+   * har 22 värden; som knappar blev det sju rader som sköt kortet ur bild.
+   * Gränsen ligger över antalet baser (4) och frekvenser (3), så de raderna
+   * förblir piller där man ser alla val samtidigt.
+   */
+  const AS_DROPDOWN_ABOVE = 7;
+  if (!multi && items.length > AS_DROPDOWN_ABOVE) {
+    return (
+      <Dropdown
+        label={label}
+        options={items}
+        value={selected[0] ?? items[0].id}
+        onChange={(id) => onChange([id])}
+      />
+    );
+  }
 
   /**
    * Ett enda val är inget val. Raden försvann tidigare helt, vilket fick

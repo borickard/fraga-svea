@@ -29,8 +29,17 @@ export interface Topic {
 
 export const topics: Topic[] = (rawTopics as { topics: Topic[] }).topics;
 
+/**
+ * Parentesen i ett svarsalternativ förklarar var tjänsten finns — den är inte
+ * vad frågan handlar om. "Grok (AI-tjänst på X/Twitter)", "My AI (AI-tjänst
+ * på Snapchat)" och "Meta AI (… finns i Facebook Messenger …)" drog in hela
+ * AI-frågan under ämnet Sociala medier. Frågetexten och titeln läses hela;
+ * det är bara alternativens parenteser som tas bort.
+ */
+const withoutGloss = (label: string): string => label.replace(/\([^)]*\)/g, ' ');
+
 const haystackFor = (q: Question): string =>
-  [titleFor(q), q.text, q.base_label, ...q.options.map((o) => o.label)]
+  [titleFor(q), q.text, q.base_label, ...q.options.map((o) => withoutGloss(o.label))]
     .join(' ')
     .toLowerCase();
 

@@ -25,9 +25,14 @@ import rawClusters from '../data/clusters.json';
 const FREQUENCY_PATTERNS: [RegExp, string][] = [
   [/\s*minst\s+n[åa]gon\s+g[åa]ng\s+(?:under\s+)?de\s+senaste\s+12\s+m[åa]naderna/i, 'Minst någon gång'],
   [/\s*minst\s+n[åa]gon\s+g[åa]ng/i, 'Minst någon gång'],
-  [/\s*minst\s+varje\s+vecka/i, 'Varje vecka'],
+  // 2025 skriver "minst varje vecka", 2026 bara "varje vecka". Utan den
+  // valfria delen bröts 2026 års trio isär: "de senaste 12 månaderna" och
+  // "dagligen" hamnade i samma grupp medan "varje vecka" blev en egen post.
+  [/\s*(?:minst\s+)?varje\s+vecka/i, 'Varje vecka'],
   [/\s*dagligen/i, 'Dagligen'],
-  [/\s*(?:under\s+)?de\s+senaste\s+12\s+m[åa]naderna/i, ''],
+  // Den bredaste frekvensen, inte ett tomt suffix. Som '' föll varianten ur
+  // frekvensväljaren och lämnade den med bara "Varje vecka" och "Dagligen".
+  [/\s*(?:under\s+)?de\s+senaste\s+12\s+m[åa]naderna/i, 'Minst någon gång'],
 ];
 
 /** Ordningen frekvenserna visas i, från bredast till smalast. */
@@ -132,7 +137,10 @@ for (const year of YEARS) {
       const g = draft.find((x) => !consumed.has(x) && x.variants.some((v) => texts.includes(v.question.text)));
       if (!g) continue;
       consumed.add(g);
-      const objectLabel = member.label ?? titleFor(g.variants[0].question);
+      // groupTitleOf, inte titleFor: begreppet heter "YouTube – hur ofta",
+      // men som värde i plattformsväljaren ska det stå "YouTube". Suffixet
+      // upprepade bara väljarens egen rubrik, 22 gånger.
+      const objectLabel = member.label ?? groupTitleOf(g.variants[0].question);
       for (const v of g.variants) {
         variants.push(
           cluster.dimension === 'objekt'

@@ -8,6 +8,49 @@
  */
 import type { Question, QuestionOption, SegmentValue } from '../types';
 
+/** Bilagans egna sammanräkningar heter "Netto - ..." respektive "Netto – ...". */
+export const isNetto = (label: string): boolean => /^\s*netto\b/i.test(label);
+
+/**
+ * Hur frågans svarsalternativ förhåller sig till varandra, avläst ur datan.
+ *
+ * Bilagan blandar tre former utan att säga vilken som gäller:
+ *
+ *  - Uteslutande. "Hur ofta använder du internet?" — varje person hamnar i
+ *    exakt en kategori, och kolumnen summerar till 100 %. "Varje vecka 2 %"
+ *    betyder *varje vecka men inte dagligen*.
+ *  - Flerval. "Vilka sociala medier har du använt?" — en person kryssar
+ *    flera, och kolumnen summerar till långt över 100 %.
+ *  - Nästlade. "Flashback" — "använt minst varje vecka" är en delmängd av
+ *    "andel användare", och kolumnen summerar till strax över 100 %.
+ *
+ * Skillnaden avgör om staplarna får läggas ihop, och den syns ingenstans i
+ * gränssnittet. Summan är ett aritmetiskt faktum om kolumnen, inte en gissning
+ * om enkätens konstruktion — därför får den stå på kortet.
+ */
+const EXCLUSIVE_BAND = 0.01;
+
+export interface OptionShape {
+  /** Summan av de icke-netto-alternativens totalvärden, som andel. */
+  sum: number;
+  /** Summerar till 100 %: varje person räknas en gång. */
+  exclusive: boolean;
+}
+
+export function optionShape(question: Question): OptionShape | null {
+  let sum = 0;
+  let seen = 0;
+  for (const o of question.options) {
+    if (isNetto(o.label)) continue;
+    const pct = o.values['totalt']?.pct;
+    if (pct === null || pct === undefined) continue;
+    sum += pct;
+    seen++;
+  }
+  if (!seen) return null;
+  return { sum, exclusive: Math.abs(sum - 1) <= EXCLUSIVE_BAND };
+}
+
 /**
  * Netto-raden är bilagans egen sammanfattning av frågan: "Netto – Använder
  * sociala medier" i stället för Youtube, Facebook, Instagram var för sig.
@@ -15,7 +58,7 @@ import type { Question, QuestionOption, SegmentValue } from '../types';
  * "hur många" — inte det alternativ som råkar stå först i arket.
  */
 export function defaultOption(question: Question): string {
-  const netto = question.options.find((o) => /^netto/i.test(o.label.trim()));
+  const netto = question.options.find((o) => isNetto(o.label));
   return (netto ?? question.options[0]).label;
 }
 import { datasetFor, getQuestion, getSegment, segmentsInGroup, TOTAL_GROUP } from './dataset';
@@ -66,6 +109,10 @@ export interface Answer {
   baseN: number;
   hasSmallBase: boolean;
   hasNoBase: boolean;
+  /** Får staplarna läggas ihop? Null när frågan saknar totalvärden. */
+  shape: OptionShape | null;
+  /** Någon av de ritade raderna är en Netto-rad och behöver förklaras. */
+  hasNettoRow: boolean;
 }
 
 export interface QueryInput {
@@ -178,6 +225,12 @@ export function executeQuery({
     baseN: total?.n ?? 0,
     hasSmallBase: allRows.some((r) => r.value.pct !== null && !r.value.reliable),
     hasNoBase: allRows.some((r) => r.value.reason === 'no_base'),
+    shape: optionShape(question),
+    // På totalnivå är raderna alternativen; med en nedbrytning är det i
+    // stället serierubrikerna som bär alternativnamnet.
+    hasNettoRow: group === TOTAL_GROUP
+      ? allRows.some((r) => isNetto(r.label))
+      : rendered.some((o) => isNetto(o.label)),
   };
 }
 

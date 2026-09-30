@@ -248,7 +248,7 @@ body {
   color: var(--surface);
   cursor: default;
 }
-.groupselect__input {
+.dropdown {
   display: block;
   width: 100%;
   min-width: 0;
@@ -266,7 +266,7 @@ body {
   cursor: pointer;
   appearance: none;
 }
-.groupselect__input:hover { box-shadow: var(--shadow-md); }
+.dropdown:hover { box-shadow: var(--shadow-md); }
 
 .pill--more {
   border-style: dashed;
