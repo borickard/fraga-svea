@@ -103,18 +103,21 @@ export function executeQuery({
     Math.max(0, question.options.findIndex((o) => o.label === label)) % DATA_COLORS.length;
 
   let series: AnswerSeries[];
-  // Hur många alternativ som faktiskt ritas. Avgör om det finns ett stort tal.
-  let renderedOptions = options.length;
+  // De alternativ som faktiskt ritas. Skiljer sig från `options` när inget är
+  // valt: då är `options` bara en säkerhetsutgång på ett enda alternativ,
+  // medan kortet på totalnivå ritar alla. Väljaren måste spegla det ritade,
+  // annars säger kortet "alla svarsalternativ" medan pillret under påstår
+  // att Youtube är påslaget.
+  let rendered: QuestionOption[];
 
   if (group === TOTAL_GROUP) {
     // På totalnivå jämförs svarsalternativen med varandra — en färg per alternativ.
-    const compared = chosen.length ? options : question.options;
-    renderedOptions = compared.length;
+    rendered = chosen.length ? options : question.options;
     series = [{
       key: 'totalt',
       label: '',
       colorIndex: 0,
-      rows: compared.map((o) => ({
+      rows: rendered.map((o) => ({
         key: o.label,
         label: o.label,
         value: o.values['totalt'] ?? MISSING,
@@ -122,6 +125,7 @@ export function executeQuery({
       })),
     }];
   } else {
+    rendered = options;
     const inGroup = segmentsInGroup(year, group).filter((s) => s.id in question.options[0].values);
     const picked = (segmentIds ?? []).filter((id) => inGroup.some((s) => s.id === id));
     const segments = picked.length ? inGroup.filter((s) => picked.includes(s.id)) : inGroup;
@@ -140,14 +144,14 @@ export function executeQuery({
     }));
   }
 
-  const primary = options[0];
+  const primary = rendered[0];
   const total = primary.values['totalt'] ?? null;
   const allRows = series.flatMap((s) => s.rows);
 
   // Ett tal, eller inget.
   let headline: SegmentValue | null = null;
   let headlineLabel = '';
-  if (renderedOptions === 1) {
+  if (rendered.length === 1) {
     const rows = series[0]?.rows ?? [];
     if (group !== TOTAL_GROUP && rows.length === 1) {
       headline = rows[0].value;
@@ -161,7 +165,10 @@ export function executeQuery({
   return {
     question,
     optionLabels: question.options.map((o) => o.label),
-    selectedOptions: options.map((o) => o.label),
+    // Tom markering betyder alla, och det är sant bara på totalnivå, där alla
+    // alternativ faktiskt ritas. Med en nedbrytning måste ett alternativ vara
+    // valt, och då är det valet som ska synas.
+    selectedOptions: chosen.length === 0 && group === TOTAL_GROUP ? [] : rendered.map((o) => o.label),
     segmentGroup: group,
     selectedSegments: segmentIds ?? [],
     series,

@@ -4,7 +4,8 @@ export interface PillItem { id: string; label: string; }
 
 interface Props {
   items: PillItem[];
-  ariaLabel: string;
+  /** Synlig rubrik över raden. Utan den vet man inte vad pillren styr. */
+  label: string;
   selected: string[];
   onChange: (next: string[]) => void;
   /**
@@ -28,15 +29,33 @@ interface Props {
  * visar.
  */
 export function Pills({
-  items, ariaLabel, selected, onChange, multi = false, maxVisible = 8, allLabel,
+  items, label, selected, onChange, multi = false, maxVisible = 8, allLabel,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
   if (items.length === 0) return null;
-  if (items.length <= 1 && !multi) return null;
 
   const isOn = (id: string) => selected.includes(id);
   const active = items.filter((i) => isOn(i.id));
   const inactive = items.filter((i) => !isOn(i.id));
+
+  const head = <p className="pillset__label label">{label}</p>;
+
+  /**
+   * Ett enda val är inget val. Raden försvann tidigare helt, vilket fick
+   * basväljaren att dyka upp och försvinna mellan frågor — man kunde inte
+   * lära sig var den satt. Nu står värdet kvar, låst, så att raden alltid
+   * finns och alltid säger vilken bas svaret vilar på.
+   */
+  if (items.length === 1 && !multi) {
+    return (
+      <div className="pillset" role="group" aria-label={label}>
+        {head}
+        <div className="pills">
+          <span className="pill pill--locked" title={items[0].label}>{items[0].label}</span>
+        </div>
+      </div>
+    );
+  }
 
   // Uppdelningen i två rader finns för att flervalet annars är oläsbart. Med
   // ett enda val syns det redan vilket piller som är påslaget, och en extra
@@ -67,7 +86,8 @@ export function Pills({
 
   if (!split) {
     return (
-      <div className="pillset" role="group" aria-label={ariaLabel}>
+      <div className="pillset" role="group" aria-label={label}>
+        {head}
         <div className="pills">
           {items.map((i) => pill(i, isOn(i.id)))}
         </div>
@@ -76,7 +96,8 @@ export function Pills({
   }
 
   return (
-    <div className="pillset" role="group" aria-label={ariaLabel}>
+    <div className="pillset" role="group" aria-label={label}>
+      {head}
       {/* Aktiv rad. Tom markering i flervalsläge betyder alla, och då står
           det uttryckligen i stället för att raden ser tom och trasig ut. */}
       <div className="pills pills--active">
@@ -87,9 +108,12 @@ export function Pills({
         ) : (
           active.map((i) => pill(i, true))
         )}
+        {/* Nollställning, inte ett val. Med samma text som det mörka pillret
+            ovan ("Alla svarsalternativ") såg den ut som en tredje påslagen
+            markering bredvid Youtube och Facebook. */}
         {multi && selected.length > 0 && allLabel && (
           <button type="button" className="pill pill--more" onClick={() => onChange([])}>
-            {allLabel}
+            Visa alla
           </button>
         )}
       </div>

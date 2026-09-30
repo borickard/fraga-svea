@@ -59,14 +59,21 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   { answer, year, still = false },
   ref,
 ) {
-  const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup } = answer;
+  const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup, selectedOptions, optionLabels } = answer;
 
   // Utan den här raden går grafen inte att läsa. "Smartmobil 35 %, Dator 41 %"
   // säger ingenting om att det är andelen inom varje enhetsgrupp — och i en
   // exporterad bild finns inget gränssnitt runtomkring som förklarar det.
-  const breakdown = segmentGroup === 'TOTALT'
-    ? 'Alla svarsalternativ · totalt'
-    : `Nedbrutet på ${segmentGroup}`;
+  //
+  // Den måste räkna: "Alla svarsalternativ" när två av tjugotvå ritas är en
+  // osanning som följer med ut i den exporterade bilden, där ingen kan se
+  // vilka väljare som var påslagna.
+  const allOptions = selectedOptions.length === 0 || selectedOptions.length === optionLabels.length;
+  const breakdown = segmentGroup !== 'TOTALT'
+    ? `Nedbrutet på ${segmentGroup}`
+    : allOptions
+      ? 'Alla svarsalternativ · totalt'
+      : `${selectedOptions.length} av ${optionLabels.length} svarsalternativ · totalt`;
 
   const showSeriesHeads = series.length > 1;
 

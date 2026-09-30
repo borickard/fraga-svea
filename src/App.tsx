@@ -290,65 +290,10 @@ export function App() {
 
       {answer && group && (
         <>
-          {/* Bas och frekvens pekar ut vilken tabell som slås upp. Basen är
-              inte en detalj: samma fråga på olika baser ger olika andelar. */}
-          <Pills
-            ariaLabel="Bas"
-            items={(axes?.bases ?? group.bases).map((b) => ({ id: b, label: b }))}
-            selected={[base ?? (axes?.bases ?? group.bases)[0]]}
-            onChange={(next) => setBase(next[0] ?? null)}
-            maxVisible={6}
-          />
-          {group.objects.length > 1 && (
-            <Pills
-              ariaLabel={group.objectLabel ?? 'Val'}
-              items={group.objects.map((o) => ({ id: o, label: o }))}
-              selected={object ? [object] : []}
-              onChange={(next) => { setObject(next[0] ?? null); setBase(null); }}
-              maxVisible={8}
-            />
-          )}
-          <Pills
-            ariaLabel="Hur ofta"
-            items={(axes?.frequencies ?? group.frequencies).map((f) => ({ id: f, label: f }))}
-            selected={frequency ? [frequency] : []}
-            onChange={(next) => setFrequency(next[0] ?? null)}
-          />
-
-          <GroupSelect
-            groups={segmentGroups}
-            active={answer.segmentGroup}
-            onSelect={(g) => changeBreakdown(g, answer.question)}
-            totalLabel="Ingen nedbrytning — visa totalt"
-          />
-
-          <Pills
-            ariaLabel="Svarsalternativ"
-            items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
-            selected={answer.selectedOptions}
-            onChange={(next) =>
-              setOptions(next.length || answer.segmentGroup === TOTAL_GROUP ? next : [defaultOption(answer.question)])
-            }
-            multi
-            /* "Alla" går bara att erbjuda på totalnivå. Med en nedbrytning
-               skulle tjugo alternativ gånger tio segment bli tvåhundra
-               staplar, så där måste minst ett alternativ vara valt. */
-            allLabel={answer.segmentGroup === TOTAL_GROUP ? 'Alla svarsalternativ' : undefined}
-            maxVisible={8}
-          />
-
-          {segmentOptions.length > 0 && (
-            <Pills
-              ariaLabel="Segment"
-              items={segmentOptions.map((s) => ({ id: s.id, label: s.label }))}
-              selected={segments}
-              onChange={setSegments}
-              multi
-              allLabel="Alla"
-              maxVisible={10}
-            />
-          )}
-
+          {/* Svaret först. Väljarna låg tidigare mellan sökfältet och kortet,
+              så man fick scrolla förbi fem rader kontroller för att se
+              siffran man just bett om. Nu står talet överst och justeringen
+              under: läs först, förfina sedan. */}
           <div className="card-wrap">
             {/* Samma nod renderas på skärmen och serialiseras vid export. */}
             <AnswerCard ref={cardRef} answer={answer} year={year} />
@@ -357,6 +302,69 @@ export function App() {
               <button type="button" className="button" onClick={() => download('svg')}>Ladda ner SVG</button>
             </div>
           </div>
+
+          <section className="controls" aria-label="Justera svaret">
+            <p className="controls__head">Justera svaret ovan</p>
+
+            {/* Bas och frekvens pekar ut vilken tabell som slås upp. Basen är
+                inte en detalj: samma fråga på olika baser ger olika andelar. */}
+            <Pills
+              label="Bas"
+              items={(axes?.bases ?? group.bases).map((b) => ({ id: b, label: b }))}
+              selected={[base ?? (axes?.bases ?? group.bases)[0]]}
+              onChange={(next) => setBase(next[0] ?? null)}
+              maxVisible={6}
+            />
+            {group.objects.length > 1 && (
+              <Pills
+                label={group.objectLabel ?? 'Val'}
+                items={group.objects.map((o) => ({ id: o, label: o }))}
+                selected={object ? [object] : []}
+                onChange={(next) => { setObject(next[0] ?? null); setBase(null); }}
+                maxVisible={8}
+              />
+            )}
+            <Pills
+              label="Hur ofta"
+              items={(axes?.frequencies ?? group.frequencies).map((f) => ({ id: f, label: f }))}
+              selected={frequency ? [frequency] : []}
+              onChange={(next) => setFrequency(next[0] ?? null)}
+            />
+
+            <GroupSelect
+              groups={segmentGroups}
+              active={answer.segmentGroup}
+              onSelect={(g) => changeBreakdown(g, answer.question)}
+              totalLabel="Ingen nedbrytning — visa totalt"
+            />
+
+            <Pills
+              label="Svarsalternativ"
+              items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
+              selected={answer.selectedOptions}
+              onChange={(next) =>
+                setOptions(next.length || answer.segmentGroup === TOTAL_GROUP ? next : [defaultOption(answer.question)])
+              }
+              multi
+              /* "Alla" går bara att erbjuda på totalnivå. Med en nedbrytning
+                 skulle tjugo alternativ gånger tio segment bli tvåhundra
+                 staplar, så där måste minst ett alternativ vara valt. */
+              allLabel={answer.segmentGroup === TOTAL_GROUP ? 'Alla svarsalternativ' : undefined}
+              maxVisible={8}
+            />
+
+            {segmentOptions.length > 0 && (
+              <Pills
+                label={answer.segmentGroup}
+                items={segmentOptions.map((s) => ({ id: s.id, label: s.label }))}
+                selected={segments}
+                onChange={setSegments}
+                multi
+                allLabel="Alla"
+                maxVisible={10}
+              />
+            )}
+          </section>
         </>
       )}
     </main>
