@@ -7,11 +7,12 @@ import { askModel, AskUnavailable } from './lib/ask';
 import { exportFilename, exportPng, exportSvg } from './lib/export';
 import { allGroups, axesFor, bestObject, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
 import { examplesFor, questionsInTopic } from './lib/labels';
+import { axesOf, axisOf, genderOf, groupFor } from './lib/segments';
 import { YearPicker } from './components/YearPicker';
 import { SearchField } from './components/SearchField';
 import { Hits } from './components/Hits';
 import { Pills } from './components/Pills';
-import { GroupSelect } from './components/GroupSelect';
+import { Dropdown } from './components/Dropdown';
 import { NoMatch } from './components/NoMatch';
 import { AnswerCard } from './components/AnswerCard';
 import { Topics } from './components/Topics';
@@ -209,6 +210,33 @@ export function App() {
     }
   }
 
+  /** Byte av segmentaxel. Könet följer med om den nya axeln har det. */
+  function chooseAxis(axis: string, question: Question) {
+    if (axis === TOTAL_GROUP) return changeBreakdown(TOTAL_GROUP, question);
+    const next = groupFor(segmentGroups, axis, activeGender) ?? groupFor(segmentGroups, axis, 'Alla');
+    if (next) changeBreakdown(next, question);
+  }
+
+  /**
+   * Byte av kön inom samma axel.
+   *
+   * Valda segment följer med via sin etikett. Id:na skiljer sig mellan
+   * könen — aldersgrupper_16_25_ar mot aldersgrupper_man_16_25_ar — men det
+   * är samma åldersband, och att jämföra samma band mellan könen är precis
+   * vad väljaren finns för. Utan överföringen nollställdes urvalet vid varje
+   * byte och man fick peka ut bandet på nytt.
+   */
+  function chooseGender(gender: string, question: Question) {
+    const next = groupFor(segmentGroups, activeAxis, gender);
+    if (!next) return;
+    const before = availableSegments(year, question, answer!.segmentGroup);
+    const kept = segments
+      .map((id) => before.find((s) => s.id === id)?.label)
+      .filter((l): l is string => Boolean(l));
+    setSegmentGroup(next);
+    setSegments(availableSegments(year, question, next).filter((s) => kept.includes(s.label)).map((s) => s.id));
+  }
+
   function chooseTopic(id: string | null) {
     setTopic(id);
     setQuery('');
@@ -231,6 +259,12 @@ export function App() {
     ? [TOTAL_GROUP, ...answer.question.segment_groups.filter((g) => g !== TOTAL_GROUP)]
     : [];
   const segmentOptions = answer ? availableSegments(year, answer.question, answer.segmentGroup) : [];
+  // Kön ligger i bilagan som suffix på gruppnamnet. Uppdelat blir det en
+  // axelväljare med 21 poster i stället för 38, och kön som eget val.
+  const segmentAxes = axesOf(segmentGroups);
+  const activeAxis = answer ? axisOf(answer.segmentGroup) : TOTAL_GROUP;
+  const activeGender = answer ? genderOf(answer.segmentGroup) : 'Alla';
+  const genders = segmentAxes.find((a) => a.axis === activeAxis)?.genders ?? [];
   // Bas och frekvens beror på vilket objekt i klustret som är valt.
   const axes = group ? axesFor(group, { object }) : null;
 
@@ -331,12 +365,27 @@ export function App() {
               onChange={(next) => setFrequency(next[0] ?? null)}
             />
 
-            <GroupSelect
-              groups={segmentGroups}
-              active={answer.segmentGroup}
-              onSelect={(g) => changeBreakdown(g, answer.question)}
-              totalLabel="Ingen nedbrytning — visa totalt"
+            <Dropdown
+              label="Visa per"
+              options={[
+                { id: TOTAL_GROUP, label: 'Ingen nedbrytning — visa totalt' },
+                ...segmentAxes.map((a) => ({ id: a.axis, label: a.axis })),
+              ]}
+              value={activeAxis}
+              onChange={(axis) => chooseAxis(axis, answer.question)}
             />
+
+            {/* Bara för de åtta axlar bilagan faktiskt korsar med kön. Att
+                erbjuda valet där det inte finns vore att lova data som inte
+                går att slå upp. */}
+            {genders.length > 1 && (
+              <Pills
+                label="Kön"
+                items={genders.map((g) => ({ id: g, label: g }))}
+                selected={[activeGender]}
+                onChange={(next) => next[0] && chooseGender(next[0], answer.question)}
+              />
+            )}
 
             <Pills
               label="Svarsalternativ"
@@ -355,7 +404,11 @@ export function App() {
 
             {segmentOptions.length > 0 && (
               <Pills
-                label={answer.segmentGroup}
+                /* Axeln, inte hela gruppnamnet: "ÅLDERSGRUPPER - KVINNOR"
+                   upprepar könsväljaren två rader upp. Kortet behåller det
+                   fullständiga namnet — det måste stå för sig självt i en
+                   exporterad bild. */
+                label={axisOf(answer.segmentGroup)}
                 items={segmentOptions.map((s) => ({ id: s.id, label: s.label }))}
                 selected={segments}
                 onChange={setSegments}
