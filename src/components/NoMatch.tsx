@@ -1,10 +1,9 @@
-import type { QuestionGroup } from '../lib/groups';
-import { Hits } from './Hits';
+import { Hits, type Hit } from './Hits';
 
 interface Props {
   query: string;
-  suggestions: QuestionGroup[];
-  onSelect: (g: QuestionGroup) => void;
+  suggestions: Hit[];
+  onSelect: (hit: Hit) => void;
 }
 
 /**
@@ -24,7 +23,7 @@ export function NoMatch({ query, suggestions, onSelect }: Props) {
         Här är de närmaste frågorna som faktiskt finns i materialet.
       </p>
       {suggestions.length > 0
-        ? <Hits groups={suggestions} activeId={null} onSelect={onSelect} label="Närmaste frågor" />
+        ? <Hits hits={suggestions} activeId={null} onSelect={onSelect} label="Närmaste frågor" />
         : <p className="label">Inga närliggande frågor hittades.</p>}
     </section>
   );

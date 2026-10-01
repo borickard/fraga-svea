@@ -10,7 +10,7 @@ import { examplesFor, questionsInTopic } from './lib/labels';
 import { axesOf, axisOf, genderOf, groupFor } from './lib/segments';
 import { YearPicker } from './components/YearPicker';
 import { SearchField } from './components/SearchField';
-import { Hits } from './components/Hits';
+import { Hits, type Hit } from './components/Hits';
 import { Pills } from './components/Pills';
 import { Dropdown } from './components/Dropdown';
 import { NoMatch } from './components/NoMatch';
@@ -20,17 +20,23 @@ import { Topics } from './components/Topics';
 type View =
   | { kind: 'idle' }
   | { kind: 'selected'; groupId: string }
-  | { kind: 'no_match'; query: string; suggestions: QuestionGroup[] };
+  | { kind: 'no_match'; query: string; suggestions: Hit[] };
 
-/** Träffar är frågor, inte tabeller. Flera tabeller i samma grupp blir en rad. */
-function toGroups(year: number, questions: { id: string }[]): QuestionGroup[] {
-  const out: QuestionGroup[] = [];
+/**
+ * Träffar är frågor, inte tabeller. Flera tabeller i samma grupp blir en rad.
+ *
+ * Varje träff bär den fråga som sökningen fastnade på, inte bara gruppen.
+ * Utan den visade en sökning på "tiktok" klustrets första medlem — "YouTube"
+ * — under rubriken, och öppnade sedan Tiktok.
+ */
+function toHits(year: number, questions: Question[]): Hit[] {
+  const out: Hit[] = [];
   const seen = new Set<string>();
-  for (const q of questions) {
-    const g = groupOf(year, q.id);
-    if (!g || seen.has(g.id)) continue;
-    seen.add(g.id);
-    out.push(g);
+  for (const question of questions) {
+    const group = groupOf(year, question.id);
+    if (!group || seen.has(group.id)) continue;
+    seen.add(group.id);
+    out.push({ group, question });
   }
   return out;
 }
@@ -66,8 +72,8 @@ export function App() {
 
   const hits = useMemo(() => {
     if (view.kind === 'selected') return [];
-    if (search) return toGroups(year, search.map((h) => h.question));
-    return topic ? toGroups(year, questionsInTopic(year, topic)) : [];
+    if (search) return toHits(year, search.map((h) => h.question));
+    return topic ? toHits(year, questionsInTopic(year, topic)) : [];
   }, [year, search, view.kind, topic]);
 
   /**
@@ -143,12 +149,12 @@ export function App() {
       const spec = await askModel(year, q);
       // Ingen match eller låg tillförsikt: visa de tre närmaste, gissa aldrig.
       if (spec.no_match || spec.confidence === 'low' || !spec.question_id) {
-        setView({ kind: 'no_match', query: q, suggestions: toGroups(year, nearestQuestions(year, q)) });
+        setView({ kind: 'no_match', query: q, suggestions: toHits(year, nearestQuestions(year, q)) });
         return;
       }
       const g = groupOf(year, spec.question_id);
       if (!g) {
-        setView({ kind: 'no_match', query: q, suggestions: toGroups(year, nearestQuestions(year, q)) });
+        setView({ kind: 'no_match', query: q, suggestions: toHits(year, nearestQuestions(year, q)) });
         return;
       }
       // Modellens val av bas och frekvens följer med via fråge-id:t.
@@ -267,6 +273,14 @@ export function App() {
   const genders = segmentAxes.find((a) => a.axis === activeAxis)?.genders ?? [];
   // Bas och frekvens beror på vilket objekt i klustret som är valt.
   const axes = group ? axesFor(group, { object }) : null;
+  // Panelen heter "Justera svaret ovan". Finns inget att justera ska den inte
+  // stå där och påstå motsatsen.
+  const adjustable =
+    (axes?.bases.length ?? 0) > 1 ||
+    (group?.objects.length ?? 0) > 1 ||
+    (axes?.frequencies.length ?? 0) > 1 ||
+    segmentAxes.length > 0 ||
+    (answer?.optionLabels.length ?? 0) > 1;
 
   return (
     <main className="page">
@@ -315,11 +329,22 @@ export function App() {
       )}
 
       {view.kind !== 'selected' && (
-        <Hits groups={hits} activeId={null} onSelect={(g) => select(g)} label="Frågor i undersökningen" />
+        <Hits
+          hits={hits}
+          activeId={null}
+          /* Fråge-id:t följer med, så att den variant raden visade är den som
+             öppnas. Ett gissat objekt ur söktexten kunde peka åt annat håll. */
+          onSelect={(h) => select(h.group, query, { questionId: h.question.id })}
+          label="Frågor i undersökningen"
+        />
       )}
 
       {view.kind === 'no_match' && (
-        <NoMatch query={view.query} suggestions={view.suggestions} onSelect={(g) => select(g, view.query)} />
+        <NoMatch
+          query={view.query}
+          suggestions={view.suggestions}
+          onSelect={(h) => select(h.group, view.query, { questionId: h.question.id })}
+        />
       )}
 
       {answer && group && (
@@ -337,6 +362,7 @@ export function App() {
             </div>
           </div>
 
+          {adjustable && (
           <section className="controls" aria-label="Justera svaret">
             <p className="controls__head">Justera svaret ovan</p>
 
@@ -418,6 +444,7 @@ export function App() {
               />
             )}
           </section>
+          )}
         </>
       )}
     </main>

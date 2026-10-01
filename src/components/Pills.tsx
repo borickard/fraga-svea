@@ -33,7 +33,10 @@ export function Pills({
   items, label, selected, onChange, multi = false, maxVisible = 8, allLabel,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
-  if (items.length === 0) return null;
+  // Ett enda värde är inget val. Raden hör inte hemma under rubriken
+  // "Justera svaret" — och basen, det vanligaste fallet, står redan på
+  // kortet där den alltid står.
+  if (items.length <= 1) return null;
 
   const isOn = (id: string) => selected.includes(id);
   const active = items.filter((i) => isOn(i.id));
@@ -56,23 +59,6 @@ export function Pills({
         value={selected[0] ?? items[0].id}
         onChange={(id) => onChange([id])}
       />
-    );
-  }
-
-  /**
-   * Ett enda val är inget val. Raden försvann tidigare helt, vilket fick
-   * basväljaren att dyka upp och försvinna mellan frågor — man kunde inte
-   * lära sig var den satt. Nu står värdet kvar, låst, så att raden alltid
-   * finns och alltid säger vilken bas svaret vilar på.
-   */
-  if (items.length === 1 && !multi) {
-    return (
-      <div className="pillset" role="group" aria-label={label}>
-        {head}
-        <div className="pills">
-          <span className="pill pill--locked" title={items[0].label}>{items[0].label}</span>
-        </div>
-      </div>
     );
   }
 

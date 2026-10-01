@@ -233,15 +233,6 @@ body {
 .pills--topics { margin-top: 16px; }
 .pill:hover { color: var(--ink); }
 
-/* Låst värde: platt och utan skugga, så att det inte ser tryckbart ut.
-   Streckad kant är reserverad för handlingar ("Visa alla", "+13 till") —
-   samma kant på ett låst värde hade gjort de två omöjliga att skilja åt. */
-.pill--locked {
-  background: transparent;
-  box-shadow: none;
-  cursor: default;
-}
-
 .pill--all {
   background: var(--ink);
   border-color: var(--ink);

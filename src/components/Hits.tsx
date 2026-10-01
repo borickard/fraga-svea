@@ -1,9 +1,16 @@
-import type { QuestionGroup } from '../lib/groups';
+import type { Question } from '../types';
+import { axesFor, variantOf, type QuestionGroup } from '../lib/groups';
+
+/** En träff är en grupp plus den fråga i gruppen som sökningen fastnade på. */
+export interface Hit {
+  group: QuestionGroup;
+  question: Question;
+}
 
 interface Props {
-  groups: QuestionGroup[];
+  hits: Hit[];
   activeId: string | null;
-  onSelect: (g: QuestionGroup) => void;
+  onSelect: (hit: Hit) => void;
   label: string;
 }
 
@@ -15,29 +22,39 @@ interface Props {
  * visar hur många baser och frekvenser som finns bakom.
  *
  * Titeln står överst för att gå att skumma, men frågans exakta formulering
- * står alltid kvar under den: det är den som är källan.
+ * står alltid kvar under den: det är den som är källan. Formuleringen är
+ * den träffade variantens, inte gruppens första — en sökning på "tiktok"
+ * visade annars "YouTube" under rubriken och öppnade sedan Tiktok.
  */
-export function Hits({ groups, activeId, onSelect, label }: Props) {
-  if (groups.length === 0) return null;
+export function Hits({ hits, activeId, onSelect, label }: Props) {
+  if (hits.length === 0) return null;
 
   return (
     <ul className="hits" aria-label={label}>
-      {groups.map((g) => {
+      {hits.map((hit) => {
+        const { group, question } = hit;
+        // Baser och frekvenser för just den träffade plattformen. Klustret som
+        // helhet har tre baser; Tiktok har en, och det är Tiktok raden gäller.
+        const object = variantOf(group, question.id)?.object ?? null;
+        const axes = axesFor(group, { object });
+
         const parts: string[] = [];
-        if (g.bases.length > 1) parts.push(`${g.bases.length} baser`);
-        else parts.push(`Bas: ${g.bases[0]}`);
-        if (g.frequencies.length > 1) parts.push(`${g.frequencies.length} frekvenser`);
+        if (axes.bases.length > 1) parts.push(`${axes.bases.length} baser`);
+        else if (axes.bases[0]) parts.push(`Bas: ${axes.bases[0]}`);
+        if (axes.frequencies.length > 1) parts.push(`${axes.frequencies.length} frekvenser`);
 
         return (
-          <li className="hits__item" key={g.id}>
+          <li className="hits__item" key={group.id}>
             <button
               type="button"
               className="hits__button"
-              aria-current={g.id === activeId}
-              onClick={() => onSelect(g)}
+              aria-current={group.id === activeId}
+              onClick={() => onSelect(hit)}
             >
-              <span className="hits__text">{g.title}</span>
-              {g.title !== g.sampleText && <span className="hits__wording">{g.sampleText}</span>}
+              <span className="hits__text">{group.title}</span>
+              {group.title !== question.text && (
+                <span className="hits__wording">{question.text}</span>
+              )}
               <span className="hits__base label">{parts.join(' · ')}</span>
             </button>
           </li>

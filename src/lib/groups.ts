@@ -233,6 +233,10 @@ export function resolve(group: QuestionGroup, sel: Selection = {}): Question {
   return merge(candidates.map((v) => v.question));
 }
 
+/** Varianten en viss fråga utgör inom sin grupp. */
+export const variantOf = (group: QuestionGroup, questionId: string): Variant | undefined =>
+  group.variants.find((v) => v.question.id === questionId);
+
 /** Vilken bas och frekvens en given fråga motsvarar inom sin grupp. */
 export function selectionFor(year: number, questionId: string): Selection {
   const g = groupByQuestionId.get(`${year}:${questionId}`);
