@@ -239,10 +239,16 @@ body {
   color: var(--surface);
   cursor: default;
 }
-.dropdown {
-  display: block;
+/* Rullgardinen är byggd för hand — se Dropdown.tsx. Den ska bära samma
+   språk som pillren: hårfin kant, mjuk skugga, mono i versaler. */
+.dropdown { position: relative; }
+
+.dropdown__button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  min-width: 0;
+  text-align: left;
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
@@ -253,11 +259,61 @@ body {
   border: 1px solid var(--hairline);
   border-radius: var(--r-pill);
   box-shadow: var(--shadow-sm);
-  padding: 9px 15px;
+  padding: 10px 16px;
   cursor: pointer;
-  appearance: none;
 }
-.dropdown:hover { box-shadow: var(--shadow-md); }
+.dropdown__button:hover { box-shadow: var(--shadow-md); }
+.dropdown__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dropdown__chevron {
+  flex: none;
+  color: var(--ink-muted);
+  transition: transform 160ms cubic-bezier(0.2, 0, 0.1, 1);
+}
+.dropdown__button[aria-expanded='true'] .dropdown__chevron { transform: rotate(180deg); }
+
+.dropdown__list {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--surface);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+  animation: dropdown-in 140ms cubic-bezier(0.2, 0, 0.1, 1) both;
+}
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dropdown__option {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-radius: var(--r-chip);
+  padding: 10px 12px;
+  cursor: pointer;
+}
+/* Markeringen följer tangentbord och pekare lika. Ingen systemblå. */
+.dropdown__option.is-active { background: var(--canvas); color: var(--ink); }
+.dropdown__option[aria-selected='true'] { background: var(--ink); color: var(--surface); }
 
 .pill--more {
   border-style: dashed;

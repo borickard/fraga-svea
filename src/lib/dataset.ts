@@ -6,13 +6,23 @@
  * användaren valt. Att jämföra år kräver en granskad koppling mellan
  * frågorna, inte en gissning på att texten råkar vara lika — se README.
  */
-import d2025 from '../data/dataset-2025.json';
 import d2026 from '../data/dataset-2026.json';
 import type { Dataset, Question, Segment } from '../types';
 
 export const TOTAL_GROUP = 'TOTALT';
 
-const datasets: Dataset[] = [d2026, d2025] as unknown as Dataset[];
+/**
+ * Årgångarna i bruk, nyast först.
+ *
+ * 2025 är parsad, validerad och kopplad till 2026 via concepts.json — den är
+ * bara inte påslagen. Att ta tillbaka den är den här raden plus importen:
+ * allt annat i appen är redan årsskopat, och årsväljaren dyker upp av sig
+ * själv så fort listan har mer än ett år.
+ *
+ * Avstängd sparar den också 7 MB i klientbundeln, eftersom hela datasetet
+ * ligger i JavaScript-paketet.
+ */
+const datasets: Dataset[] = [d2026] as unknown as Dataset[];
 
 /** Nyast först. Ordningen styr årsväljaren. */
 export const YEARS: number[] = datasets.map((d) => d.meta.year);

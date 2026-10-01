@@ -14,7 +14,6 @@
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { jsonSchemaOutputFormat } from '@anthropic-ai/sdk/helpers/json-schema';
-import i2025 from '../src/data/index-2025.json' with { type: 'json' };
 import i2026 from '../src/data/index-2026.json' with { type: 'json' };
 
 export const config = { runtime: 'nodejs' };
@@ -39,7 +38,9 @@ interface QuestionIndex {
  * får bara se den årgång användaren faktiskt frågar om — annars kan den peka
  * ut ett fråge-id som inte finns i det valda året.
  */
-const INDEXES: QuestionIndex[] = [i2026, i2025] as unknown as QuestionIndex[];
+// Speglar datasets i src/lib/dataset.ts. Frågelagret får aldrig erbjuda en
+// årgång som klienten inte kan slå upp i.
+const INDEXES: QuestionIndex[] = [i2026] as unknown as QuestionIndex[];
 const YEARS = INDEXES.map((d) => d.meta.year);
 const DEFAULT_YEAR = YEARS[0];
 

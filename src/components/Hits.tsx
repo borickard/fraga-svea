@@ -5,6 +5,13 @@ import { axesFor, variantOf, type QuestionGroup } from '../lib/groups';
 export interface Hit {
   group: QuestionGroup;
   question: Question;
+  /**
+   * Sant när frågan är den sökningen pekade ut. Falskt när den bara råkar
+   * stå först i gruppen — vid ämnesbläddring finns ingen utpekad variant,
+   * och då är det missvisande att skriva ut en av 22 plattformar som om
+   * den vore svaret.
+   */
+  matched: boolean;
 }
 
 interface Props {
@@ -35,8 +42,15 @@ export function Hits({ hits, activeId, onSelect, label }: Props) {
         const { group, question } = hit;
         // Baser och frekvenser för just den träffade plattformen. Klustret som
         // helhet har tre baser; Tiktok har en, och det är Tiktok raden gäller.
-        const object = variantOf(group, question.id)?.object ?? null;
+        const cluster = group.objects.length > 1;
+        const object = hit.matched ? (variantOf(group, question.id)?.object ?? null) : null;
         const axes = axesFor(group, { object });
+
+        // Utan utpekad variant beskrivs klustret av sitt innehåll i stället
+        // för av sin första medlem.
+        const wording = cluster && !hit.matched
+          ? `${group.objects.slice(0, 3).join(', ')} och ${group.objects.length - 3} till`
+          : question.text;
 
         const parts: string[] = [];
         if (axes.bases.length > 1) parts.push(`${axes.bases.length} baser`);
@@ -52,9 +66,7 @@ export function Hits({ hits, activeId, onSelect, label }: Props) {
               onClick={() => onSelect(hit)}
             >
               <span className="hits__text">{group.title}</span>
-              {group.title !== question.text && (
-                <span className="hits__wording">{question.text}</span>
-              )}
+              {group.title !== wording && <span className="hits__wording">{wording}</span>}
               <span className="hits__base label">{parts.join(' · ')}</span>
             </button>
           </li>

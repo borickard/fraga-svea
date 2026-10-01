@@ -13,6 +13,7 @@ import { titleFor } from './concepts';
 import rawTopics from '../data/topics.json';
 import rawExamples from '../data/examples.json';
 import { datasetFor, DEFAULT_YEAR, YEARS } from './dataset';
+import { groupOf } from './groups';
 
 export { titleFor, hasTitle } from './concepts';
 export interface Topic {
@@ -38,6 +39,20 @@ export const topics: Topic[] = (rawTopics as { topics: Topic[] }).topics;
  */
 const withoutGloss = (label: string): string => label.replace(/\([^)]*\)/g, ' ');
 
+/**
+ * Nyckelord matchas med ordstart, inte som fri delsträng.
+ *
+ * Fri delsträng gör "ai" obrukbart: det träffar "mail" och "Thailand". Med
+ * ordstart träffar det "AI" och "AI-översikter" men inte "mail" — bindestreck
+ * räknas som ordgräns, vilket är precis vad bilagans sammansättningar kräver.
+ *
+ * Slutet lämnas öppet med flit. Svenska böjer: "bedrägeri" måste fortsätta
+ * träffa "bedrägerier", och ett avslutande ordgränskrav hade tagit bort den.
+ */
+const WORD_CHAR = 'a-zA-ZÀ-ÿ0-9';
+const keywordRe = (keyword: string): RegExp =>
+  new RegExp(`(^|[^${WORD_CHAR}])${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i');
+
 const haystackFor = (q: Question): string =>
   [titleFor(q), q.text, q.base_label, ...q.options.map((o) => withoutGloss(o.label))]
     .join(' ')
@@ -50,7 +65,7 @@ const questionsByTopic = new Map<string, Question[]>();
 for (const year of YEARS) {
   for (const q of datasetFor(year).questions) {
     const hay = haystackFor(q);
-    const matched = topics.filter((t) => t.keywords.some((k) => hay.includes(k.toLowerCase())));
+    const matched = topics.filter((t) => t.keywords.some((k) => keywordRe(k).test(hay)));
     topicsByQuestion.set(`${year}:${q.id}`, matched.map((t) => t.id));
     for (const t of matched) questionsByTopic.set(`${year}:${t.id}`, [...(questionsByTopic.get(`${year}:${t.id}`) ?? []), q]);
   }
@@ -62,10 +77,24 @@ export const topicsFor = (q: Question, year: number = DEFAULT_YEAR): Topic[] =>
 export const questionsInTopic = (year: number, topicId: string): Question[] =>
   questionsByTopic.get(`${year}:${topicId}`) ?? [];
 
-/** Ämnen som faktiskt har frågor det valda året, i filens ordning. */
+/**
+ * Ämnen som faktiskt har frågor det valda året, i filens ordning.
+ *
+ * Siffran räknar grupper, inte tabeller. Ämnet Sociala medier rymmer 33
+ * tabeller men visar sex rader, eftersom 22 av dem är plattformsklustret och
+ * tre är samma fråga på olika frekvenser. "33" bredvid en lista med sex
+ * poster är ett löfte som listan inte håller.
+ */
 export const activeTopics = (year: number): (Topic & { count: number })[] =>
   topics
-    .map((t) => ({ ...t, count: questionsInTopic(year, t.id).length }))
+    .map((t) => {
+      const ids = new Set<string>();
+      for (const q of questionsInTopic(year, t.id)) {
+        const g = groupOf(year, q.id);
+        if (g) ids.add(g.id);
+      }
+      return { ...t, count: ids.size };
+    })
     .filter((t) => t.count > 0);
 
 export interface Example { topic: string; text: string; }

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Question } from './types';
 import { datasetFor, DEFAULT_YEAR, TOTAL_GROUP, YEARS } from './lib/dataset';
 import { answerable, bestOption, bestSegmentGroup, CONFIDENT_SCORE, nearestQuestions, searchQuestions } from './lib/search';
@@ -8,6 +8,7 @@ import { exportFilename, exportPng, exportSvg } from './lib/export';
 import { allGroups, axesFor, bestObject, groupOf, resolve, selectionFor, type QuestionGroup } from './lib/groups';
 import { examplesFor, questionsInTopic } from './lib/labels';
 import { axesOf, axisOf, genderOf, groupFor } from './lib/segments';
+import { fromSearch, toSearch, type UrlState } from './lib/url';
 import { YearPicker } from './components/YearPicker';
 import { SearchField } from './components/SearchField';
 import { Hits, type Hit } from './components/Hits';
@@ -29,14 +30,14 @@ type View =
  * Utan den visade en sökning på "tiktok" klustrets första medlem — "YouTube"
  * — under rubriken, och öppnade sedan Tiktok.
  */
-function toHits(year: number, questions: Question[]): Hit[] {
+function toHits(year: number, questions: Question[], matched: boolean): Hit[] {
   const out: Hit[] = [];
   const seen = new Set<string>();
   for (const question of questions) {
     const group = groupOf(year, question.id);
     if (!group || seen.has(group.id)) continue;
     seen.add(group.id);
-    out.push({ group, question });
+    out.push({ group, question, matched });
   }
   return out;
 }
@@ -60,6 +61,9 @@ export function App() {
   const [segmentGroup, setSegmentGroup] = useState<string>(TOTAL_GROUP);
   const [segments, setSegments] = useState<string[]>([]);
 
+  // Sätts när ett tillstånd just lästs ur adressfältet, så att effekten
+  // nedan inte skriver tillbaka det och skapar en ändlös loop.
+  const skipPush = useRef(false);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const cardRef = useRef<SVGSVGElement>(null);
@@ -72,8 +76,8 @@ export function App() {
 
   const hits = useMemo(() => {
     if (view.kind === 'selected') return [];
-    if (search) return toHits(year, search.map((h) => h.question));
-    return topic ? toHits(year, questionsInTopic(year, topic)) : [];
+    if (search) return toHits(year, search.map((h) => h.question), true);
+    return topic ? toHits(year, questionsInTopic(year, topic), false) : [];
   }, [year, search, view.kind, topic]);
 
   /**
@@ -149,12 +153,12 @@ export function App() {
       const spec = await askModel(year, q);
       // Ingen match eller låg tillförsikt: visa de tre närmaste, gissa aldrig.
       if (spec.no_match || spec.confidence === 'low' || !spec.question_id) {
-        setView({ kind: 'no_match', query: q, suggestions: toHits(year, nearestQuestions(year, q)) });
+        setView({ kind: 'no_match', query: q, suggestions: toHits(year, nearestQuestions(year, q), true) });
         return;
       }
       const g = groupOf(year, spec.question_id);
       if (!g) {
-        setView({ kind: 'no_match', query: q, suggestions: toHits(year, nearestQuestions(year, q)) });
+        setView({ kind: 'no_match', query: q, suggestions: toHits(year, nearestQuestions(year, q), true) });
         return;
       }
       // Modellens val av bas och frekvens följer med via fråge-id:t.
@@ -177,6 +181,86 @@ export function App() {
       setBusy(false);
     }
   }
+
+  /**
+   * Läser ett tillstånd ur adressfältet och sätter appen i det.
+   *
+   * Används både vid sidladdning — så att en delad länk öppnar rätt svar —
+   * och när användaren går bakåt eller framåt i webbläsaren.
+   */
+  const applyUrl = useCallback((state: UrlState) => {
+    setNotice(null);
+    if (state.year && YEARS.includes(state.year)) setYear(state.year);
+    const y = state.year && YEARS.includes(state.year) ? state.year : year;
+
+    if (state.questionId) {
+      const g = groupOf(y, state.questionId);
+      if (g) {
+        const sel = selectionFor(y, state.questionId);
+        const question = resolve(g, sel);
+        setBase(sel.base ?? null);
+        setFrequency(sel.frequency ?? null);
+        setObject(sel.object ?? null);
+        const group = state.segmentGroup && question.segment_groups.includes(state.segmentGroup)
+          ? state.segmentGroup
+          : TOTAL_GROUP;
+        setSegmentGroup(group);
+        // Bara det som faktiskt finns i frågan. En länk kan vara gammal,
+        // handredigerad eller peka på en annan årgångs etiketter.
+        setOptions((state.options ?? []).filter((l) => question.options.some((o) => o.label === l)));
+        const available = availableSegments(y, question, group);
+        setSegments((state.segments ?? []).filter((id) => available.some((s) => s.id === id)));
+        setQuery('');
+        setTopic(null);
+        setView({ kind: 'selected', groupId: g.id });
+        return;
+      }
+    }
+    setQuery(state.query ?? '');
+    setTopic(state.topic ?? null);
+    setView({ kind: 'idle' });
+  }, [year]);
+
+  // Sidladdning: en delad länk ska öppna sitt svar, inte startsidan.
+  useEffect(() => {
+    if (window.location.search) applyUrl(fromSearch(window.location.search));
+    // Avsiktligt bara vid montering.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const onPop = () => {
+      skipPush.current = true;
+      applyUrl(fromSearch(window.location.search));
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [applyUrl]);
+
+  /**
+   * Skriver tillståndet till adressfältet.
+   *
+   * Sökfältet ersätter i stället för att lägga till: varje tecken hade annars
+   * blivit ett eget steg i historiken, och bakåtknappen hade raderat
+   * bokstav för bokstav. Allt annat är ett steg man ska kunna gå tillbaka
+   * från.
+   */
+  useEffect(() => {
+    if (skipPush.current) { skipPush.current = false; return; }
+    const next = toSearch(
+      view.kind === 'selected' && answer
+        ? {
+            year, questionId: answer.question.id, segmentGroup: answer.segmentGroup,
+            options: answer.selectedOptions, segments,
+          }
+        : { year, query, topic },
+      YEARS.length > 1,
+    );
+    const url = `${window.location.pathname}${next}`;
+    if (url === `${window.location.pathname}${window.location.search}`) return;
+    const typing = view.kind !== 'selected';
+    window.history[typing ? 'replaceState' : 'pushState'](null, '', url);
+  });
 
   function reset(next: string) {
     setQuery(next);
@@ -286,7 +370,8 @@ export function App() {
     <main className="page">
       <div className="masthead-row">
         <p className="masthead">Fråga Svenskarna</p>
-        <YearPicker years={YEARS} active={year} onSelect={chooseYear} />
+        {/* Visas av sig själv igen så fort datasetet har mer än en årgång. */}
+        {YEARS.length > 1 && <YearPicker years={YEARS} active={year} onSelect={chooseYear} />}
       </div>
 
       <SearchField
@@ -334,7 +419,7 @@ export function App() {
           activeId={null}
           /* Fråge-id:t följer med, så att den variant raden visade är den som
              öppnas. Ett gissat objekt ur söktexten kunde peka åt annat håll. */
-          onSelect={(h) => select(h.group, query, { questionId: h.question.id })}
+          onSelect={(h) => select(h.group, query, h.matched ? { questionId: h.question.id } : undefined)}
           label="Frågor i undersökningen"
         />
       )}

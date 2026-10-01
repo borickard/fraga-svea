@@ -13,37 +13,189 @@
     "värde som slås upp."
   ],
   "topics": [
-    { "id": "internet-etjanster", "chapter": 1, "label": "Internet och e-tjänster",
-      "keywords": ["hur ofta använder du internet", "digital brevlåda", "digitala brevlådor", "kivra", "billo", "digimail", "e-boks", "myndighetspost", "e-legitimation", "bank-id", "bankid", "freja", "e-tjänster", "e-tjänst", "sjukvård", "hälso", "läkare", "vårdcentral", "1177", "e-vårdtjänster"] },
-
-    { "id": "ai", "chapter": 2, "label": "AI",
-      "keywords": ["ai-verktyg", "ai-teknik", "chatgpt", "copilot", "gemini", "bard", "dall-e", "midjourney", "perplexity", "prompt", "arbetslös"] },
-
-    { "id": "sociala-medier", "chapter": 3, "label": "Sociala medier",
-      "keywords": ["sociala medier", "sociala nätverksplatser", "youtube", "facebook", "instagram", "snapchat", "tiktok", "linkedin", "pinterest", "twitter", "reddit", "threads", "bereal", "bluesky", "mastodon", "flashback", "yubo", "egna inlägg", "messenger", "whatsapp", "signal", "telegram", "tellonym", "roblox", "robux", "discord", "twitch"] },
-
-    { "id": "annonsbedrageri", "chapter": 4, "label": "Annonsbedrägerier",
-      "keywords": ["bluffannons", "annonsbedrägeri", "trygghetsmärkning", "bedrägeri"] },
-
-    { "id": "dejting", "chapter": 5, "label": "Dejting och relationer",
-      "keywords": ["nätdejt", "partner", "mikrootrohet", "otrohet", "sina ex", "ex på"] },
-
-    { "id": "e-handel", "chapter": null, "label": "E-handel",
-      "keywords": ["e-handlat", "e-handel", "e-handelsplats"] },
-
-    { "id": "play", "chapter": null, "label": "Play och strömmat",
-      "keywords": ["strömmande", "streamingtjänst", "play", "netflix", "viaplay", "spotify", "rörlig bild"] },
-
-    { "id": "betalning", "chapter": null, "label": "Betalappar",
-      "keywords": ["betalning", "swish"] },
-
-    { "id": "krypto", "chapter": null, "label": "Kryptovaluta",
-      "keywords": ["kryptovaluta", "bitcoin"] },
-
-    { "id": "arbetsliv", "chapter": null, "label": "Arbetsliv",
-      "keywords": ["arbetslös", "sektor", "tjänsteman", "hemifrån", "yrkesroll", "arbetsvecka"] },
-
-    { "id": "bakgrund", "chapter": null, "label": "Bakgrund",
-      "keywords": ["stadier:", "utbildningsnivå"] }
+    {
+      "id": "internet-etjanster",
+      "chapter": 1,
+      "label": "Internet och e-tjänster",
+      "keywords": [
+        "hur ofta använder du internet",
+        "digital brevlåda",
+        "digitala brevlådor",
+        "kivra",
+        "billo",
+        "digimail",
+        "e-boks",
+        "myndighetspost",
+        "e-legitimation",
+        "bank-id",
+        "bankid",
+        "freja",
+        "e-tjänster",
+        "e-tjänst",
+        "sjukvård",
+        "hälso",
+        "läkare",
+        "vårdcentral",
+        "1177",
+        "e-vårdtjänster"
+      ]
+    },
+    {
+      "id": "ai",
+      "chapter": 2,
+      "label": "AI",
+      "keywords": [
+        "ai",
+        "ai-verktyg",
+        "ai-teknik",
+        "chatgpt",
+        "copilot",
+        "gemini",
+        "bard",
+        "dall-e",
+        "midjourney",
+        "perplexity",
+        "prompt",
+        "arbetslös"
+      ]
+    },
+    {
+      "id": "sociala-medier",
+      "chapter": 3,
+      "label": "Sociala medier",
+      "keywords": [
+        "sociala medier",
+        "sociala nätverksplatser",
+        "youtube",
+        "facebook",
+        "instagram",
+        "snapchat",
+        "tiktok",
+        "linkedin",
+        "pinterest",
+        "twitter",
+        "reddit",
+        "threads",
+        "bereal",
+        "bluesky",
+        "mastodon",
+        "flashback",
+        "yubo",
+        "egna inlägg",
+        "messenger",
+        "whatsapp",
+        "signal",
+        "telegram",
+        "tellonym",
+        "roblox",
+        "robux",
+        "discord",
+        "twitch"
+      ]
+    },
+    {
+      "id": "mobilvanor",
+      "chapter": null,
+      "label": "Mobilvanor och skärmtid",
+      "keywords": [
+        "skroll",
+        "slöskroll",
+        "mobilen",
+        "detox",
+        "algoritm",
+        "mående",
+        "ensamhet",
+        "nedprioriterad",
+        "skärmtid"
+      ]
+    },
+    {
+      "id": "annonsbedrageri",
+      "chapter": 4,
+      "label": "Annonsbedrägerier",
+      "keywords": [
+        "bluffannons",
+        "annonsbedrägeri",
+        "trygghetsmärkning",
+        "bedrägeri"
+      ]
+    },
+    {
+      "id": "dejting",
+      "chapter": 5,
+      "label": "Dejting och relationer",
+      "keywords": [
+        "nätdejt",
+        "partner",
+        "mikrootrohet",
+        "otrohet",
+        "sina ex",
+        "ex på"
+      ]
+    },
+    {
+      "id": "e-handel",
+      "chapter": null,
+      "label": "E-handel",
+      "keywords": [
+        "e-handlat",
+        "e-handel",
+        "e-handelsplats"
+      ]
+    },
+    {
+      "id": "play",
+      "chapter": null,
+      "label": "Play och strömmat",
+      "keywords": [
+        "strömmande",
+        "streamingtjänst",
+        "play",
+        "netflix",
+        "viaplay",
+        "spotify",
+        "rörlig bild"
+      ]
+    },
+    {
+      "id": "betalning",
+      "chapter": null,
+      "label": "Betalappar",
+      "keywords": [
+        "betalning",
+        "swish"
+      ]
+    },
+    {
+      "id": "krypto",
+      "chapter": null,
+      "label": "Kryptovaluta",
+      "keywords": [
+        "kryptovaluta",
+        "bitcoin"
+      ]
+    },
+    {
+      "id": "arbetsliv",
+      "chapter": null,
+      "label": "Arbetsliv",
+      "keywords": [
+        "arbetslös",
+        "sektor",
+        "tjänsteman",
+        "hemifrån",
+        "yrkesroll",
+        "arbetsvecka"
+      ]
+    },
+    {
+      "id": "bakgrund",
+      "chapter": null,
+      "label": "Bakgrund",
+      "keywords": [
+        "stadier:",
+        "utbildningsnivå"
+      ]
+    }
   ]
 }

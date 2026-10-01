@@ -22,11 +22,20 @@ import { truncate, wrapText } from '../lib/wrap';
 
 const W = 720;
 const PAD = 36;
-const LABEL_W = 186;
+/**
+ * Etikettspalten. Bredare än den var: "Andel användare (Använt minst någon
+ * gång senaste 12 månaderna)" är 62 tecken och klipptes efter 25. Spåret
+ * tappar 64 px, vilket inte märks på en skala som alltid går 0–100 %.
+ */
+const LABEL_W = 250;
 const VALUE_W = 78;
 const GAP = 16;
 const BAR_H = 14;
 const ROW_H = 40;
+/** Extra höjd när någon etikett behöver två rader. */
+const ROW_H_WRAPPED = 56;
+const LABEL_LINE_H = 14;
+const LABEL_MAX_LINES = 2;
 const SERIES_HEAD_H = 30;
 const SERIES_GAP = 14;
 const TRACK_X = PAD + LABEL_W + GAP;
@@ -78,6 +87,25 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
 
   const showSeriesHeads = series.length > 1;
 
+  /**
+   * Etiketten bryts över högst två rader. Bilagans längsta svarsalternativ är
+   * 117 tecken och ryms inte ens då — det klipps med ellips, och hela texten
+   * finns kvar i väljaren. Men de allra flesta ryms, och ett avklippt
+   * "Andel användare (Använt…" säger inte vilken andel det gäller.
+   */
+  const labelLines = (text: string): string[] => {
+    const all = wrapText(text, LABEL_W, 12, 'mono');
+    if (all.length <= LABEL_MAX_LINES) return all;
+    const kept = all.slice(0, LABEL_MAX_LINES);
+    kept[LABEL_MAX_LINES - 1] = truncate(`${kept[LABEL_MAX_LINES - 1]} ${all[LABEL_MAX_LINES]}`, LABEL_W, 12, 'mono');
+    return kept;
+  };
+
+  // Radhöjden är gemensam för hela kortet: staplar som ligger olika tätt
+  // läses som olika viktiga.
+  const wrapped = series.some((s) => s.rows.some((r) => labelLines(r.label).length > 1));
+  const rowH = wrapped ? ROW_H_WRAPPED : ROW_H;
+
   // ---- vertikal layout, uträknad före render så att höjden alltid stämmer
   const questionLines = wrapText(question.text, W - PAD * 2, 18, 'sans');
   const questionTop = PAD + 18;
@@ -96,7 +124,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
   const placed = series.map((s) => {
     const headY = showSeriesHeads ? cursor + 12 : cursor;
     const firstRow = showSeriesHeads ? cursor + SERIES_HEAD_H : cursor;
-    cursor = firstRow + s.rows.length * ROW_H + (showSeriesHeads ? SERIES_GAP : 0);
+    cursor = firstRow + s.rows.length * rowH + (showSeriesHeads ? SERIES_GAP : 0);
     return { series: s, headY, firstRow };
   });
 
@@ -223,8 +251,8 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
           )}
 
           {s.rows.map((row, i) => {
-            const y = firstRow + i * ROW_H;
-            const barY = y + (ROW_H - BAR_H) / 2 - 6;
+            const y = firstRow + i * rowH;
+            const barY = y + (rowH - BAR_H) / 2 - 6;
             const noBase = row.value.pct === null;
             const w = noBase ? 0 : Math.max(BAR_H, TRACK_W * (row.value.pct as number));
             const fill = noBase ? FALLBACK_COLOR : DATA_COLORS[row.colorIndex % DATA_COLORS.length];
@@ -233,12 +261,19 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
 
             return (
               <g key={row.key}>
-                <text
-                  x={PAD} y={barY + BAR_H - 2}
-                  fontFamily={MONO} fontSize="12" fill={MUTED}
-                >
-                  {truncate(row.label, LABEL_W, 12, 'mono')}
-                </text>
+                {(() => {
+                  const lines = labelLines(row.label);
+                  // Blocket centreras mot stapeln, inte mot radens överkant.
+                  const first = barY + BAR_H - 2 - (lines.length - 1) * (LABEL_LINE_H / 2);
+                  return lines.map((line, j) => (
+                    <text
+                      key={j} x={PAD} y={first + j * LABEL_LINE_H}
+                      fontFamily={MONO} fontSize="12" fill={MUTED}
+                    >
+                      {line}
+                    </text>
+                  ));
+                })()}
 
                 {noBase ? (
                   <rect x={TRACK_X} y={barY} width={BAR_H} height={BAR_H} rx={BAR_H / 2} fill={fill} />
