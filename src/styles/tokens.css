@@ -21,6 +21,28 @@
   --data-pink:     #FF9FB4;
   --data-fallback: #E4E6E5;
 
+  /*
+   * Seriefärger för dashboarden.
+   *
+   * Samma fyra kulörer som pastellerna ovan — grön, blå, gul, rosa — men på
+   * djup som går att skilja åt. Pastellerna underkänns som serieidentitet:
+   * mint mot blå ligger på ΔE 7,9 för normalseende, under golvet 15, och
+   * kontrasten mot vitt är 1,3:1. På svarskortet spelar det ingen roll,
+   * eftersom varje stapel har sin etikett bredvid sig och färgen bara är
+   * dekor. I en graf där färgen ÄR nyckeln går det inte.
+   *
+   * Validerade med dataviz-skillens kontroll: ljushetsband, kromagolv,
+   * färgseendeseparation och normalseendegolv passerar alla fyra.
+   * Gul ligger på 2,2:1 mot vitt, vilket kräver synliga etiketter — därför
+   * har varje serie både direktetikett och legend, aldrig bara färg.
+   */
+  --series-1: #1B9E77;
+  --series-2: #2A78D6;
+  --series-3: #E0A100;
+  --series-4: #D4557C;
+  --series-5: #4A3AA7;
+  --series-6: #EB6834;
+
   --r-card:  24px;
   --r-input: 18px;
   --r-pill:  999px;

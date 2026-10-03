@@ -3,6 +3,7 @@ import type { Answer } from '../lib/query';
 import { DATA_COLORS, FALLBACK_COLOR, sourceLineFor } from '../lib/query';
 import { formatN, formatPct } from '../lib/format';
 import { truncate, wrapText } from '../lib/wrap';
+import { readingNotes } from '../lib/notes';
 
 /**
  * Signaturen.
@@ -140,16 +141,8 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
    * det är kortet som lämnar appen: i en exporterad bild finns ingenting
    * runtomkring som förklarar varför staplarna inte får läggas ihop.
    */
-  const notes: string[] = [];
-  // Bara på totalnivå är raderna frågans svarsalternativ. Med en nedbrytning
-  // är de segment, och då handlar summan om något som inte syns i bilden.
-  const showsSum = Boolean(shape) && segmentGroup === 'TOTALT';
-  if (shape && showsSum) {
-    const pct = Math.round(shape.sum * 100);
-    notes.push(shape.exclusive
-      ? `Ett svar per person — alternativen utesluter varandra och summerar till ${pct} %`
-      : `Alternativen kan inte läggas ihop — de summerar till ${pct} %`);
-  }
+  const showsSum = segmentGroup === 'TOTALT';
+  const notes = readingNotes({ shape, showsSum, hasNettoRow, hasSmallBase, weighted });
   if (hasNettoRow) {
     // Netto-raderna ligger utanför summan ovan. Utan den upplysningen kan man
     // försöka lägga ihop alla staplar på kortet och landa på 300 %.

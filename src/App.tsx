@@ -9,6 +9,9 @@ import { allGroups, axesFor, bestObject, groupOf, resolve, selectionFor, type Qu
 import { examplesFor, questionsInTopic } from './lib/labels';
 import { axesOf, axisOf, genderOf, groupFor } from './lib/segments';
 import { fromSearch, toSearch, type UrlState } from './lib/url';
+import { resolveModule, type Module } from './lib/dashboard';
+import { decodeModules, encodeModules, loadModules, newId, saveModules } from './lib/dashboardStore';
+import { DashboardGrid } from './components/DashboardGrid';
 import { YearPicker } from './components/YearPicker';
 import { SearchField } from './components/SearchField';
 import { Hits, type Hit } from './components/Hits';
@@ -64,6 +67,13 @@ export function App() {
   // Sätts när ett tillstånd just lästs ur adressfältet, så att effekten
   // nedan inte skriver tillbaka det och skapar en ändlös loop.
   const skipPush = useRef(false);
+  // Dashboarden. Arbetskopian ligger i localStorage; delning går via länk.
+  const [mode, setMode] = useState<'fraga' | 'dashboard'>('fraga');
+  const [modules, setModules] = useState<Module[]>(() => loadModules());
+  const [editingGrid, setEditingGrid] = useState(false);
+  /** Satt när frågevyn används för att ändra en befintlig modul. */
+  const [editingModule, setEditingModule] = useState<string | null>(null);
+
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const cardRef = useRef<SVGSVGElement>(null);
@@ -221,8 +231,17 @@ export function App() {
     setView({ kind: 'idle' });
   }, [year]);
 
+  useEffect(() => { saveModules(modules); }, [modules]);
+
   // Sidladdning: en delad länk ska öppna sitt svar, inte startsidan.
   useEffect(() => {
+    const delad = new URLSearchParams(window.location.search).get('d');
+    if (delad) {
+      // En delad dashboard ersätter arbetskopian. Att smälta samman två
+      // uppsättningar hade gett en tredje som ingen bett om.
+      const inkomna = decodeModules(delad);
+      if (inkomna.length) { setModules(inkomna); setMode('dashboard'); return; }
+    }
     if (window.location.search) applyUrl(fromSearch(window.location.search));
     // Avsiktligt bara vid montering.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -327,6 +346,76 @@ export function App() {
     setSegments(availableSegments(year, question, next).filter((s) => kept.includes(s.label)).map((s) => s.id));
   }
 
+  /** Bygger en modul av det urval frågevyn visar just nu. */
+  function moduleFromAnswer(id: string): Module | null {
+    if (!answer) return null;
+    const labels = segments
+      .map((sid) => segmentOptions.find((s) => s.id === sid)?.label)
+      .filter((l): l is string => Boolean(l));
+    return {
+      id,
+      questionId: answer.question.id,
+      options: answer.selectedOptions,
+      axis: activeAxis,
+      // "Alla" är axeln utan könssuffix och lagras som tom lista.
+      genders: activeGender === 'Alla' ? [] : [activeGender],
+      segments: labels,
+      chart: 'bar',
+      span: 1,
+    };
+  }
+
+  function addToDashboard() {
+    const m = moduleFromAnswer(newId());
+    if (!m) return;
+    setModules((xs) => [...xs, m]);
+    setNotice('Lagt till i dashboarden.');
+  }
+
+  function saveEdit() {
+    if (!editingModule) return;
+    const m = moduleFromAnswer(editingModule);
+    if (!m) return;
+    setModules((xs) => xs.map((x) => (x.id === editingModule
+      // Form, bredd, rubrik och könsurval hör till modulen, inte till
+      // frågevyn — de ska överleva att urvalet ändras.
+      ? { ...m, chart: x.chart, span: x.span, title: x.title, genders: x.genders }
+      : x)));
+    setEditingModule(null);
+    setMode('dashboard');
+  }
+
+  /** Öppnar en modul i frågevyn för att ändra dess urval. */
+  function editModule(m: Module) {
+    const g = groupOf(year, m.questionId);
+    if (!g) return;
+    setEditingModule(m.id);
+    setMode('fraga');
+    const groups = [TOTAL_GROUP, ...(getQuestionGroups(m) ?? [])];
+    applyUrl({
+      questionId: m.questionId,
+      segmentGroup: groupFor(groups, m.axis, m.genders[0] ?? 'Alla') ?? TOTAL_GROUP,
+      options: m.options,
+      segments: [],
+    });
+  }
+
+  function getQuestionGroups(m: Module): string[] | null {
+    const g = groupOf(year, m.questionId);
+    if (!g) return null;
+    return resolve(g, selectionFor(year, m.questionId)).segment_groups;
+  }
+
+  async function copyShareLink() {
+    const url = `${window.location.origin}${window.location.pathname}?d=${encodeModules(modules)}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setNotice('Delningslänk kopierad.');
+    } catch {
+      setNotice(url);
+    }
+  }
+
   function chooseTopic(id: string | null) {
     setTopic(id);
     setQuery('');
@@ -370,166 +459,230 @@ export function App() {
     <main className="page">
       <div className="masthead-row">
         <p className="masthead">Fråga Svenskarna</p>
-        {/* Visas av sig själv igen så fort datasetet har mer än en årgång. */}
-        {YEARS.length > 1 && <YearPicker years={YEARS} active={year} onSelect={chooseYear} />}
+        <div className="modes">
+          <button type="button" className="pill" aria-pressed={mode === 'fraga'}
+            onClick={() => setMode('fraga')}>Fråga</button>
+          <button type="button" className="pill" aria-pressed={mode === 'dashboard'}
+            onClick={() => { setMode('dashboard'); setEditingModule(null); }}>
+            Dashboard {modules.length > 0 && <span className="pill__count">{modules.length}</span>}
+          </button>
+          {/* Visas av sig själv igen så fort datasetet har mer än en årgång. */}
+          {YEARS.length > 1 && <YearPicker years={YEARS} active={year} onSelect={chooseYear} />}
+        </div>
       </div>
 
-      <SearchField
-        value={query}
-        onChange={reset}
-        onSubmit={ask}
-        busy={busy}
-        canSubmit={query.trim().length > 1}
-      />
-
-      {notice && <p className="error" role="status">{notice}</p>}
-
-      {view.kind !== 'selected' && !query.trim() && (
-        <section className="empty">
-          <p>
-            {allGroups(year).length} frågor ur {datasetFor(year).meta.source}, nedbrutna på{' '}
-            {datasetFor(year).segments.length} segment. Skriv en fråga, eller välj ett ämne.
-          </p>
-          <Topics year={year} active={topic} onSelect={chooseTopic} />
-
-          {/* Rapportens egna avsnittsrubriker. Det är så Internetstiftelsen
-              formulerar sig om materialet, och ungefär så en journalist
-              skulle söka i det. */}
-          <ul className="empty__examples">
-            {examplesFor(year, topic, answerable).map((e) => (
-              <li key={e.text}>
-                <button type="button" className="empty__example" onClick={() => reset(e.text)}>
-                  {e.text}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {view.kind !== 'selected' && weakMatch && (
-        <p className="weak" role="status">
-          Ingen tydlig träff på ”{query.trim()}” i {year}. Det här ligger närmast.
-        </p>
-      )}
-
-      {view.kind !== 'selected' && (
-        <Hits
-          hits={hits}
-          activeId={null}
-          /* Fråge-id:t följer med, så att den variant raden visade är den som
-             öppnas. Ett gissat objekt ur söktexten kunde peka åt annat håll. */
-          onSelect={(h) => select(h.group, query, h.matched ? { questionId: h.question.id } : undefined)}
-          label="Frågor i undersökningen"
-        />
-      )}
-
-      {view.kind === 'no_match' && (
-        <NoMatch
-          query={view.query}
-          suggestions={view.suggestions}
-          onSelect={(h) => select(h.group, view.query, { questionId: h.question.id })}
-        />
-      )}
-
-      {answer && group && (
-        <>
-          {/* Svaret först. Väljarna låg tidigare mellan sökfältet och kortet,
-              så man fick scrolla förbi fem rader kontroller för att se
-              siffran man just bett om. Nu står talet överst och justeringen
-              under: läs först, förfina sedan. */}
-          <div className="card-wrap">
-            {/* Samma nod renderas på skärmen och serialiseras vid export. */}
-            <AnswerCard ref={cardRef} answer={answer} year={year} />
-            <div className="card-actions">
-              <button type="button" className="button" onClick={() => download('png')}>Ladda ner PNG</button>
-              <button type="button" className="button" onClick={() => download('svg')}>Ladda ner SVG</button>
+      {mode === 'dashboard' ? (
+        <section className="dash">
+          <div className="dash__bar">
+            <p className="dash__count label">
+              {modules.length === 0 ? 'Inga moduler än' : `${modules.length} moduler`}
+            </p>
+            <div className="dash__actions">
+              <button type="button" className="pill" aria-pressed={editingGrid}
+                onClick={() => setEditingGrid((e) => !e)}>
+                {editingGrid ? 'Klar' : 'Redigera'}
+              </button>
+              <button type="button" className="pill" disabled={!modules.length} onClick={copyShareLink}>
+                Kopiera delningslänk
+              </button>
             </div>
           </div>
 
-          {adjustable && (
-          <section className="controls" aria-label="Justera svaret">
-            <p className="controls__head">Justera svaret ovan</p>
-
-            {/* Bas och frekvens pekar ut vilken tabell som slås upp. Basen är
-                inte en detalj: samma fråga på olika baser ger olika andelar. */}
-            <Pills
-              label="Bas"
-              items={(axes?.bases ?? group.bases).map((b) => ({ id: b, label: b }))}
-              selected={[base ?? (axes?.bases ?? group.bases)[0]]}
-              onChange={(next) => setBase(next[0] ?? null)}
-              maxVisible={6}
+          {modules.length === 0 ? (
+            <p className="dash__empty">
+              Sök fram ett svar under Fråga och tryck <strong>Lägg till i dashboard</strong>.
+              Varje modul slås upp på nytt ur datasetet varje gång den ritas — en delad
+              dashboard kan inte innehålla ett tal som inte finns i bilagan.
+            </p>
+          ) : (
+            <DashboardGrid
+              modules={modules}
+              resolve={(m) => resolveModule(year, m)}
+              year={year}
+              editing={editingGrid}
+              onReorder={setModules}
+              onChange={(next) => setModules((xs) => xs.map((x) => (x.id === next.id ? next : x)))}
+              onRemove={(id) => setModules((xs) => xs.filter((x) => x.id !== id))}
+              onEdit={editModule}
             />
-            {group.objects.length > 1 && (
+          )}
+        </section>
+      ) : (
+        <>
+        {editingModule && (
+          <p className="dash__editing" role="status">
+            Ändrar en modul i dashboarden. Välj om urvalet och spara.
+          </p>
+        )}
+        <SearchField
+          value={query}
+          onChange={reset}
+          onSubmit={ask}
+          busy={busy}
+          canSubmit={query.trim().length > 1}
+        />
+
+        {notice && <p className="error" role="status">{notice}</p>}
+
+        {view.kind !== 'selected' && !query.trim() && (
+          <section className="empty">
+            <p>
+              {allGroups(year).length} frågor ur {datasetFor(year).meta.source}, nedbrutna på{' '}
+              {datasetFor(year).segments.length} segment. Skriv en fråga, eller välj ett ämne.
+            </p>
+            <Topics year={year} active={topic} onSelect={chooseTopic} />
+
+            {/* Rapportens egna avsnittsrubriker. Det är så Internetstiftelsen
+                formulerar sig om materialet, och ungefär så en journalist
+                skulle söka i det. */}
+            <ul className="empty__examples">
+              {examplesFor(year, topic, answerable).map((e) => (
+                <li key={e.text}>
+                  <button type="button" className="empty__example" onClick={() => reset(e.text)}>
+                    {e.text}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {view.kind !== 'selected' && weakMatch && (
+          <p className="weak" role="status">
+            Ingen tydlig träff på ”{query.trim()}” i {year}. Det här ligger närmast.
+          </p>
+        )}
+
+        {view.kind !== 'selected' && (
+          <Hits
+            hits={hits}
+            activeId={null}
+            /* Fråge-id:t följer med, så att den variant raden visade är den som
+               öppnas. Ett gissat objekt ur söktexten kunde peka åt annat håll. */
+            onSelect={(h) => select(h.group, query, h.matched ? { questionId: h.question.id } : undefined)}
+            label="Frågor i undersökningen"
+          />
+        )}
+
+        {view.kind === 'no_match' && (
+          <NoMatch
+            query={view.query}
+            suggestions={view.suggestions}
+            onSelect={(h) => select(h.group, view.query, { questionId: h.question.id })}
+          />
+        )}
+
+        {answer && group && (
+          <>
+            {/* Svaret först. Väljarna låg tidigare mellan sökfältet och kortet,
+                så man fick scrolla förbi fem rader kontroller för att se
+                siffran man just bett om. Nu står talet överst och justeringen
+                under: läs först, förfina sedan. */}
+            <div className="card-wrap">
+              {/* Samma nod renderas på skärmen och serialiseras vid export. */}
+              <AnswerCard ref={cardRef} answer={answer} year={year} />
+              <div className="card-actions">
+                {editingModule ? (
+                  <>
+                    <button type="button" className="button button--primary" onClick={saveEdit}>Spara modulen</button>
+                    <button type="button" className="button"
+                      onClick={() => { setEditingModule(null); setMode('dashboard'); }}>Avbryt</button>
+                  </>
+                ) : (
+                  <button type="button" className="button button--primary" onClick={addToDashboard}>
+                    Lägg till i dashboard
+                  </button>
+                )}
+                <button type="button" className="button" onClick={() => download('png')}>Ladda ner PNG</button>
+                <button type="button" className="button" onClick={() => download('svg')}>Ladda ner SVG</button>
+              </div>
+            </div>
+
+            {adjustable && (
+            <section className="controls" aria-label="Justera svaret">
+              <p className="controls__head">Justera svaret ovan</p>
+
+              {/* Bas och frekvens pekar ut vilken tabell som slås upp. Basen är
+                  inte en detalj: samma fråga på olika baser ger olika andelar. */}
               <Pills
-                label={group.objectLabel ?? 'Val'}
-                items={group.objects.map((o) => ({ id: o, label: o }))}
-                selected={object ? [object] : []}
-                onChange={(next) => { setObject(next[0] ?? null); setBase(null); }}
+                label="Bas"
+                items={(axes?.bases ?? group.bases).map((b) => ({ id: b, label: b }))}
+                selected={[base ?? (axes?.bases ?? group.bases)[0]]}
+                onChange={(next) => setBase(next[0] ?? null)}
+                maxVisible={6}
+              />
+              {group.objects.length > 1 && (
+                <Pills
+                  label={group.objectLabel ?? 'Val'}
+                  items={group.objects.map((o) => ({ id: o, label: o }))}
+                  selected={object ? [object] : []}
+                  onChange={(next) => { setObject(next[0] ?? null); setBase(null); }}
+                  maxVisible={8}
+                />
+              )}
+              <Pills
+                label="Hur ofta"
+                items={(axes?.frequencies ?? group.frequencies).map((f) => ({ id: f, label: f }))}
+                selected={frequency ? [frequency] : []}
+                onChange={(next) => setFrequency(next[0] ?? null)}
+              />
+
+              <Dropdown
+                label="Visa per"
+                options={[
+                  { id: TOTAL_GROUP, label: 'Ingen nedbrytning — visa totalt' },
+                  ...segmentAxes.map((a) => ({ id: a.axis, label: a.axis })),
+                ]}
+                value={activeAxis}
+                onChange={(axis) => chooseAxis(axis, answer.question)}
+              />
+
+              {/* Bara för de åtta axlar bilagan faktiskt korsar med kön. Att
+                  erbjuda valet där det inte finns vore att lova data som inte
+                  går att slå upp. */}
+              {genders.length > 1 && (
+                <Pills
+                  label="Kön"
+                  items={genders.map((g) => ({ id: g, label: g }))}
+                  selected={[activeGender]}
+                  onChange={(next) => next[0] && chooseGender(next[0], answer.question)}
+                />
+              )}
+
+              <Pills
+                label="Svarsalternativ"
+                items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
+                selected={answer.selectedOptions}
+                onChange={(next) =>
+                  setOptions(next.length || answer.segmentGroup === TOTAL_GROUP ? next : [defaultOption(answer.question)])
+                }
+                multi
+                /* "Alla" går bara att erbjuda på totalnivå. Med en nedbrytning
+                   skulle tjugo alternativ gånger tio segment bli tvåhundra
+                   staplar, så där måste minst ett alternativ vara valt. */
+                allLabel={answer.segmentGroup === TOTAL_GROUP ? 'Alla svarsalternativ' : undefined}
                 maxVisible={8}
               />
+
+              {segmentOptions.length > 0 && (
+                <Pills
+                  /* Axeln, inte hela gruppnamnet: "ÅLDERSGRUPPER - KVINNOR"
+                     upprepar könsväljaren två rader upp. Kortet behåller det
+                     fullständiga namnet — det måste stå för sig självt i en
+                     exporterad bild. */
+                  label={axisOf(answer.segmentGroup)}
+                  items={segmentOptions.map((s) => ({ id: s.id, label: s.label }))}
+                  selected={segments}
+                  onChange={setSegments}
+                  multi
+                  allLabel="Alla"
+                  maxVisible={10}
+                />
+              )}
+            </section>
             )}
-            <Pills
-              label="Hur ofta"
-              items={(axes?.frequencies ?? group.frequencies).map((f) => ({ id: f, label: f }))}
-              selected={frequency ? [frequency] : []}
-              onChange={(next) => setFrequency(next[0] ?? null)}
-            />
-
-            <Dropdown
-              label="Visa per"
-              options={[
-                { id: TOTAL_GROUP, label: 'Ingen nedbrytning — visa totalt' },
-                ...segmentAxes.map((a) => ({ id: a.axis, label: a.axis })),
-              ]}
-              value={activeAxis}
-              onChange={(axis) => chooseAxis(axis, answer.question)}
-            />
-
-            {/* Bara för de åtta axlar bilagan faktiskt korsar med kön. Att
-                erbjuda valet där det inte finns vore att lova data som inte
-                går att slå upp. */}
-            {genders.length > 1 && (
-              <Pills
-                label="Kön"
-                items={genders.map((g) => ({ id: g, label: g }))}
-                selected={[activeGender]}
-                onChange={(next) => next[0] && chooseGender(next[0], answer.question)}
-              />
-            )}
-
-            <Pills
-              label="Svarsalternativ"
-              items={answer.optionLabels.map((l) => ({ id: l, label: l }))}
-              selected={answer.selectedOptions}
-              onChange={(next) =>
-                setOptions(next.length || answer.segmentGroup === TOTAL_GROUP ? next : [defaultOption(answer.question)])
-              }
-              multi
-              /* "Alla" går bara att erbjuda på totalnivå. Med en nedbrytning
-                 skulle tjugo alternativ gånger tio segment bli tvåhundra
-                 staplar, så där måste minst ett alternativ vara valt. */
-              allLabel={answer.segmentGroup === TOTAL_GROUP ? 'Alla svarsalternativ' : undefined}
-              maxVisible={8}
-            />
-
-            {segmentOptions.length > 0 && (
-              <Pills
-                /* Axeln, inte hela gruppnamnet: "ÅLDERSGRUPPER - KVINNOR"
-                   upprepar könsväljaren två rader upp. Kortet behåller det
-                   fullständiga namnet — det måste stå för sig självt i en
-                   exporterad bild. */
-                label={axisOf(answer.segmentGroup)}
-                items={segmentOptions.map((s) => ({ id: s.id, label: s.label }))}
-                selected={segments}
-                onChange={setSegments}
-                multi
-                allLabel="Alla"
-                maxVisible={10}
-              />
-            )}
-          </section>
-          )}
+          </>
+        )}
         </>
       )}
     </main>
