@@ -360,8 +360,11 @@ export function App() {
       // "Alla" är axeln utan könssuffix och lagras som tom lista.
       genders: activeGender === 'Alla' ? [] : [activeGender],
       segments: labels,
-      chart: 'bar',
-      span: 1,
+      // Figurerna är formen som visar vad en andel är en andel AV, så de är
+      // förvalet när datan bär dem. resolveModule faller tillbaka på staplar
+      // när den inte gör det.
+      chart: 'folk',
+      span: 2,
     };
   }
 

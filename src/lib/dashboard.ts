@@ -24,7 +24,16 @@ import { titleFor } from './concepts';
  * stapel som alltid går till samma plats säger ingenting som siffran inte
  * redan sagt.
  */
-export type ChartKind = 'tal' | 'bar' | 'grouped' | 'line' | 'donut';
+export type ChartKind = 'tal' | 'bar' | 'grouped' | 'line' | 'donut' | 'folk';
+
+/** En uppslagningsbana: ett segment inom ett kön. */
+export interface Lane {
+  gender: string;
+  id: string;
+  label: string;
+  /** Antal intervjuer i cellen. Bär sammansättningen. */
+  n: number;
+}
 
 export interface Module {
   id: string;
@@ -86,6 +95,13 @@ export interface ModuleData {
   chart: ChartKind;
   /** Satt när önskad form inte gick att rita, med skälet. */
   fallback?: string;
+  /** Alla (kön, segment)-celler som slogs upp, med sina n. */
+  lanes: Lane[];
+  /**
+   * Summerar banornas n till basen? Bara då beskriver de en hel befolkning
+   * och går att fördela figurer efter.
+   */
+  partitions: boolean;
   /**
    * Könsvarianter axeln erbjuder. Modulen är enda stället där flera kan
    * visas samtidigt — frågevyn slår upp en grupp i taget, och "män mot
@@ -175,6 +191,35 @@ export function resolveModule(year: number, module: Module): ModuleData | null {
   }
   if (!lanes.length) lanes.push({ gender: 'Alla', segments: [{ id: 'totalt', label: 'Totalt' }] });
 
+  /**
+   * Partitionerar banorna basen?
+   *
+   * Bara då beskriver de en hel befolkning, och bara då går det att ställa
+   * hundra figurer och säga vad var och en är. Två fällor:
+   *
+   *  - Summeringskolumner. GENERATION rymmer både åtta decennier OCH "Född
+   *    på 1900-talet" och "Född på 2000-talet", som är summor av dem. Rakt
+   *    adderat blir gruppen dubbelt så stor som basen, och testet fäller den.
+   *  - Könade grupper. "GENERATION - MÄN" kan aldrig ensam vara hela basen.
+   *    Ett ensamt kön avvisas därför oavsett vad talen säger — annars hade
+   *    just den gruppens summeringskolumner råkat träffa basen och sluppit
+   *    igenom.
+   */
+  const flatLanes = lanes.flatMap((lane) =>
+    lane.segments.map((s) => ({
+      gender: lane.gender,
+      id: s.id,
+      label: s.label,
+      n: question.options[0]?.values[s.id]?.n ?? 0,
+    })));
+  const baseCount = question.options[0]?.values['totalt']?.n ?? 0;
+  const laneSum = flatLanes.reduce((a, l) => a + l.n, 0);
+  const bothGenders = genders.length > 1 || genders[0] === 'Alla';
+  const partitions = module.axis !== TOTAL_GROUP
+    && bothGenders
+    && baseCount > 0
+    && Math.abs(laneSum - baseCount) / baseCount <= 0.02;
+
   const valueAt = (optionLabel: string, segmentId: string): SegmentValue =>
     question.options.find((o) => o.label === optionLabel)?.values[segmentId] ?? MISSING;
 
@@ -239,6 +284,16 @@ export function resolveModule(year: number, module: Module): ModuleData | null {
     && categories.filter((c) => !isNetto(c)).length <= MAX_DONUT_SLICES
   ) allowed.push('donut');
 
+  /**
+   * Figurerna kräver att de hundra går att dela upp exakt. Det gör de när
+   * frågan är uteslutande, när bilagan själv nästlat alternativen, eller när
+   * ett enda alternativ är valt och resten av basen är "inte det". Annars
+   * hade figurerna fått stå i flera ytor samtidigt, och en person kan inte
+   * det.
+   */
+  const nestedForm = question.options.some((o) => /^andel användare/i.test(o.label));
+  if (shape?.exclusive || nestedForm || options.length === 1) allowed.push('folk');
+
   let chart = module.chart;
   let fallback: string | undefined;
   if (!allowed.includes(chart)) {
@@ -276,6 +331,8 @@ export function resolveModule(year: number, module: Module): ModuleData | null {
     allowed,
     chart,
     fallback,
+    lanes: flatLanes,
+    partitions,
     availableGenders: axesOf(groups).find((a) => a.axis === module.axis)?.genders ?? [],
   };
 }
@@ -296,6 +353,8 @@ function reasonFor(
         : `En linje påstår en väg mellan punkterna. ${ctx.axis.toLowerCase()} har ingen ordning.`;
     case 'grouped':
       return 'Grupperade staplar kräver mer än en serie.';
+    case 'folk':
+      return 'Figurerna delar upp hundra personer exakt. Det kräver en uteslutande fråga, bilagans nästlade form, eller ett enda valt svarsalternativ — annars skulle samma person behöva stå i två ytor.';
     default:
       return 'Formen går inte att rita på det här urvalet.';
   }

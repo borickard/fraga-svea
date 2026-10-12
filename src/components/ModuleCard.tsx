@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import type { ChartKind, Module, ModuleData } from '../lib/dashboard';
 import { Chart, colorOf } from './Chart';
+import { People } from './People';
 import { useWidth } from '../lib/useWidth';
 import { readingNotes } from '../lib/notes';
 import { formatN, formatPct } from '../lib/format';
 import { sourceLineFor } from '../lib/query';
 
 const KIND_LABEL: Record<ChartKind, string> = {
-  tal: 'Tal', bar: 'Staplar', grouped: 'Grupperat', line: 'Linje', donut: 'Ring',
+  tal: 'Tal', bar: 'Staplar', grouped: 'Grupperat', line: 'Linje', donut: 'Ring', folk: 'Folk',
 };
 
 interface Props {
@@ -36,8 +37,14 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
 
   const notes = readingNotes({
     shape: data.shape,
-    // Summan betyder något bara när x-axeln är frågans svarsalternativ.
-    showsSum: data.categories.length > 1 && data.series.length >= 1 && data.module.options.length !== 1,
+    /*
+     * Summan betyder något bara när x-axeln är frågans svarsalternativ.
+     * I figurvyn gör den aldrig det: banden där är disjunkta och summerar
+     * till hundra per konstruktion, och "kan inte läggas ihop — 182 %"
+     * bredvid hundra figurer som just lagts ihop motsäger bilden.
+     */
+    showsSum: data.chart !== 'folk'
+      && data.categories.length > 1 && data.series.length >= 1 && data.module.options.length !== 1,
     hasNettoRow: data.hasNettoRow,
     hasSmallBase: data.hasSmallBase,
     weighted: data.question.n_basis === 'viktade_intervjuer',
@@ -63,6 +70,8 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
           </p>
         ) : table ? (
           <ModuleTable data={data} />
+        ) : data.chart === 'folk' ? (
+          <People data={data} width={width} />
         ) : (
           <Chart data={data} width={width} />
         )}
@@ -81,7 +90,7 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
       {editing && (
         <div className="module__tools">
           <div className="module__kinds">
-            {(['tal', 'bar', 'grouped', 'line', 'donut'] as ChartKind[]).map((k) => {
+            {(['tal', 'bar', 'grouped', 'line', 'donut', 'folk'] as ChartKind[]).map((k) => {
               const ok = data.allowed.includes(k);
               return (
                 <button
