@@ -669,27 +669,55 @@ body {
 .folk { position: relative; }
 
 /*
- * Figurerna flyttas med transform, aldrig med x/y. Transform animeras av
- * sammansättaren och klarar hundra figurer samtidigt; x/y gör det inte.
+ * Rörelsen i två lager.
+ *
+ * Yttre gruppen flyttar i sidled, figuren i höjdled, med olika tidskurvor.
+ * En gemensam transform hade gett en rak linje tvärs över ytorna; med skilda
+ * kurvor bågnar banan, och en människa som byter yta går runt i stället för
+ * rakt igenom. Fördröjningen per figur gör att folkmassan rör sig som en
+ * massa och inte som ett block.
  */
-.folk__fig {
-  transition: transform 620ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 320ms ease;
-  animation: folk-in 420ms cubic-bezier(0.22, 0.8, 0.2, 1) both;
-  transform-box: fill-box;
+.folk__x {
+  /* Sidled: lugn in- och utbromsning. */
+  transition: transform 760ms cubic-bezier(0.7, 0, 0.3, 1);
+}
+.folk__y {
+  /* Höjdled: nästan klar vid halva tiden. Vid t = 0,5 har figuren rört sig
+     halva vägen i sidled men nio tiondelar i höjdled, och banan bågnar
+     tydligt i stället för att bli en diagonal. */
+  transition: transform 760ms cubic-bezier(0.05, 0.9, 0.15, 1), opacity 320ms ease;
+  animation: folk-in 520ms cubic-bezier(0.22, 0.8, 0.2, 1) both;
 }
 @keyframes folk-in {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-/* Upplösning: figuren bleknar på plats i stället för att bara tas bort. */
-.folk__fig--gone {
+/* Upplösning: figuren bleknar där den stod i stället för att bara tas bort. */
+.folk__gone {
   opacity: 0;
-  animation: none;
-  transition: opacity 420ms ease;
+  transition: opacity 560ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .folk__fig { transition: none; animation: none; }
+  .folk__x, .folk__y { transition: none; animation: none; }
+}
+
+/* Ytornas namn står i en lista under bilden. På konturerna fick bara talet
+   plats, och bilagans bandnamn är upp till sextio tecken långa. */
+.folk__fields {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+.folk__fields-n {
+  display: inline-block;
+  min-width: 26px;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .folk__note {
