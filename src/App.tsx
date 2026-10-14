@@ -13,6 +13,8 @@ import { resolveModule, type Module } from './lib/dashboard';
 import { decodeModules, encodeModules, loadModules, newId, saveModules } from './lib/dashboardStore';
 import { DashboardGrid } from './components/DashboardGrid';
 import { People } from './components/People';
+import { Divides } from './components/Divides';
+import type { Finding } from './lib/divides';
 import { Provenance } from './components/Provenance';
 import { useWidth } from './lib/useWidth';
 import { YearPicker } from './components/YearPicker';
@@ -71,7 +73,7 @@ export function App() {
   // nedan inte skriver tillbaka det och skapar en ändlös loop.
   const skipPush = useRef(false);
   // Dashboarden. Arbetskopian ligger i localStorage; delning går via länk.
-  const [mode, setMode] = useState<'fraga' | 'dashboard'>('fraga');
+  const [mode, setMode] = useState<'fraga' | 'dashboard' | 'skiljelinjer'>('fraga');
   const [modules, setModules] = useState<Module[]>(() => loadModules());
   const [editingGrid, setEditingGrid] = useState(false);
   /** Satt när frågevyn används för att ändra en befintlig modul. */
@@ -435,6 +437,17 @@ export function App() {
     }
   }
 
+  /** Ett fynd öppnas som en vanlig fråga, med polerna redan valda. */
+  function openFinding(f: Finding) {
+    setMode('fraga');
+    applyUrl({
+      questionId: f.question.id,
+      segmentGroup: f.group,
+      options: [f.option],
+      segments: [f.high.segmentId, f.low.segmentId],
+    });
+  }
+
   function chooseTopic(id: string | null) {
     setTopic(id);
     setQuery('');
@@ -501,6 +514,8 @@ export function App() {
         <div className="modes">
           <button type="button" className="pill" aria-pressed={mode === 'fraga'}
             onClick={() => setMode('fraga')}>Fråga</button>
+          <button type="button" className="pill" aria-pressed={mode === 'skiljelinjer'}
+            onClick={() => { setMode('skiljelinjer'); setEditingModule(null); }}>Skiljelinjer</button>
           <button type="button" className="pill" aria-pressed={mode === 'dashboard'}
             onClick={() => { setMode('dashboard'); setEditingModule(null); }}>
             Dashboard {modules.length > 0 && <span className="pill__count">{modules.length}</span>}
@@ -510,7 +525,9 @@ export function App() {
         </div>
       </div>
 
-      {mode === 'dashboard' ? (
+      {mode === 'skiljelinjer' ? (
+        <Divides year={year} onOpen={openFinding} />
+      ) : mode === 'dashboard' ? (
         <section className="dash">
           <div className="dash__bar">
             <p className="dash__count label">

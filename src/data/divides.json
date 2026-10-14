@@ -1,0 +1,32 @@
+{
+  "_kommentar": [
+    "Skiljelinjer: var materialet delar sig mest längs en axel.",
+    "Handskriven fil — redigera fritt.",
+    "",
+    "axlar är de segmentgrupper det är meningsfullt att söka skillnader i.",
+    "Könade varianter (ÅLDERSGRUPPER - MÄN) utelämnas: de är samma axel med",
+    "ett filter, och hör hemma i frågevyns könsväljare.",
+    "",
+    "uteslutna är bilagans egna bakgrundsfrågor. De handlar om respondenten",
+    "och inte om internet, och mot inkomst- eller politikaxeln ger de bara",
+    "tautologier: att höginkomsttagare oftare kallar sig tjänstemän är ingen",
+    "upptäckt om svenskarnas internetvanor."
+  ],
+  "axlar": [
+    { "grupp": "KÖN", "etikett": "Kön" },
+    { "grupp": "ÅLDERSGRUPPER", "etikett": "Ålder" },
+    { "grupp": "GENERATION", "etikett": "Generation" },
+    { "grupp": "UTBILDNINGSNIVÅ", "etikett": "Utbildning" },
+    { "grupp": "HUSHÅLLSINKOMST", "etikett": "Hushållsinkomst" },
+    { "grupp": "POLITISK ÅSKÅDNING", "etikett": "Politisk åskådning" },
+    { "grupp": "STAD/LANDSBYGD", "etikett": "Stad och landsbygd" },
+    { "grupp": "GEOGRAFI", "etikett": "Landsdel" },
+    { "grupp": "SYSSELSÄTTNING", "etikett": "Sysselsättning" },
+    { "grupp": "CIVILSTÅND", "etikett": "Civilstånd" },
+    { "grupp": "HEMMABOENDE BARN", "etikett": "Hemmaboende barn" }
+  ],
+  "uteslutna": [
+    "Arbetar du inom offentlig, privat eller ideell sektor?",
+    "Skulle du säga att du är arbetare eller tjänsteman i din huvudsakliga yrkesroll?"
+  ]
+}
