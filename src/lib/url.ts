@@ -22,6 +22,8 @@ export interface UrlState {
   /** Tom lista betyder alla, precis som i appen. */
   options?: string[];
   segments?: string[];
+  /** Vilken vy svaret visas i. Utelämnad betyder kortet. */
+  view?: 'kort' | 'folk';
 }
 
 export function toSearch(state: UrlState, multipleYears: boolean): string {
@@ -31,6 +33,7 @@ export function toSearch(state: UrlState, multipleYears: boolean): string {
   if (state.questionId) {
     p.set('f', state.questionId);
     if (state.segmentGroup && state.segmentGroup !== 'TOTALT') p.set('per', state.segmentGroup);
+    if (state.view === 'folk') p.set('vy', 'folk');
     for (const o of state.options ?? []) p.append('alt', o);
     for (const s of state.segments ?? []) p.append('seg', s);
   } else {
@@ -53,5 +56,6 @@ export function fromSearch(search: string): UrlState {
     segmentGroup: p.get('per') ?? undefined,
     options: p.getAll('alt'),
     segments: p.getAll('seg'),
+    view: p.get('vy') === 'folk' ? 'folk' : undefined,
   };
 }

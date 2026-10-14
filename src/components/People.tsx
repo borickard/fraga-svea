@@ -40,7 +40,9 @@ const SCALES = [3, 2, 1];
  * med olika tidskurvor. Resultatet är en båge i stället för en rak linje —
  * en människa som byter yta går runt, inte tvärs igenom.
  */
-export function People({ data, width }: { data: ModuleData; width: number }) {
+export function People(
+  { data, width, svgRef }: { data: ModuleData; width: number; svgRef?: React.Ref<SVGSVGElement> },
+) {
   const people = buildPeople(data);
   const [ghosts, setGhosts] = useState<Figure[]>([]);
   const prev = useRef<Figure[]>([]);
@@ -121,6 +123,7 @@ export function People({ data, width }: { data: ModuleData; width: number }) {
   return (
     <div className="folk">
       <svg
+        ref={svgRef}
         width={Math.min(width, plan.width)} height={height * Math.min(1, width / plan.width)}
         viewBox={`0 0 ${plan.width} ${height}`} className="chart__svg" role="img"
         aria-label={`${data.title}. ${people.fields.map((f) => `${f.label}: ${f.count} av 100`).join('. ')}`}

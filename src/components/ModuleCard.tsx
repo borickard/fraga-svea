@@ -3,9 +3,8 @@ import type { ChartKind, Module, ModuleData } from '../lib/dashboard';
 import { Chart, colorOf } from './Chart';
 import { People } from './People';
 import { useWidth } from '../lib/useWidth';
-import { readingNotes } from '../lib/notes';
-import { formatN, formatPct } from '../lib/format';
-import { sourceLineFor } from '../lib/query';
+import { Provenance } from './Provenance';
+import { formatPct } from '../lib/format';
 
 const KIND_LABEL: Record<ChartKind, string> = {
   tal: 'Tal', bar: 'Staplar', grouped: 'Grupperat', line: 'Linje', donut: 'Ring', folk: 'Folk',
@@ -35,7 +34,7 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
   const [plotRef, width] = useWidth<HTMLDivElement>();
   const { module } = data;
 
-  const notes = readingNotes({
+  const notes = {
     shape: data.shape,
     /*
      * Summan betyder något bara när x-axeln är frågans svarsalternativ.
@@ -48,7 +47,7 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
     hasNettoRow: data.hasNettoRow,
     hasSmallBase: data.hasSmallBase,
     weighted: data.question.n_basis === 'viktade_intervjuer',
-  });
+  };
 
   const single = data.chart === 'tal' ? data.series[0]?.points[0] : null;
 
@@ -79,13 +78,10 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
 
       {data.fallback && <p className="module__fallback">{data.fallback}</p>}
 
-      <footer className="module__foot">
-        <p className="module__base label">
-          Bas: {data.question.base_label} · {data.nLabel} = {formatN(data.baseN)}
-        </p>
-        <p className="module__source label">{sourceLineFor(year)}</p>
-        {notes.map((n) => <p key={n} className="module__note label">{n}</p>)}
-      </footer>
+      <Provenance
+        baseLabel={data.question.base_label} nLabel={data.nLabel}
+        baseN={data.baseN} year={year} notes={notes}
+      />
 
       {editing && (
         <div className="module__tools">

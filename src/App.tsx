@@ -12,6 +12,9 @@ import { fromSearch, toSearch, type UrlState } from './lib/url';
 import { resolveModule, type Module } from './lib/dashboard';
 import { decodeModules, encodeModules, loadModules, newId, saveModules } from './lib/dashboardStore';
 import { DashboardGrid } from './components/DashboardGrid';
+import { People } from './components/People';
+import { Provenance } from './components/Provenance';
+import { useWidth } from './lib/useWidth';
 import { YearPicker } from './components/YearPicker';
 import { SearchField } from './components/SearchField';
 import { Hits, type Hit } from './components/Hits';
@@ -73,6 +76,18 @@ export function App() {
   const [editingGrid, setEditingGrid] = useState(false);
   /** Satt när frågevyn används för att ändra en befintlig modul. */
   const [editingModule, setEditingModule] = useState<string | null>(null);
+
+  /**
+   * Vilken vy svaret visas i.
+   *
+   * Figurvyn låg tidigare bara inuti dashboarden, tre klick och ett
+   * lägesbyte bort från där man landar. Formen som ska bära hela verktyget
+   * gick alltså inte att hitta. Valet ligger i adressfältet, så en delad
+   * länk öppnar samma vy som avsändaren såg.
+   */
+  const [answerView, setAnswerView] = useState<'kort' | 'folk'>('kort');
+  const [folkRef, folkWidth] = useWidth<HTMLDivElement>();
+  const folkSvg = useRef<SVGSVGElement>(null);
 
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -222,6 +237,7 @@ export function App() {
         setSegments((state.segments ?? []).filter((id) => available.some((s) => s.id === id)));
         setQuery('');
         setTopic(null);
+        setAnswerView(state.view === 'folk' ? 'folk' : 'kort');
         setView({ kind: 'selected', groupId: g.id });
         return;
       }
@@ -270,7 +286,7 @@ export function App() {
       view.kind === 'selected' && answer
         ? {
             year, questionId: answer.question.id, segmentGroup: answer.segmentGroup,
-            options: answer.selectedOptions, segments,
+            options: answer.selectedOptions, segments, view: answerView,
           }
         : { year, query, topic },
       YEARS.length > 1,
@@ -427,11 +443,13 @@ export function App() {
   }
 
   async function download(kind: 'png' | 'svg') {
-    if (!cardRef.current || !answer) return;
+    // Den vy som syns är den som laddas ner.
+    const node = answerView === 'folk' ? folkSvg.current : cardRef.current;
+    if (!node || !answer) return;
     const name = exportFilename(`${year}-${answer.question.id}`, answer.selectedOptions.join('-'), answer.segmentGroup);
     try {
-      if (kind === 'png') await exportPng(cardRef.current, name);
-      else await exportSvg(cardRef.current, name);
+      if (kind === 'png') await exportPng(node, name);
+      else await exportSvg(node, name);
     } catch (e) {
       setNotice(`Exporten misslyckades: ${(e as Error).message}`);
     }
@@ -449,6 +467,24 @@ export function App() {
   const genders = segmentAxes.find((a) => a.axis === activeAxis)?.genders ?? [];
   // Bas och frekvens beror på vilket objekt i klustret som är valt.
   const axes = group ? axesFor(group, { object }) : null;
+  /*
+   * Samma urval, läst som hundra personer. Byggs ur exakt samma modul som
+   * "Lägg till i dashboard" skapar, så vyn och den sparade modulen kan inte
+   * visa olika saker.
+   */
+  const folkData = useMemo(() => {
+    if (!answer) return null;
+    const labels = segments
+      .map((sid) => segmentOptions.find((s) => s.id === sid)?.label)
+      .filter((l): l is string => Boolean(l));
+    return resolveModule(year, {
+      id: 'live', questionId: answer.question.id, options: answer.selectedOptions,
+      axis: activeAxis, genders: activeGender === 'Alla' ? [] : [activeGender],
+      segments: labels, chart: 'folk', span: 2,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [year, answer, activeAxis, activeGender, segments, segmentOptions]);
+
   // Panelen heter "Justera svaret ovan". Finns inget att justera ska den inte
   // stå där och påstå motsatsen.
   const adjustable =
@@ -581,9 +617,43 @@ export function App() {
                 så man fick scrolla förbi fem rader kontroller för att se
                 siffran man just bett om. Nu står talet överst och justeringen
                 under: läs först, förfina sedan. */}
-            <div className="card-wrap">
-              {/* Samma nod renderas på skärmen och serialiseras vid export. */}
-              <AnswerCard ref={cardRef} answer={answer} year={year} />
+            {/* Vyväljaren står över svaret, inte i en meny. Figurerna är
+                verktygets egen form och ska gå att hitta utan att veta att
+                de finns. */}
+            <div className="answer-modes" role="group" aria-label="Visa svaret som">
+              <button type="button" className="pill" aria-pressed={answerView === 'kort'}
+                onClick={() => setAnswerView('kort')}>Kort</button>
+              <button type="button" className="pill" aria-pressed={answerView === 'folk'}
+                onClick={() => setAnswerView('folk')}>Hundra personer</button>
+            </div>
+
+            <div className="card-wrap" ref={folkRef}>
+              {answerView === 'folk' ? (
+                folkData?.chart === 'folk' ? (
+                  <div className="card-wrap__folk">
+                    <People data={folkData} width={folkWidth - 44} svgRef={folkSvg} />
+                    <Provenance
+                      baseLabel={answer.question.base_label}
+                      nLabel={answer.question.n_basis === 'viktade_intervjuer' ? 'Viktade intervjuer' : 'n'}
+                      baseN={answer.baseN} year={year}
+                      notes={{
+                        shape: answer.shape, showsSum: false,
+                        hasNettoRow: answer.hasNettoRow, hasSmallBase: answer.hasSmallBase,
+                        weighted: answer.question.n_basis === 'viktade_intervjuer',
+                      }}
+                    />
+                  </div>
+                ) : (
+                  /* Hellre säga varför än rita staplar under rubriken
+                     "hundra personer". */
+                  <p className="card-wrap__nope">
+                    {folkData?.fallback ?? 'Det här urvalet går inte att visa som personer.'}
+                  </p>
+                )
+              ) : (
+                /* Samma nod renderas på skärmen och serialiseras vid export. */
+                <AnswerCard ref={cardRef} answer={answer} year={year} />
+              )}
               <div className="card-actions">
                 {editingModule ? (
                   <>
