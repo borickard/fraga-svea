@@ -5,6 +5,7 @@ import { People } from './People';
 import { useWidth } from '../lib/useWidth';
 import { Provenance } from './Provenance';
 import { formatPct } from '../lib/format';
+import { missingLabel } from '../lib/query';
 
 const KIND_LABEL: Record<ChartKind, string> = {
   tal: 'Tal', bar: 'Staplar', grouped: 'Grupperat', line: 'Linje', donut: 'Ring', folk: 'Folk',
@@ -64,7 +65,9 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
       <div className="module__plot" ref={plotRef}>
         {single ? (
           <p className="module__hero">
-            {single.value.pct === null ? <span className="module__hero-none">ingen bas</span> : formatPct(single.value.pct)}
+            {single.value.pct === null
+              ? <span className="module__hero-none">{missingLabel(single.value)}</span>
+              : formatPct(single.value.pct)}
             <span className="module__hero-label">{data.series[0].label} · {single.label}</span>
           </p>
         ) : table ? (

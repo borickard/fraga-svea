@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { ModuleData } from '../lib/dashboard';
 import type { SegmentValue } from '../types';
 import { formatPct } from '../lib/format';
+import { missingLabel } from '../lib/query';
 import { truncate, wrapText } from '../lib/wrap';
 
 /**
@@ -66,7 +67,7 @@ export function Chart({ data, width }: Props) {
         <div className="chart__tip" style={{ left: hover.x, top: hover.y }} role="status">
           <strong>{hover.title}</strong>
           {hover.value.pct === null
-            ? 'ingen bas'
+            ? missingLabel(hover.value)
             : `${formatPct(hover.value.pct)} · n = ${hover.value.n}${hover.value.reliable ? '' : ' (liten bas)'}`}
         </div>
       )}

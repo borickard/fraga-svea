@@ -3,7 +3,20 @@
  * Allt lagras rått: pct är en andel 0–1, aldrig procent.
  */
 
-export type ValueReason = 'no_base' | 'missing' | 'not_numeric';
+export type ValueReason =
+  /** n = 0: segmentet finns inte i den här frågans bas. */
+  | 'no_base'
+  /**
+   * Kolumnen har en bas men inga värden.
+   *
+   * Bilagan skriver 0 i varenda svarsalternativ samtidigt som den redovisar
+   * ett antal intervjuer. För en fråga alla svarar på måste kolumnen bli
+   * 100 %, så en nolla överallt är ett hål i bilagan och inte ett mätresultat.
+   * 5 909 celler i 2026 och 7 321 i 2025 ser ut så.
+   */
+  | 'no_value'
+  | 'missing'
+  | 'not_numeric';
 
 export interface SegmentValue {
   /** Andel 0–1. null när värdet inte finns eller saknar bas. */

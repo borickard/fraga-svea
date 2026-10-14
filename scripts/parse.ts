@@ -80,7 +80,12 @@ interface ParsedCell { num: number | null; sig: string[]; issue?: 'not_numeric';
  * bygget i valideringen i stället för att tystas här.
  */
 const FLOAT_EPS = 1e-9;
+/** Under det här summerar en kolumn till noll även med avrundningsbrus. */
+const ZERO_COLUMN_EPS = 0.005;
+const NETTO_RE = /^\s*netto\b/i;
 let clamped = 0;
+/** Celler som nollställts till "ingen uppgift" av kolumnregeln nedan. */
+let noValueCells = 0;
 
 /**
  * Cellinnehållet är "Kolumn% Chi2": talet kan följas av signifikansbokstäver
@@ -307,6 +312,45 @@ function parseTable(grid: Grid, start: number, sheet: string): TableParseResult 
     return fail('Tabellen har noll svarsalternativ.', i + 1);
   }
 
+  /*
+   * Fälla 5: en kolumn kan ha bas men inga värden.
+   *
+   * Bilagan skriver då 0 i varenda svarsalternativ samtidigt som den
+   * redovisar ett antal intervjuer — till exempel män 16-25 år på
+   * kryptofrågan, där n är 181 och Ja, Nej och Vill ej svara alla är noll.
+   * Kvinnorna i samma band har riktiga tal. För en fråga alla svarar på
+   * måste kolumnen summera till 100 %, så noll överallt är ett hål och
+   * inte ett mätresultat.
+   *
+   * Testet gäller hela kolumnen, aldrig en enskild cell: ett ensamt
+   * nollvärde är ett fullgott mätresultat och ska stå kvar. Netto-raderna
+   * räknas inte med, eftersom de är sammanräkningar av de andra.
+   */
+  for (const { segment } of columns) {
+    let sum = 0;
+    let seen = 0;
+    for (const o of options) {
+      if (NETTO_RE.test(o.label)) continue;
+      const v = o.values[segment.id];
+      if (!v || v.pct === null) continue;
+      sum += v.pct;
+      seen++;
+    }
+    if (seen < 2 || sum > ZERO_COLUMN_EPS) continue;
+    let blanked = 0;
+    for (const o of options) {
+      const v = o.values[segment.id];
+      if (!v || v.pct === null) continue;
+      o.values[segment.id] = { pct: null, n: v.n, reliable: false, reason: 'no_value' };
+      blanked++;
+    }
+    if (blanked) {
+      noValueCells += blanked;
+      note('info', sheet, rowNo(start),
+        `Kolumnen "${segment.label}" (${segment.group}) har ${options[0].values[segment.id]?.n ?? 0} intervjuer men noll i alla svarsalternativ. Cellerna lämnas utan värde.`);
+    }
+  }
+
   const groups: string[] = [];
   for (const { segment } of columns) if (!groups.includes(segment.group)) groups.push(segment.group);
 
@@ -456,6 +500,10 @@ async function main() {
   mkdirSync(resolve(ROOT, 'data'), { recursive: true });
   writeFileSync(resolve(ROOT, `data/parse-log-${year}.txt`), logText + '\n', 'utf8');
 
+  if (noValueCells > 0) {
+    note('info', '(alla blad)', null,
+      `${noValueCells} celler låg i kolumner som har bas men noll i alla svarsalternativ. De lämnas utan värde i stället för att redovisas som 0 %.`);
+  }
   if (clamped > 0) {
     note('info', '(alla blad)', null, `${clamped} celler låg strax utanför 0–1 på grund av flyttalsavrundning och klipptes till exakt 0 respektive 1.`);
   }

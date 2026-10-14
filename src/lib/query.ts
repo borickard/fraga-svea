@@ -8,6 +8,20 @@
  */
 import type { Question, QuestionOption, SegmentValue } from '../types';
 
+/**
+ * Varför ett värde saknas, i klartext.
+ *
+ * "Ingen bas" betyder att segmentet inte finns i frågans bas — ingen fick
+ * frågan. "Ingen uppgift" betyder att de fick den men att bilagan inte
+ * redovisar svaret. Att blanda ihop dem vore att påstå något om vilka som
+ * tillfrågades.
+ */
+export function missingLabel(v: SegmentValue): string {
+  if (v.reason === 'no_base') return 'ingen bas';
+  if (v.reason === 'no_value') return 'ingen uppgift';
+  return 'saknas';
+}
+
 /** Bilagans egna sammanräkningar heter "Netto - ..." respektive "Netto – ...". */
 export const isNetto = (label: string): boolean => /^\s*netto\b/i.test(label);
 

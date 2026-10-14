@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { Answer } from '../lib/query';
-import { DATA_COLORS, FALLBACK_COLOR, sourceLineFor } from '../lib/query';
+import { DATA_COLORS, FALLBACK_COLOR, missingLabel, sourceLineFor } from '../lib/query';
 import { formatN, formatPct } from '../lib/format';
 import { truncate, wrapText } from '../lib/wrap';
 import { readingNotes } from '../lib/notes';
@@ -199,7 +199,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
             letterSpacing="-0.02em"
           >
             {headline.pct === null ? (
-              <tspan fontSize="40">ingen bas</tspan>
+              <tspan fontSize="40">{missingLabel(headline)}</tspan>
             ) : (
               <>
                 {Math.round(headline.pct * 100)}
@@ -288,7 +288,7 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
                   fontFamily={MONO} fontSize={noBase ? '11' : '13'} fontWeight="500"
                   fill={noBase ? MUTED : INK}
                 >
-                  {noBase ? 'ingen bas' : `${formatPct(row.value.pct)}${small ? ' °' : ''}`}
+                  {noBase ? missingLabel(row.value) : `${formatPct(row.value.pct)}${small ? ' °' : ''}`}
                 </text>
               </g>
             );

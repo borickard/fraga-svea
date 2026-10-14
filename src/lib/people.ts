@@ -177,9 +177,22 @@ export function buildPeople(data: ModuleData): PeopleData {
    * medan figurerna visade alla. Vilka hundra det är står utskrivet, och
    * data.partitions avgör bara om det råkar vara hela basen.
    */
-  const useLanes = data.lanes.length > 0 && data.lanes.some((l) => l.n > 0);
+  /*
+   * Banor som bilagan inte redovisar något för utesluts.
+   *
+   * De har bas och n men noll i alla svarsalternativ, så det finns inget att
+   * fördela dem efter. Låter man dem vara kvar tilldelas de figurer efter
+   * sin andel av basen och placerar sedan noll av dem, och de hundra blir
+   * nittiotre. Hur många som uteslöts står utskrivet.
+   */
+  const hasData = (l: Lane) =>
+    fieldLabels.some((_, fi) => shareIn(fi, l.id) > 0);
+  const allLanes = data.lanes.filter((l) => l.n > 0);
+  const usable = allLanes.filter(hasData);
+  const dropped = allLanes.length - usable.length;
+  const useLanes = usable.length > 0;
   const lanes: Lane[] = useLanes
-    ? data.lanes
+    ? usable
     : [{ gender: 'Alla', id: 'totalt', label: 'Totalt', n: 1 }];
   const perLane = allocate(lanes.map((l) => l.n), FIGURES);
 
@@ -215,6 +228,9 @@ export function buildPeople(data: ModuleData): PeopleData {
     depth: depths[i],
   }));
 
+  const saknas = dropped > 0
+    ? ` ${dropped} ${dropped === 1 ? 'grupp saknar' : 'grupper saknar'} uppgift i bilagan och är utelämnade.`
+    : '';
   const note = layout === 'nested'
     ? 'Ytorna ligger i varandra: varje inre yta är en delmängd av den yttre.'
     : layout === 'binary'
@@ -234,6 +250,6 @@ export function buildPeople(data: ModuleData): PeopleData {
     composition: useLanes && figures.some((f) => f.age !== null) ? data.module.axis : null,
     population,
     populationN,
-    note,
+    note: note + saknas,
   };
 }

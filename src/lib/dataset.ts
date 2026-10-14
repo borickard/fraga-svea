@@ -21,6 +21,11 @@ export const TOTAL_GROUP = 'TOTALT';
  *
  * Avstängd sparar den också 7 MB i klientbundeln, eftersom hela datasetet
  * ligger i JavaScript-paketet.
+ *
+ * OBS: dataset-2025.json är parsad FÖRE kolumnregeln i scripts/parse.ts, som
+ * lämnar celler utan värde i stället för att redovisa dem som 0 %. Filen bär
+ * därför 7 321 nollor som inte är mätresultat. Tas 2025 tillbaka måste den
+ * parsas om från sin xlsx först.
  */
 const datasets: Dataset[] = [d2026] as unknown as Dataset[];
 
