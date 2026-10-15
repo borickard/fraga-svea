@@ -13,6 +13,7 @@ import { resolveModule, type Module } from './lib/dashboard';
 import { decodeModules, encodeModules, loadModules, newId, saveModules } from './lib/dashboardStore';
 import { DashboardGrid } from './components/DashboardGrid';
 import { People } from './components/People';
+import { baseSize, format as formatPeople } from './lib/population';
 import { Divides } from './components/Divides';
 import type { Finding } from './lib/divides';
 import { Provenance } from './components/Provenance';
@@ -88,6 +89,8 @@ export function App() {
    * länk öppnar samma vy som avsändaren såg.
    */
   const [answerView, setAnswerView] = useState<'kort' | 'folk'>('kort');
+  /** Andel eller antal personer. Kräver en bas som går att räkna om. */
+  const [unit, setUnit] = useState<'andel' | 'antal'>('andel');
   const [folkRef, folkWidth] = useWidth<HTMLDivElement>();
   const folkSvg = useRef<SVGSVGElement>(null);
 
@@ -637,18 +640,39 @@ export function App() {
             {/* Vyväljaren står över svaret, inte i en meny. Figurerna är
                 verktygets egen form och ska gå att hitta utan att veta att
                 de finns. */}
-            <div className="answer-modes" role="group" aria-label="Visa svaret som">
-              <button type="button" className="pill" aria-pressed={answerView === 'kort'}
-                onClick={() => setAnswerView('kort')}>Kort</button>
-              <button type="button" className="pill" aria-pressed={answerView === 'folk'}
-                onClick={() => setAnswerView('folk')}>Hundra personer</button>
+            <div className="answer-modes">
+              <div className="answer-modes__set" role="group" aria-label="Visa svaret som">
+                <button type="button" className="pill" aria-pressed={answerView === 'kort'}
+                  onClick={() => setAnswerView('kort')}>Kort</button>
+                <button type="button" className="pill" aria-pressed={answerView === 'folk'}
+                  onClick={() => setAnswerView('folk')}>Hundra personer</button>
+              </div>
+
+              {/* Enheten är ett eget val: samma vy, andra tal. Avstängd när
+                  basen inte går att räkna om till ett antal personer —
+                  knappen säger varför i stället för att vara borta. */}
+              {answerView === 'kort' && (() => {
+                const bas = baseSize(year, answer.question.base_label);
+                return (
+                  <div className="answer-modes__set" role="group" aria-label="Enhet">
+                    <button type="button" className="pill" aria-pressed={unit === 'andel'}
+                      onClick={() => setUnit('andel')}>Andel</button>
+                    <button type="button" className="pill" aria-pressed={unit === 'antal'}
+                      disabled={!bas}
+                      title={bas
+                        ? `Basen motsvarar ${formatPeople(bas.people)} personer`
+                        : `Basen "${answer.question.base_label}" går inte att räkna om till ett antal personer`}
+                      onClick={() => setUnit('antal')}>Antal personer</button>
+                  </div>
+                );
+              })()}
             </div>
 
             <div className="card-wrap" ref={folkRef}>
               {answerView === 'folk' ? (
                 folkData?.chart === 'folk' ? (
                   <div className="card-wrap__folk">
-                    <People data={folkData} width={folkWidth - 44} svgRef={folkSvg} />
+                    <People data={folkData} width={folkWidth - 44} svgRef={folkSvg} year={year} />
                     <Provenance
                       baseLabel={answer.question.base_label}
                       nLabel={answer.question.n_basis === 'viktade_intervjuer' ? 'Viktade intervjuer' : 'n'}
@@ -669,7 +693,7 @@ export function App() {
                 )
               ) : (
                 /* Samma nod renderas på skärmen och serialiseras vid export. */
-                <AnswerCard ref={cardRef} answer={answer} year={year} />
+                <AnswerCard ref={cardRef} answer={answer} year={year} unit={unit} />
               )}
               <div className="card-actions">
                 {editingModule ? (

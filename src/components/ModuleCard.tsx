@@ -73,7 +73,7 @@ export function ModuleCard({ data, year, editing, onChange, onRemove, onEdit, on
         ) : table ? (
           <ModuleTable data={data} />
         ) : data.chart === 'folk' ? (
-          <People data={data} width={width} />
+          <People data={data} width={width} year={year} />
         ) : (
           <Chart data={data} width={width} />
         )}

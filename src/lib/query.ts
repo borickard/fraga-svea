@@ -120,6 +120,8 @@ export interface Answer {
    */
   headline: SegmentValue | null;
   headlineLabel: string;
+  /** Segmentet det stora talet gäller. 'totalt' när det är frågans total. */
+  headlineSegment: string;
   baseN: number;
   hasSmallBase: boolean;
   hasNoBase: boolean;
@@ -212,11 +214,13 @@ export function executeQuery({
   // Ett tal, eller inget.
   let headline: SegmentValue | null = null;
   let headlineLabel = '';
+  let headlineSegment = 'totalt';
   if (rendered.length === 1) {
     const rows = series[0]?.rows ?? [];
     if (group !== TOTAL_GROUP && rows.length === 1) {
       headline = rows[0].value;
       headlineLabel = `${primary.label} · ${rows[0].label}`;
+      headlineSegment = rows[0].key;
     } else {
       headline = total;
       headlineLabel = `${primary.label} · Totalt`;
@@ -235,6 +239,7 @@ export function executeQuery({
     series,
     headline,
     headlineLabel,
+    headlineSegment,
     // Basen är alltid frågans n, oavsett om ett enskilt tal visas eller inte.
     baseN: total?.n ?? 0,
     hasSmallBase: allRows.some((r) => r.value.pct !== null && !r.value.reliable),

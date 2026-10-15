@@ -1,0 +1,117 @@
+{
+  "_kommentar": [
+    "Hur många personer varje bas i tabellbilagan motsvarar.",
+    "Handskriven fil — redigera fritt.",
+    "",
+    "En andel blir ett antal först när man vet hur stor basen är. Bilagans",
+    "baser är sällan 'alla svenskar i åldern X': 35 av 84 frågor vilar på",
+    "Internetanvändare 8+ år, som är en delmängd, och några vilar på",
+    "delmängder av den.",
+    "",
+    "Varje bas härleds på ett av tre sätt:",
+    "  befolkning  SCB:s folkmängd i ett åldersspann (population.json)",
+    "  andel       en annan bas gånger en andel hämtad ur bilagan själv",
+    "  ingen       går inte att räkna om — då visas inget antal alls",
+    "",
+    "Andelarna hämtas vid körning ur datasetet, inte skrivs in här, så att de",
+    "följer med när en ny årgång parsas."
+  ],
+  "baser": [
+    {
+      "bas": "Samtliga 16+ år",
+      "typ": "befolkning",
+      "fran": 16
+    },
+    {
+      "bas": "Samtliga 18+ år",
+      "typ": "befolkning",
+      "fran": 18
+    },
+    {
+      "bas": "Barn 8-19 år",
+      "typ": "befolkning",
+      "fran": 8,
+      "till": 19
+    },
+    {
+      "bas": "-64 år",
+      "typ": "befolkning",
+      "fran": 16,
+      "till": 64
+    },
+    {
+      "bas": "65+ år",
+      "typ": "befolkning",
+      "fran": 65
+    },
+    {
+      "bas": "Internetanvändare 8+ år",
+      "typ": "befolkning",
+      "fran": 8,
+      "penetration": {
+        "under": 16,
+        "andel": 1
+      }
+    },
+    {
+      "bas": "Internetanvändare 12+ år",
+      "typ": "befolkning",
+      "fran": 12,
+      "penetration": {
+        "under": 16,
+        "andel": 1
+      }
+    },
+    {
+      "bas": "Internetanvändare 16+ år",
+      "typ": "befolkning",
+      "fran": 16
+    },
+    {
+      "bas": "Internetanvändare 18+ år",
+      "typ": "befolkning",
+      "fran": 18
+    },
+    {
+      "bas": "Internetanvändare 18-84 år",
+      "typ": "befolkning",
+      "fran": 18,
+      "till": 84
+    },
+    {
+      "bas": "AI-användare (AI-tjänster) 8+ år",
+      "typ": "andel",
+      "av": "Internetanvändare 8+ år",
+      "fraga": "AI-ANVÄNDARE:",
+      "alternativ": "AI-användare (AI-tjänster)"
+    },
+    {
+      "bas": "AI-användare (AI-översikter) 8+ år",
+      "typ": "andel",
+      "av": "Internetanvändare 8+ år",
+      "fraga": "AI-ANVÄNDARE:",
+      "alternativ": "AI-användare (AI-översikter)"
+    },
+    {
+      "bas": "AI-användare (AI-tjänster och/eller AI-översikter) 16+ år",
+      "typ": "andel",
+      "av": "Internetanvändare 16+ år",
+      "fraga": "AI-ANVÄNDARE:",
+      "alternativ": "AI-användare (AI-tjänster och/eller AI-översikter)"
+    },
+    {
+      "bas": "AI-användare (AI-tjänster och/eller AI-översikter) 18+ år",
+      "typ": "andel",
+      "av": "Internetanvändare 18+ år",
+      "fraga": "AI-ANVÄNDARE:",
+      "alternativ": "AI-användare (AI-tjänster och/eller AI-översikter)"
+    }
+  ],
+  "_ingen": [
+    "Baser utan post ovan går inte att räkna om till ett antal, och då visas",
+    "inget. Det gäller bland annat Förvärvsarbetar, Har tagit en digital",
+    "detox, Dumskrollar 12+ år och Internetanvändare i relation 16+ år:",
+    "deras storlek finns varken i bilagan eller hos SCB i en form som går",
+    "att slå upp utan att gissa."
+  ]
+}

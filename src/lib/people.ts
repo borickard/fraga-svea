@@ -22,6 +22,7 @@
 import type { Question } from '../types';
 import type { Lane, ModuleData } from './dashboard';
 import { isNetto } from './query';
+import { TOTAL_GROUP } from './dataset';
 
 export type FieldLayout = 'partition' | 'nested' | 'binary';
 
@@ -51,6 +52,14 @@ export interface PeopleData {
   figures: Figure[];
   /** Segmentgruppen figurerna är fördelade efter, eller null. */
   composition: string | null;
+  /**
+   * Är de hundra figurerna hela basen?
+   *
+   * Utan nedbrytning är de det, och med en nedbrytning som täcker hela basen
+   * också. Med ett urval under basen — bara kvinnor, bara ett åldersband —
+   * är de något mindre, och då betyder en figur inte samma antal personer.
+   */
+  wholeBase: boolean;
   /** Vilka hundra personer figurerna är. Alltid utskrivet. */
   population: string;
   /** Antal intervjuer bakom befolkningen. */
@@ -238,7 +247,10 @@ export function buildPeople(data: ModuleData): PeopleData {
       : 'Alternativen utesluter varandra, så de hundra delas upp exakt.';
 
   const populationN = useLanes ? lanes.reduce((a, l) => a + l.n, 0) : (question.options[0]?.values['totalt']?.n ?? 0);
-  const population = !useLanes || data.partitions
+  // Utan nedbrytning är de hundra figurerna hela basen — "totalt" som
+  // befolkningsnamn sa ingenting om vilka de var.
+  const wholeBase = data.module.axis === TOTAL_GROUP || data.partitions || !useLanes;
+  const population = wholeBase
     ? question.base_label
     : [data.module.genders.join(' och '), data.module.segments.join(', ')]
         .filter(Boolean).join(', ') || data.module.axis.toLowerCase();
@@ -250,6 +262,7 @@ export function buildPeople(data: ModuleData): PeopleData {
     composition: useLanes && figures.some((f) => f.age !== null) ? data.module.axis : null,
     population,
     populationN,
+    wholeBase,
     note: note + saknas,
   };
 }

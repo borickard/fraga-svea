@@ -750,9 +750,12 @@ body {
    man vet att de finns. */
 .answer-modes {
   display: flex;
-  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
   margin: 26px 2px 0;
 }
+.answer-modes__set { display: flex; gap: 6px; }
 
 .card-wrap__folk { padding: 24px 22px 4px; }
 .card-wrap__folk .prov { margin-top: 18px; }

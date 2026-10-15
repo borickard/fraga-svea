@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ModuleData } from '../lib/dashboard';
 import { buildPeople, type Figure } from '../lib/people';
+import { baseSize, format as formatPeople, roundPeople } from '../lib/population';
 import { arrange, blobPath, type Arrangement } from '../lib/blobs';
 import {
   AGE_RAMP, FIG_H, FIG_W, HAIR_OLD, HAIR_YOUNG, NEUTRAL_SHIRT, SHOES, SKIN, TROUSERS,
@@ -41,7 +42,8 @@ const SCALES = [3, 2, 1];
  * en människa som byter yta går runt, inte tvärs igenom.
  */
 export function People(
-  { data, width, svgRef }: { data: ModuleData; width: number; svgRef?: React.Ref<SVGSVGElement> },
+  { data, width, svgRef, year }:
+  { data: ModuleData; width: number; svgRef?: React.Ref<SVGSVGElement>; year: number },
 ) {
   const people = buildPeople(data);
   const [ghosts, setGhosts] = useState<Figure[]>([]);
@@ -210,7 +212,23 @@ export function People(
       </ul>
 
       <p className="folk__note">
-        Hundra figurer ur <strong>{people.population}</strong> · n = {people.populationN}. {people.note}
+        Hundra figurer ur <strong>{people.population}</strong> · n = {people.populationN}
+        {(() => {
+          /*
+           * Ankaret gör hundra figurer konkreta: en figur är inte "en
+           * procent" utan ett antal människor.
+           *
+           * Med ett urval under basen — bara kvinnor, bara ett åldersband —
+           * är figurerna färre människor var. Andelen räknas ur vikterna:
+           * urvalets viktade intervjuer delat med basens.
+           */
+          const b = baseSize(year, data.question.base_label);
+          if (!b) return null;
+          const hela = data.question.options[0]?.values['totalt']?.n ?? 0;
+          const andel = people.wholeBase || !hela ? 1 : people.populationN / hela;
+          return <> · varje figur ≈ {formatPeople(roundPeople(b.people * andel / 100))} personer</>;
+        })()}
+        . {people.note}
       </p>
       {people.composition && (
         <div className="folk__key">

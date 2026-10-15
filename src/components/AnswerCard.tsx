@@ -4,6 +4,8 @@ import { DATA_COLORS, FALLBACK_COLOR, missingLabel, sourceLineFor } from '../lib
 import { formatN, formatPct } from '../lib/format';
 import { truncate, wrapText } from '../lib/wrap';
 import { readingNotes } from '../lib/notes';
+import { baseSize, countFor, format as formatPeople, POPULATION_YEAR } from '../lib/population';
+import { TOTAL_GROUP } from '../lib/dataset';
 
 /**
  * Signaturen.
@@ -30,6 +32,8 @@ const PAD = 36;
  */
 const LABEL_W = 250;
 const VALUE_W = 78;
+/** Antal personer är längre än '54 %' och behöver mer plats. */
+const VALUE_W_PEOPLE = 118;
 const GAP = 16;
 const BAR_H = 14;
 const ROW_H = 40;
@@ -40,7 +44,6 @@ const LABEL_MAX_LINES = 2;
 const SERIES_HEAD_H = 30;
 const SERIES_GAP = 14;
 const TRACK_X = PAD + LABEL_W + GAP;
-const TRACK_W = W - PAD - VALUE_W - GAP - TRACK_X;
 
 const INK = '#16181A';
 const MUTED = '#71767B';
@@ -63,13 +66,15 @@ export interface AnswerCardProps {
   year: number;
   /** Sätts vid export: stänger av animationen så att bilden aldrig fångas halvvägs. */
   still?: boolean;
+  /** Andel eller antal personer. Antal kräver en bas som går att räkna om. */
+  unit?: 'andel' | 'antal';
 }
 
 export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function AnswerCard(
-  { answer, year, still = false },
+  { answer, year, still = false, unit = 'andel' },
   ref,
 ) {
-  const { question, series, headline, headlineLabel, baseN, hasSmallBase, segmentGroup,
+  const { question, series, headline, headlineLabel, headlineSegment, baseN, hasSmallBase, segmentGroup,
     selectedOptions, optionLabels, shape, hasNettoRow } = answer;
 
   // Utan den här raden går grafen inte att läsa. "Smartmobil 35 %, Dator 41 %"
@@ -85,6 +90,39 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
     : allOptions
       ? 'Alla svarsalternativ · totalt'
       : `${selectedOptions.length} av ${optionLabels.length} svarsalternativ · totalt`;
+
+  /*
+   * Antal personer i stället för andel.
+   *
+   * Kräver att basen går att räkna om till ett antal. Går den inte det
+   * ritas kortet som vanligt i procent — hellre det än ett tomt kort, och
+   * knappen som byter enhet är avstängd i det läget.
+   */
+  const base = baseSize(year, question.base_label);
+  const counts = unit === 'antal' && base !== null;
+  const valueW = counts ? VALUE_W_PEOPLE : VALUE_W;
+  const trackW = W - PAD - valueW - GAP - TRACK_X;
+  /** Segmentet en rad gäller. På totalnivå är raderna alternativ, inte segment. */
+  const segmentOf = (key: string) => (segmentGroup === TOTAL_GROUP ? 'totalt' : key);
+  const countOf = (key: string, value: typeof headline) =>
+    value ? countFor(year, question, segmentOf(key), segmentGroup, value) : null;
+
+  /*
+   * I antalsläge måste stapeln mäta antal, inte andel.
+   *
+   * 12–15-åringarna är 55 % och 16–25-åringarna 53 %, men 280 000 mot
+   * 640 000 personer. Med andelen som längd blev staplarna lika långa medan
+   * talen bredvid skilde sig 2,3 gånger, och den som jämför staplar drog
+   * rakt motsatt slutsats. Skalan kan då inte vara fast 0–100 % utan blir
+   * kortets största värde, vilket står utskrivet.
+   */
+  const rowCount = (key: string, value: typeof headline) => {
+    const c = value ? countFor(year, question, segmentOf(key), segmentGroup, value) : null;
+    return c?.people ?? 0;
+  };
+  const maxCount = counts
+    ? Math.max(1, ...series.flatMap((s) => s.rows.map((r) => rowCount(r.key, r.value))))
+    : 1;
 
   const showSeriesHeads = series.length > 1;
 
@@ -143,6 +181,17 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
    */
   const showsSum = segmentGroup === 'TOTALT';
   const notes = readingNotes({ shape, showsSum, hasNettoRow, hasSmallBase, weighted });
+  /*
+   * Antalet är en skattning, och källan till folkmängden är en annan än
+   * källan till andelen. Båda måste följa med ut i bilden — en exporterad
+   * graf med "280 000 personer" utan att säga varifrån folkmängden kommer
+   * är precis det här verktyget finns för att slippa.
+   */
+  if (counts && base) {
+    notes.push(`Antal = andel × ${base.derivation}`);
+    notes.push(`Folkmängd: SCB ${POPULATION_YEAR}-12-31. Antalen är skattningar och avrundade`);
+    notes.push(`Stapelns längd visar antal personer — skalan är kortets största värde, inte 100 %`);
+  }
   if (hasNettoRow) {
     // Netto-raderna ligger utanför summan ovan. Utan den upplysningen kan man
     // försöka lägga ihop alla staplar på kortet och landa på 300 %.
@@ -200,6 +249,10 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
           >
             {headline.pct === null ? (
               <tspan fontSize="40">{missingLabel(headline)}</tspan>
+            ) : counts ? (
+              <tspan fontSize="46">
+                {formatPeople(countFor(year, question, headlineSegment, segmentGroup, headline)?.people ?? 0)}
+              </tspan>
             ) : (
               <>
                 {Math.round(headline.pct * 100)}
@@ -225,8 +278,10 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
         {label(truncate(breakdown, W - PAD * 2, 12.4, 'mono'))}
       </text>
 
-      {/* Grafen. Skalan är alltid 0–100 %: utan axel måste stapelns längd
-          gå att läsa mot hela spåret, annars blir bilden missvisande i en artikel. */}
+      {/* Grafen. I andelsläge är skalan alltid 0–100 %: utan axel måste
+          stapelns längd gå att läsa mot hela spåret, annars blir bilden
+          missvisande i en artikel. I antalsläge finns ingen sådan fast
+          skala, och den som gäller står i foten. */}
       {placed.map(({ series: s, headY, firstRow }) => (
         <g key={s.key}>
           {showSeriesHeads && (
@@ -247,7 +302,10 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
             const y = firstRow + i * rowH;
             const barY = y + (rowH - BAR_H) / 2 - 6;
             const noBase = row.value.pct === null;
-            const w = noBase ? 0 : Math.max(BAR_H, TRACK_W * (row.value.pct as number));
+            const andel = counts
+              ? rowCount(row.key, row.value) / maxCount
+              : (row.value.pct as number);
+            const w = noBase ? 0 : Math.max(BAR_H, trackW * andel);
             const fill = noBase ? FALLBACK_COLOR : DATA_COLORS[row.colorIndex % DATA_COLORS.length];
             const small = !noBase && !row.value.reliable;
             const delay = barIndex++ * 40;
@@ -288,7 +346,11 @@ export const AnswerCard = forwardRef<SVGSVGElement, AnswerCardProps>(function An
                   fontFamily={MONO} fontSize={noBase ? '11' : '13'} fontWeight="500"
                   fill={noBase ? MUTED : INK}
                 >
-                  {noBase ? missingLabel(row.value) : `${formatPct(row.value.pct)}${small ? ' °' : ''}`}
+                  {noBase
+                    ? missingLabel(row.value)
+                    : counts
+                      ? `${formatPeople(countOf(row.key, row.value)?.people ?? 0)}${small ? ' °' : ''}`
+                      : `${formatPct(row.value.pct)}${small ? ' °' : ''}`}
                 </text>
               </g>
             );
